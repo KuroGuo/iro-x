@@ -39,6 +39,7 @@
 }
 /* line 38, ../scss/home.scss */
 #home .datetime-box {
+  display: block;
   cursor: default;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.2);
@@ -47,18 +48,18 @@
   text-align: right;
   padding: 1em;
 }
-/* line 47, ../scss/home.scss */
+/* line 48, ../scss/home.scss */
 #home .datetime-box .date,
 #home .datetime-box .time,
 #home .datetime-box .day {
   color: white;
 }
-/* line 53, ../scss/home.scss */
+/* line 54, ../scss/home.scss */
 #home .datetime-box .time {
   font-size: 6em;
   line-height: 0.9em;
 }
-/* line 58, ../scss/home.scss */
+/* line 59, ../scss/home.scss */
 #home .datetime-box .date,
 #home .datetime-box .day {
   font-size: 1.6em;
