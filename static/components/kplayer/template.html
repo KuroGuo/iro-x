@@ -1,0 +1,20 @@
+<div class="main-area">
+    <canvas class="canvas" k-tap="player.isPaused() ? player.play() : player.pause()" ng-dblclick="player.toggleFullscreen()"></canvas>
+    <span class="btn-normal btn-open" ng-show="player.isStopped()" k-tap="player.openFile()">打开文件</span>
+</div>
+<div class="time-bar-wrapper">
+    <div class="time-bar">
+        <span class="current-bar"></span>
+        <span class="cursor"></span>
+    </div>
+    <span class="bar-tip"></span>
+</div>
+<div class="ctrl-bar">
+    <span class="btn-play iconfont" ng-show="player.isPaused()" k-tap="player.play()"><span class="text">&#xe600;</span></span>
+    <span class="btn-pause iconfont" ng-hide="player.isPaused()" k-tap="player.pause()"><span class="text">&#xe601;</span></span>
+    <span class="time"><span class="current">{{player.getCurrentSeconds('string')}}</span> / {{player.getTotalSeconds('string')}}</span>
+    <div class="textbox-comment" contenteditable="true" spellcheck="false"></div>
+    <span class="btn-send"><span class="text">发送</span></span>
+    <span class="btn-open iconfont" title="打开文件" k-tap="player.openFile()"><span class="text">&#xe602;</span></span>
+    <span class="btn-fullscreen iconfont" k-tap="player.toggleFullscreen()" title="全屏"><span class="text">&#xe604;</span></span>
+</div>

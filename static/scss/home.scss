@@ -1,0 +1,64 @@
+#home {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .menu-list {
+        background-color: rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        position: absolute;
+        top: 2%;
+        left: 2%;
+
+        a {
+            display: inline-block;
+            padding: .5em 1em;
+            font-size: 2em;
+            color: white;
+
+            &:before {
+                font-size: 2em;
+                display: block;
+                margin-bottom: .2em;
+            }
+
+            &.hover {
+                background-color: rgba(0, 0, 0, .1);
+            }
+            &.active {
+                background-color: rgba(0, 0, 0, .2);
+            }
+
+            .text {
+                display: block;
+            }
+        }
+    }
+
+    .datetime-box {
+        cursor: default;
+        position: absolute;
+        background-color: rgba(0, 0, 0, .2);
+        right: 4%;
+        bottom: 4%;
+        text-align: right;
+        padding: 1em;
+
+        .date,
+        .time,
+        .day {
+            color: white;
+        }
+
+        .time {
+            font-size: 6em;
+            line-height: 0.9em;
+        }
+
+        .date,
+        .day {
+            font-size: 1.6em;
+            line-height: 1.2em;
+        }
+    }
+}

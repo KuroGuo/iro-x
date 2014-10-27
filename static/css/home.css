@@ -1,0 +1,66 @@
+/* line 1, ../scss/home.scss */
+#home {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+/* line 6, ../scss/home.scss */
+#home .menu-list {
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: absolute;
+  top: 2%;
+  left: 2%;
+}
+/* line 13, ../scss/home.scss */
+#home .menu-list a {
+  display: inline-block;
+  padding: .5em 1em;
+  font-size: 2em;
+  color: white;
+}
+/* line 19, ../scss/home.scss */
+#home .menu-list a:before {
+  font-size: 2em;
+  display: block;
+  margin-bottom: .2em;
+}
+/* line 25, ../scss/home.scss */
+#home .menu-list a.hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+/* line 28, ../scss/home.scss */
+#home .menu-list a.active {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+/* line 32, ../scss/home.scss */
+#home .menu-list a .text {
+  display: block;
+}
+/* line 38, ../scss/home.scss */
+#home .datetime-box {
+  cursor: default;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+  right: 4%;
+  bottom: 4%;
+  text-align: right;
+  padding: 1em;
+}
+/* line 47, ../scss/home.scss */
+#home .datetime-box .date,
+#home .datetime-box .time,
+#home .datetime-box .day {
+  color: white;
+}
+/* line 53, ../scss/home.scss */
+#home .datetime-box .time {
+  font-size: 6em;
+  line-height: 0.9em;
+}
+/* line 58, ../scss/home.scss */
+#home .datetime-box .date,
+#home .datetime-box .day {
+  font-size: 1.6em;
+  line-height: 1.2em;
+}

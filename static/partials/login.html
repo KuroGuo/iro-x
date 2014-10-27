@@ -1,0 +1,11 @@
+<div class="login-box">
+    <div class="big-logo">
+        <img src="/images/big_logo.svg" />
+    </div>
+    <form class="form-login" ng-submit="submit()">
+        <img class="loading" ng-show="loginInfo.state === 'wait'" src="/images/loading-spin.svg" />
+        <input type="password" ng-class="{hide: loginInfo.state === 'wait'}" name="nameandpassword" ng-model="nameandpassword" placeholder="PASSWORD" required="required" />
+        <p class="message" ng-show="loginInfo.message">{{loginInfo.message}}</p>
+    </form>
+</div>
+<a class="join-us" ui-sref="register">JOIN US</a>

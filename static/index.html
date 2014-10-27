@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="blog_k" ng-controller="MainCtrl">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <base href="/" />
+        <title>Kuro的房间</title>
+        <link rel="stylesheet" href="/static/css/main.css" />
+        <link rel="stylesheet" href="/static/components/kplayer/css/kplayer.css">
+    </head>
+    <body>
+        <div id="nav_bar">
+            <ul>
+                <!-- <li><a ui-sref="home"><span class="text">K</span></a></li> -->
+                <li><a ui-sref="home"><span class="text iconfont icon-wangzhandaohang"></span></a></li>
+            </ul>
+        </div>
+        <div class="container" ui-view></div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/static/blog_k.js"></script>
+        <script src="/static/components/kplayer/kplayer.js"></script>
+    </body>
+</html>

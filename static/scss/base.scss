@@ -1,0 +1,321 @@
+@import "compass/css3/animation";
+@import "compass/css3";
+
+$font-stack: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+$base-color: #6bf;
+$base-color-light: #7cf;
+$base-color-rich: #5af;
+$base-color-big-rich: #03c;
+
+html {
+    font-family: $font-stack;
+}
+
+input, textarea, button, [contenteditable="true"] {
+    font: inherit;
+    outline: none;
+    border: none;
+
+    &::-moz-focus-inner {
+        border: none;
+        outline: none;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+img {
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-size: 12px;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    @include user-select(none);
+    background-image: url(/static/images/wallpaper.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+$nav-bar-background-color: rgba(120, 200, 255, 0.3);
+$nav-bar-width: 3.3em;
+
+#nav_bar {
+    position: absolute;
+    background-color: $nav-bar-background-color;
+    z-index: 10000;
+    @include user-select(none);
+
+    li {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: $nav-bar-width;
+        height: $nav-bar-width;
+        line-height: $nav-bar-width;
+        a {
+            display: block;
+            text-align: center;
+            cursor: pointer;
+            color: white;
+            text-shadow: 0 .1em 0 black;
+
+            &.hover {
+                background-color: $base-color-light;
+                text-shadow: 0 .1em 0 $base-color-big-rich;
+            }
+
+            &.active,
+            &.active {
+                background-color: $base-color-light;
+                @include box-shadow(inset 0 0 .6em $base-color-big-rich);
+                text-shadow: 0 .1em 0 $base-color-big-rich;
+            }
+
+            .text {
+                font-size: $nav-bar-width / 2.5;
+            }
+        }
+    }
+}
+
+.container {
+    position: absolute;
+
+    &.ng-enter {
+        @include animation(enter .4s);
+    }
+    &.ng-leave {
+        @include animation(leave .4s forwards);
+    }
+}
+
+.state-back {
+    .container {
+        &.ng-enter {
+            @include animation(back-enter .4s);
+        }
+        &.ng-leave {
+            @include animation(back-leave .4s forwards);
+        }
+    }
+}
+
+.wide-screen {
+    #nav_bar {
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: $nav-bar-width;
+    }
+
+    .container {
+        left: $nav-bar-width;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+}
+
+.high-screen {
+    #nav_bar {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: $nav-bar-width;
+    }
+
+    .container {
+        top: 0;
+        bottom: $nav-bar-width;
+        left: 0;
+        right: 0;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+@font-face {font-family: "iconfont";
+  src: url('/static/images/iconfont/iconfont.eot'); /* IE9*/
+  src: url('/static/images/iconfont/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/static/images/iconfont/iconfont.woff') format('woff'), /* chrome、firefox */
+  url('/static/images/iconfont/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('/static/images/iconfont/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bofang:before { content: "\e601"; }
+
+.icon-wenzhang:before { content: "\e603"; }
+
+.icon-yinleren:before { content: "\e602"; }
+
+.icon-jingmeibizhi:before { content: "\e604"; }
+
+.icon-wangzhandaohang:before { content: "\e600"; }
+
+@include keyframes(enter) {
+    from {
+        @include transform(translateX(100%));
+        opacity: 0;
+    }
+    to {
+        @include transform(translateX(0));
+        opacity: 1;
+    }
+}
+
+@include keyframes(back-enter) {
+    from {
+        @include transform(translateX(-100%));
+        opacity: 0;
+    }
+    to {
+        @include transform(translateX(0));
+        opacity: 1;
+    }
+}
+
+@include keyframes(leave) {
+    from {
+        @include transform(translateX(0));
+        opacity: 1;
+    }
+    to {
+        @include transform(translateX(-100%));
+        opacity: 0;
+    }
+}
+
+@include keyframes(back-leave) {
+    from {
+        @include transform(translateX(0));
+        opacity: 1;
+    }
+    to {
+        @include transform(translateX(100%));
+        opacity: 0;
+    }
+}
+
+@include keyframes(enter-top) {
+    from {
+        @include transform(translateY(-2em));
+        opacity: 0;
+    }
+    to {
+        @include transform(translateY(0));
+        opacity: 1;
+    }
+}
+@include keyframes(leave-top) {
+    from {
+        @include transform(translateY(0));
+        opacity: 1;
+    }
+    to {
+        @include transform(translateY(-2em));
+        opacity: 0;
+    }
+}
+
+@include keyframes(enter-bottom) {
+    from {
+        @include transform(translateY(2em));
+        opacity: 0;
+    }
+    to {
+        @include transform(translateY(0));
+        opacity: 1;
+    }
+}
+@include keyframes(leave-bottom) {
+    from {
+        @include transform(translateY(0));
+        opacity: 1;
+    }
+    to {
+        @include transform(translateY(2em));
+        opacity: 0;
+    }
+}
+
+@include keyframes(enter-right) {
+    from {
+        @include transform(translateX(2em));
+        opacity: 0;
+    }
+    to {
+        @include transform(translateX(0));
+        opacity: 1;
+    }
+}
+@include keyframes(leave-right) {
+    from {
+        @include transform(translateX(0));
+        opacity: 1;
+    }
+    to {
+        @include transform(translateX(2em));
+        opacity: 0;
+    }
+}
+
+@include keyframes(enter-left) {
+    from {
+        @include transform(translateX(-2em));
+        opacity: 0;
+    }
+    to {
+        @include transform(translateX(0));
+        opacity: 1;
+    }
+}
+@include keyframes(leave-left) {
+    from {
+        @include transform(translateX(0));
+        opacity: 1;
+    }
+    to {
+        @include transform(translateX(-2em));
+        opacity: 0;
+    }
+}
+
+@include keyframes(fade-in) {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
