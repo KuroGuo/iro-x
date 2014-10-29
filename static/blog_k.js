@@ -536,6 +536,7 @@ angular.module('blog_k', [
     'ngAnimate',
     'ui.router',
     'blog_k.home',
+    'blog_k.video',
     'blog_k.services.member'
 ]).config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
@@ -546,7 +547,8 @@ angular.module('blog_k', [
         })
         .state('video', {
             url: '/video',
-            templateUrl: '/static/partials/video.html'
+            templateUrl: '/static/partials/video.html',
+            controller: 'VideoCtrl'
         })
         .state('music', {
             url: '/music',
@@ -622,6 +624,7 @@ angular.module('blog_k', [
                         e.preventDefault();
                     })
                     .on('mouseenter', '*', function (e) {
+                        e.preventDefault();
                         $(e.currentTarget).addClass('hover');
                     })
                     .on('mouseleave touchstart', '*', function (e) {
@@ -630,14 +633,14 @@ angular.module('blog_k', [
                     .on('touchstart mousedown', '*', function (e) {
                         $(e.currentTarget).addClass('active');
                     })
-                    .on('touchend mouseup', '*', function (e) {
+                    .on('touchend touchcancel mouseup mouseleave', '*', function (e) {
                         $(e.currentTarget).removeClass('active');
                     })
                     // .on('touchstart touchend touchmove click tap mousedown mouseup', function (e) {
                     //     $('.container').append(e.type + '<br />');
                     // })
                     .on('tap', 'a', function (e) {
-                        if ($(e.currentTarget).attr('href')) {
+                        if (e.pointerType === 'touch' && $(e.currentTarget).attr('href')) {
                             $(e.currentTarget).trigger('click');
                         }
                     })
@@ -648,9 +651,8 @@ angular.module('blog_k', [
         }
     };
 }]);;;(function (angular) {
-    angular.module('blog_k.home', ['kplayer'])
-        .controller('HomeCtrl', [function () {
-
+    angular.module('blog_k.home', [])
+        .controller('HomeCtrl', ['$scope', function ($scope) {
         }])
         .directive('datetimeBox', ['$interval', function ($interval) {
             return {
@@ -831,4 +833,37 @@ angular.module('blog_k', [
         };
 
         return member;
-    }]);
+    }]);;;(function (angular) { 'use strict';
+    angular.module('blog_k.services.memory', [])
+        .factory('memory', [function () {
+            var memory = {};
+
+            return {
+                get: function (key) {
+                    return memory[key];
+                },
+                set: function (key, value) {
+                    memory[key] = value;
+                },
+                remove: function (key) {
+                    delete memory[key];
+                }
+            };
+        }]);
+})(angular);;;(function (angular) { 'use strict';
+    angular.module('blog_k.video', ['blog_k.services.memory', 'k-player'])
+        .controller('VideoCtrl', [function () {
+        }])
+        .directive('blogKVideo', ['$window', 'memory', function ($window, memory) {
+            return {
+                restrict: 'E',
+                link: function (scope, element, attrs, controller) {
+                    memory.get('videoModel') && (scope.player = memory.get('videoModel'));
+
+                    element.on('$destroy', function () {
+                        memory.set('videoModel', scope.player);
+                    });
+                }
+            };
+        }]);
+})(angular);

@@ -1,7 +1,6 @@
 ;(function (angular) {
-    angular.module('blog_k.home', ['kplayer'])
-        .controller('HomeCtrl', [function () {
-
+    angular.module('blog_k.home', [])
+        .controller('HomeCtrl', ['$scope', function ($scope) {
         }])
         .directive('datetimeBox', ['$interval', function ($interval) {
             return {

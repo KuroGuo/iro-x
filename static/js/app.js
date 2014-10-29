@@ -5,6 +5,7 @@ angular.module('blog_k', [
     'ngAnimate',
     'ui.router',
     'blog_k.home',
+    'blog_k.video',
     'blog_k.services.member'
 ]).config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
@@ -15,7 +16,8 @@ angular.module('blog_k', [
         })
         .state('video', {
             url: '/video',
-            templateUrl: '/static/partials/video.html'
+            templateUrl: '/static/partials/video.html',
+            controller: 'VideoCtrl'
         })
         .state('music', {
             url: '/music',
@@ -91,6 +93,7 @@ angular.module('blog_k', [
                         e.preventDefault();
                     })
                     .on('mouseenter', '*', function (e) {
+                        e.preventDefault();
                         $(e.currentTarget).addClass('hover');
                     })
                     .on('mouseleave touchstart', '*', function (e) {
@@ -99,14 +102,14 @@ angular.module('blog_k', [
                     .on('touchstart mousedown', '*', function (e) {
                         $(e.currentTarget).addClass('active');
                     })
-                    .on('touchend mouseup', '*', function (e) {
+                    .on('touchend touchcancel mouseup mouseleave', '*', function (e) {
                         $(e.currentTarget).removeClass('active');
                     })
                     // .on('touchstart touchend touchmove click tap mousedown mouseup', function (e) {
                     //     $('.container').append(e.type + '<br />');
                     // })
                     .on('tap', 'a', function (e) {
-                        if ($(e.currentTarget).attr('href')) {
+                        if (e.pointerType === 'touch' && $(e.currentTarget).attr('href')) {
                             $(e.currentTarget).trigger('click');
                         }
                     })
