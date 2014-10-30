@@ -682,10 +682,12 @@ angular.module('kuro.draggable', ['kuro.event']).
                     xhr: function () {
                         var xhr = $.ajaxSettings.xhr();
                         xhr.addEventListener('progress', function (e) {
-                            $('#loading_cover .progress-bar').css('width', (e.loaded / e.total * 100) + '%');
-                            scope.$apply(function () {
+                            var percent = e.loaded / e.total;
+
+                            $('#loading_cover .progress-bar').css('width', (percent * 100) + '%');
+                            if (percent === 1) {
                                 scope.loaded = true;
-                            });
+                            }
                         });
                         return xhr;
                     }
