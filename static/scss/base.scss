@@ -95,7 +95,7 @@ $nav-bar-width: 3.3em;
         width: 0;
         height: 1px;
         background-color: $color;
-        @include transition(width .2s);
+        @include transition(width .4s);
     }
 
     p {

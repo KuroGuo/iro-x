@@ -158,10 +158,10 @@ body {
   width: 0;
   height: 1px;
   background-color: #33333d;
-  -moz-transition: width 0.2s;
-  -o-transition: width 0.2s;
-  -webkit-transition: width 0.2s;
-  transition: width 0.2s;
+  -moz-transition: width 0.4s;
+  -o-transition: width 0.4s;
+  -webkit-transition: width 0.4s;
+  transition: width 0.4s;
 }
 /* line 101, ../scss/base.scss */
 #loading_cover p {
