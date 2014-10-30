@@ -15,12 +15,7 @@
             padding: .5em 1em;
             font-size: 2em;
             color: white;
-
-            &:before {
-                font-size: 2em;
-                display: block;
-                margin-bottom: .2em;
-            }
+            text-align: center;
 
             &.hover {
                 background-color: rgba(0, 0, 0, .1);
@@ -29,8 +24,18 @@
                 background-color: rgba(0, 0, 0, .2);
             }
 
+            .icon,
             .text {
                 display: block;
+            }
+
+            .icon {
+                font-size: 2em;
+                margin-bottom: .2em;
+            }
+
+            .text {
+                font-size: .8em;
             }
         }
     }

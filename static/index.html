@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <base href="/" />
-        <title>Kuro的房间</title>
+        <title>iro | 素晴らしき日々</title>
         <link rel="stylesheet" href="/static/css/main.css" />
         <link rel="stylesheet" href="/static/components/k-player/css/k-player.css">
         <script src="/socket.io/socket.io.js"></script>
@@ -13,12 +13,17 @@
         <script src="/static/components/k-player/k-player.js"></script>
     </head>
     <body>
-        <div id="nav_bar">
+        <div id="loading_cover" ng-hide="loaded">
+            <h1>iro</h1>
+            <span class="progress-bar"></span>
+            <p>coloful world</p>
+        </div>
+        <div id="nav_bar" ng-show="loaded">
             <ul>
                 <!-- <li><a ui-sref="home"><span class="text">K</span></a></li> -->
                 <li><a ui-sref="home"><span class="text iconfont icon-wangzhandaohang"></span></a></li>
             </ul>
         </div>
-        <div class="container" ui-view></div>
+        <div class="container" ui-view ng-show="loaded"></div>
     </body>
 </html>

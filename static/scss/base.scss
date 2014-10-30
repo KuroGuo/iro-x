@@ -39,9 +39,9 @@ html {
 }
 
 body {
+    position: relative;
     font-size: 12px;
     overflow: hidden;
-    position: fixed;
     width: 100%;
     height: 100%;
     @include user-select(none);
@@ -49,16 +49,64 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    @include perspective(100em);
+}
+
+.ipad.ios7 {
+    body {
+        position: fixed;
+        bottom: 0;
+    }
 }
 
 $nav-bar-background-color: rgba(120, 200, 255, 0.3);
 $nav-bar-width: 3.3em;
 
+#loading_cover {
+    $color: #33333d;
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: white;
+    z-index: 100;
+    text-align: center;
+    color: $color;
+
+    h1 {
+        position: absolute;
+        bottom: 50%;
+        left: 0;
+        right: 0;
+        font-size: 10em;
+        font-family: Italiana, sans-serif;
+        line-height: .82em;
+    }
+
+    .progress-bar {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: $color;
+    }
+
+    p {
+        position: absolute;
+        top: 51%;
+        left: 0;
+        right: 0;
+        font-size: 1.2em;
+    }
+}
+
 #nav_bar {
     position: absolute;
     background-color: $nav-bar-background-color;
     @include user-select(none);
+    z-index: 1;
 
     li {
         display: block;
@@ -98,7 +146,6 @@ $nav-bar-width: 3.3em;
 
 .container {
     position: absolute;
-    z-index: 1;
 
     &.ng-enter {
         @include animation(scale-enter .4s);
@@ -159,6 +206,15 @@ $nav-bar-width: 3.3em;
     }
 }
 
+@font-face {
+  font-family: 'Italiana';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Italiana'), local('Italiana-Regular'), url(/static/images/fonts/Italiana.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+
 @font-face {font-family: "iconfont";
   src: url('/static/images/iconfont/iconfont.eot'); /* IE9*/
   src: url('/static/images/iconfont/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -184,6 +240,18 @@ $nav-bar-width: 3.3em;
 .icon-jingmeibizhi:before { content: "\e604"; }
 
 .icon-wangzhandaohang:before { content: "\e600"; }
+
+.icon-bofang1:before { content: "\e605"; }
+
+.icon-zanting:before { content: "\e606"; }
+
+.icon-quanping:before { content: "\e609"; }
+
+.icon-suoxiao:before { content: "\e60a"; }
+
+.icon-kuaijin:before { content: "\e60b"; }
+
+.icon-kuaitui:before { content: "\e60c"; }
 
 @include keyframes(slide-fade-in-left) {
     from {

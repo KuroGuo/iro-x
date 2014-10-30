@@ -1,0 +1,76 @@
+#music {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+
+    .background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: .7;
+        background-image: url(/static/images/temp_music_image.jpg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+    }
+
+    .title {
+        position: absolute;
+        top: 5%;
+        left: 6%;
+        right: 6%;
+        font-size: 6em;
+        color: white;
+        cursor: default;
+        @media screen and (max-width: 768px) {
+            font-size: 4em;
+        }
+    }
+
+    .controls {
+        position: absolute;
+        bottom: 10%;
+        left: 6%;
+
+        $btn-size: 3em;
+
+        .btn {
+            display: inline-block;
+            border: .2em solid white;
+            border-radius: 50%;
+            color: white;
+            width: $btn-size;
+            height: $btn-size;
+            line-height: $btn-size;
+            text-align: center;
+            cursor: pointer;
+
+            &.hover {
+                background-color: rgba(255, 255, 255, .2);
+            }
+            &.active {
+                border-color: black;
+                background-color: black;
+                color: white;
+            }
+        }
+
+        .btn-pre,
+        .btn-play,
+        .btn-pause,
+        .btn-next {
+            @extend .btn;
+            margin-right: 1em;
+        }
+
+        .btn-pre:before {
+            position: relative;
+            left: -.1em;
+        }
+        .btn-next:before {
+            position: relative;
+            left: .1em;
+        }
+    }
+}

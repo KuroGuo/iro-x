@@ -1,4 +1,4 @@
-;(function (angular) {
+;(function (angular) { 'use strict';
     angular.module('blog_k.home', [])
         .controller('HomeCtrl', ['$scope', function ($scope) {
         }])

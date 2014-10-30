@@ -131,12 +131,13 @@
                                 }
                             })
                             .on('tap', '.textbox-comment', function (e) {
-                                $textboxComment.trigger('focus');
-
                                 if (e.pointerType === 'touch') {
-                                    $(document).one('touchstart', function () {
-                                        $textboxComment.trigger('blur');
-                                    });
+                                    $textboxComment.trigger('focus');
+                                }
+                            })
+                            .on('tap', function (e) {
+                                if (e.pointerType === 'touch' && !$(e.target).is('.textbox-comment')) {
+                                    $textboxComment.trigger('blur');
                                 }
                             })
                             .on('tap', '.time-bar-wrapper', function (e) {

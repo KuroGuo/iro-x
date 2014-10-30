@@ -101,9 +101,9 @@ html {
 
 /* line 41, ../scss/base.scss */
 body {
+  position: relative;
   font-size: 12px;
   overflow: hidden;
-  position: fixed;
   width: 100%;
   height: 100%;
   -moz-user-select: -moz-none;
@@ -114,12 +114,55 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  -moz-perspective: 100em;
-  -webkit-perspective: 100em;
-  perspective: 100em;
 }
 
-/* line 58, ../scss/base.scss */
+/* line 55, ../scss/base.scss */
+.ipad.ios7 body {
+  position: fixed;
+  bottom: 0;
+}
+
+/* line 64, ../scss/base.scss */
+#loading_cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  text-align: center;
+  color: #33333d;
+}
+/* line 77, ../scss/base.scss */
+#loading_cover h1 {
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+  right: 0;
+  font-size: 10em;
+  font-family: Italiana, sans-serif;
+  line-height: .82em;
+}
+/* line 87, ../scss/base.scss */
+#loading_cover .progress-bar {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #33333d;
+}
+/* line 96, ../scss/base.scss */
+#loading_cover p {
+  position: absolute;
+  top: 51%;
+  left: 0;
+  right: 0;
+  font-size: 1.2em;
+}
+
+/* line 105, ../scss/base.scss */
 #nav_bar {
   position: absolute;
   background-color: rgba(120, 200, 255, 0.3);
@@ -127,8 +170,9 @@ body {
   -ms-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+  z-index: 1;
 }
-/* line 63, ../scss/base.scss */
+/* line 111, ../scss/base.scss */
 #nav_bar li {
   display: block;
   position: absolute;
@@ -141,7 +185,7 @@ body {
   height: 3.3em;
   line-height: 3.3em;
 }
-/* line 74, ../scss/base.scss */
+/* line 122, ../scss/base.scss */
 #nav_bar li a {
   display: block;
   text-align: center;
@@ -149,12 +193,12 @@ body {
   color: white;
   text-shadow: 0 .1em 0 black;
 }
-/* line 81, ../scss/base.scss */
+/* line 129, ../scss/base.scss */
 #nav_bar li a.hover {
   background-color: #7cf;
   text-shadow: 0 0.1em 0 #03c;
 }
-/* line 86, ../scss/base.scss */
+/* line 134, ../scss/base.scss */
 #nav_bar li a.active {
   background-color: #7cf;
   -moz-box-shadow: inset 0 0 0.6em #03c;
@@ -162,43 +206,42 @@ body {
   box-shadow: inset 0 0 0.6em #03c;
   text-shadow: 0 0.1em 0 #03c;
 }
-/* line 92, ../scss/base.scss */
+/* line 140, ../scss/base.scss */
 #nav_bar li a .text {
   font-size: 1.65em;
 }
 
-/* line 99, ../scss/base.scss */
+/* line 147, ../scss/base.scss */
 .container {
   position: absolute;
-  z-index: 1;
 }
-/* line 103, ../scss/base.scss */
+/* line 150, ../scss/base.scss */
 .container.ng-enter {
   -moz-animation: scale-enter 0.4s;
   -webkit-animation: scale-enter 0.4s;
   animation: scale-enter 0.4s;
 }
-/* line 106, ../scss/base.scss */
+/* line 153, ../scss/base.scss */
 .container.ng-leave {
   -moz-animation: scale-leave 0.4s forwards;
   -webkit-animation: scale-leave 0.4s forwards;
   animation: scale-leave 0.4s forwards;
 }
 
-/* line 113, ../scss/base.scss */
+/* line 160, ../scss/base.scss */
 .state-back .container.ng-enter {
   -moz-animation: scale-back-enter 0.4s;
   -webkit-animation: scale-back-enter 0.4s;
   animation: scale-back-enter 0.4s;
 }
-/* line 116, ../scss/base.scss */
+/* line 163, ../scss/base.scss */
 .state-back .container.ng-leave {
   -moz-animation: scale-back-leave 0.4s forwards;
   -webkit-animation: scale-back-leave 0.4s forwards;
   animation: scale-back-leave 0.4s forwards;
 }
 
-/* line 123, ../scss/base.scss */
+/* line 170, ../scss/base.scss */
 .wide-screen #nav_bar {
   left: 0;
   top: 0;
@@ -208,7 +251,7 @@ body {
   -webkit-animation: slide-fade-in-left 0.4s;
   animation: slide-fade-in-left 0.4s;
 }
-/* line 131, ../scss/base.scss */
+/* line 178, ../scss/base.scss */
 .wide-screen .container {
   left: 3.3em;
   right: 0;
@@ -216,7 +259,7 @@ body {
   bottom: 0;
 }
 
-/* line 140, ../scss/base.scss */
+/* line 187, ../scss/base.scss */
 .high-screen #nav_bar {
   left: 0;
   right: 0;
@@ -226,7 +269,7 @@ body {
   -webkit-animation: slide-fade-in-bottom 0.4s;
   animation: slide-fade-in-bottom 0.4s;
 }
-/* line 148, ../scss/base.scss */
+/* line 195, ../scss/base.scss */
 .high-screen .container {
   top: 0;
   bottom: 3.3em;
@@ -235,10 +278,17 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-  /* line 157, ../scss/base.scss */
+  /* line 204, ../scss/base.scss */
   body {
     font-size: 14px;
   }
+}
+@font-face {
+  font-family: 'Italiana';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Italiana"), local("Italiana-Regular"), url(/static/images/fonts/Italiana.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 @font-face {
   font-family: "iconfont";
@@ -247,7 +297,7 @@ body {
   src: url("/static/images/iconfont/iconfont.eot?#iefix") format("embedded-opentype"), url("/static/images/iconfont/iconfont.woff") format("woff"), url("/static/images/iconfont/iconfont.ttf") format("truetype"), url("/static/images/iconfont/iconfont.svg#iconfont") format("svg");
   /* iOS 4.1- */
 }
-/* line 170, ../scss/base.scss */
+/* line 226, ../scss/base.scss */
 .iconfont {
   font-family: "iconfont" !important;
   font-style: normal;
@@ -256,29 +306,59 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 178, ../scss/base.scss */
+/* line 234, ../scss/base.scss */
 .icon-bofang:before {
   content: "\e601";
 }
 
-/* line 180, ../scss/base.scss */
+/* line 236, ../scss/base.scss */
 .icon-wenzhang:before {
   content: "\e603";
 }
 
-/* line 182, ../scss/base.scss */
+/* line 238, ../scss/base.scss */
 .icon-yinleren:before {
   content: "\e602";
 }
 
-/* line 184, ../scss/base.scss */
+/* line 240, ../scss/base.scss */
 .icon-jingmeibizhi:before {
   content: "\e604";
 }
 
-/* line 186, ../scss/base.scss */
+/* line 242, ../scss/base.scss */
 .icon-wangzhandaohang:before {
   content: "\e600";
+}
+
+/* line 244, ../scss/base.scss */
+.icon-bofang1:before {
+  content: "\e605";
+}
+
+/* line 246, ../scss/base.scss */
+.icon-zanting:before {
+  content: "\e606";
+}
+
+/* line 248, ../scss/base.scss */
+.icon-quanping:before {
+  content: "\e609";
+}
+
+/* line 250, ../scss/base.scss */
+.icon-suoxiao:before {
+  content: "\e60a";
+}
+
+/* line 252, ../scss/base.scss */
+.icon-kuaijin:before {
+  content: "\e60b";
+}
+
+/* line 254, ../scss/base.scss */
+.icon-kuaitui:before {
+  content: "\e60c";
 }
 
 @-moz-keyframes slide-fade-in-left {
@@ -885,26 +965,31 @@ body {
   padding: .5em 1em;
   font-size: 2em;
   color: white;
+  text-align: center;
 }
-/* line 19, ../scss/home.scss */
-#home .menu-list a:before {
-  font-size: 2em;
-  display: block;
-  margin-bottom: .2em;
-}
-/* line 25, ../scss/home.scss */
+/* line 20, ../scss/home.scss */
 #home .menu-list a.hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
-/* line 28, ../scss/home.scss */
+/* line 23, ../scss/home.scss */
 #home .menu-list a.active {
   background-color: rgba(0, 0, 0, 0.2);
 }
-/* line 32, ../scss/home.scss */
+/* line 27, ../scss/home.scss */
+#home .menu-list a .icon,
 #home .menu-list a .text {
   display: block;
 }
-/* line 38, ../scss/home.scss */
+/* line 32, ../scss/home.scss */
+#home .menu-list a .icon {
+  font-size: 2em;
+  margin-bottom: .2em;
+}
+/* line 37, ../scss/home.scss */
+#home .menu-list a .text {
+  font-size: .8em;
+}
+/* line 43, ../scss/home.scss */
 #home .datetime-box {
   display: block;
   cursor: default;
@@ -915,18 +1000,18 @@ body {
   text-align: right;
   padding: 1em;
 }
-/* line 48, ../scss/home.scss */
+/* line 53, ../scss/home.scss */
 #home .datetime-box .date,
 #home .datetime-box .time,
 #home .datetime-box .day {
   color: white;
 }
-/* line 54, ../scss/home.scss */
+/* line 59, ../scss/home.scss */
 #home .datetime-box .time {
   font-size: 6em;
   line-height: 0.9em;
 }
-/* line 59, ../scss/home.scss */
+/* line 64, ../scss/home.scss */
 #home .datetime-box .date,
 #home .datetime-box .day {
   font-size: 1.6em;
@@ -939,6 +1024,95 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+/* line 1, ../scss/music.scss */
+#music {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+/* line 7, ../scss/music.scss */
+#music .background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: .7;
+  background-image: url(/static/images/temp_music_image.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+/* line 18, ../scss/music.scss */
+#music .title {
+  position: absolute;
+  top: 5%;
+  left: 6%;
+  right: 6%;
+  font-size: 6em;
+  color: white;
+  cursor: default;
+}
+@media screen and (max-width: 768px) {
+  /* line 18, ../scss/music.scss */
+  #music .title {
+    font-size: 4em;
+  }
+}
+/* line 31, ../scss/music.scss */
+#music .controls {
+  position: absolute;
+  bottom: 10%;
+  left: 6%;
+}
+/* line 38, ../scss/music.scss */
+#music .controls .btn, #music .controls .btn-pre,
+#music .controls .btn-play,
+#music .controls .btn-pause,
+#music .controls .btn-next {
+  display: inline-block;
+  border: .2em solid white;
+  border-radius: 50%;
+  color: white;
+  width: 3em;
+  height: 3em;
+  line-height: 3em;
+  text-align: center;
+  cursor: pointer;
+}
+/* line 49, ../scss/music.scss */
+#music .controls .btn.hover, #music .controls .hover.btn-pre,
+#music .controls .hover.btn-play,
+#music .controls .hover.btn-pause,
+#music .controls .hover.btn-next {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+/* line 52, ../scss/music.scss */
+#music .controls .btn.active, #music .controls .active.btn-pre,
+#music .controls .active.btn-play,
+#music .controls .active.btn-pause,
+#music .controls .active.btn-next {
+  border-color: black;
+  background-color: black;
+  color: white;
+}
+/* line 59, ../scss/music.scss */
+#music .controls .btn-pre,
+#music .controls .btn-play,
+#music .controls .btn-pause,
+#music .controls .btn-next {
+  margin-right: 1em;
+}
+/* line 67, ../scss/music.scss */
+#music .controls .btn-pre:before {
+  position: relative;
+  left: -.1em;
+}
+/* line 71, ../scss/music.scss */
+#music .controls .btn-next:before {
+  position: relative;
+  left: .1em;
 }
 
 /* line 4, ../scss/admin/login.scss */
