@@ -103,7 +103,9 @@
                         var xhr = $.ajaxSettings.xhr();
                         xhr.addEventListener('progress', function (e) {
                             $('#loading_cover .progress-bar').css('width', (e.loaded / e.total * 100) + '%');
-                            scope.loaded = true;
+                            scope.$apply(function () {
+                                scope.loaded = true;
+                            });
                         });
                         return xhr;
                     }

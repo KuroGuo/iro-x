@@ -74,6 +74,10 @@ $nav-bar-width: 3.3em;
     text-align: center;
     color: $color;
 
+    &.ng-hide {
+        @include animation(fade-out .4s forwards);
+    }
+
     h1 {
         position: absolute;
         bottom: 50%;
@@ -416,5 +420,14 @@ $nav-bar-width: 3.3em;
     }
     to {
         opacity: 1;
+    }
+}
+
+@include keyframes(fade-out) {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
     }
 }
