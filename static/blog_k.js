@@ -644,7 +644,7 @@ angular.module('kuro.draggable', ['kuro.event']).
         member.checkOnline(function (err, user) {
             $scope.setUser(user);
         });
-    }]).directive('html', ['$window', '$document', '$state', function ($window, $document, $state) {
+    }]).directive('html', ['$window', '$document', '$state', '$timeout', function ($window, $document, $state, $timeout) {
         var document = $document[0];
 
         return {
@@ -676,9 +676,11 @@ angular.module('kuro.draggable', ['kuro.event']).
                     }
                 }).triggerHandler('resize');
 
+                var wallpaperSrc = '/static/images/wallpaper.jpg';
+
                 $.ajax({
                     type: 'GET',
-                    url: $('body').css('background-image').match(/url\("?(.+?)"?\)/)[1],
+                    url: wallpaperSrc,
                     xhr: function () {
                         var xhr = $.ajaxSettings.xhr();
                         xhr.addEventListener('progress', function (e) {
@@ -686,7 +688,10 @@ angular.module('kuro.draggable', ['kuro.event']).
 
                             $('#loading_cover .progress-bar').css('width', (percent * 100) + '%');
                             if (percent === 1) {
-                                scope.loaded = true;
+                                $('body').css('background-image', 'url(' + wallpaperSrc + ')');
+                                $timeout(function () {
+                                    scope.loaded = true;
+                                }, 800);
                             }
                         });
                         return xhr;

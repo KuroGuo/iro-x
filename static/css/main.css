@@ -110,19 +110,18 @@ body {
   -ms-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  background-image: url(/static/images/wallpaper.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
 }
 
-/* line 55, ../scss/base.scss */
+/* line 54, ../scss/base.scss */
 .ipad.ios7 body {
   position: fixed;
   bottom: 0;
 }
 
-/* line 64, ../scss/base.scss */
+/* line 63, ../scss/base.scss */
 #loading_cover {
   position: absolute;
   width: 100%;
@@ -134,13 +133,13 @@ body {
   text-align: center;
   color: #33333d;
 }
-/* line 77, ../scss/base.scss */
+/* line 76, ../scss/base.scss */
 #loading_cover.ng-hide {
   -moz-animation: fade-out 0.4s forwards;
   -webkit-animation: fade-out 0.4s forwards;
   animation: fade-out 0.4s forwards;
 }
-/* line 81, ../scss/base.scss */
+/* line 80, ../scss/base.scss */
 #loading_cover h1 {
   position: absolute;
   bottom: 50%;
@@ -150,7 +149,7 @@ body {
   font-family: Italiana, sans-serif;
   line-height: .82em;
 }
-/* line 91, ../scss/base.scss */
+/* line 90, ../scss/base.scss */
 #loading_cover .progress-bar {
   position: absolute;
   top: 50%;
@@ -158,12 +157,12 @@ body {
   width: 0;
   height: 1px;
   background-color: #33333d;
-  -moz-transition: width 0.4s;
-  -o-transition: width 0.4s;
-  -webkit-transition: width 0.4s;
-  transition: width 0.4s;
+  -moz-transition: width 0.4s linear;
+  -o-transition: width 0.4s linear;
+  -webkit-transition: width 0.4s linear;
+  transition: width 0.4s linear;
 }
-/* line 101, ../scss/base.scss */
+/* line 100, ../scss/base.scss */
 #loading_cover p {
   position: absolute;
   top: 51%;
@@ -172,7 +171,7 @@ body {
   font-size: 1.2em;
 }
 
-/* line 110, ../scss/base.scss */
+/* line 109, ../scss/base.scss */
 #nav_bar {
   position: absolute;
   background-color: rgba(120, 200, 255, 0.3);
@@ -182,7 +181,7 @@ body {
   user-select: none;
   z-index: 1;
 }
-/* line 116, ../scss/base.scss */
+/* line 115, ../scss/base.scss */
 #nav_bar li {
   display: block;
   position: absolute;
@@ -195,7 +194,7 @@ body {
   height: 3.3em;
   line-height: 3.3em;
 }
-/* line 127, ../scss/base.scss */
+/* line 126, ../scss/base.scss */
 #nav_bar li a {
   display: block;
   text-align: center;
@@ -203,12 +202,12 @@ body {
   color: white;
   text-shadow: 0 .1em 0 black;
 }
-/* line 134, ../scss/base.scss */
+/* line 133, ../scss/base.scss */
 #nav_bar li a.hover {
   background-color: #7cf;
   text-shadow: 0 0.1em 0 #03c;
 }
-/* line 139, ../scss/base.scss */
+/* line 138, ../scss/base.scss */
 #nav_bar li a.active {
   background-color: #7cf;
   -moz-box-shadow: inset 0 0 0.6em #03c;
@@ -216,17 +215,17 @@ body {
   box-shadow: inset 0 0 0.6em #03c;
   text-shadow: 0 0.1em 0 #03c;
 }
-/* line 145, ../scss/base.scss */
+/* line 144, ../scss/base.scss */
 #nav_bar li a .text {
   font-size: 1.65em;
 }
 
-/* line 152, ../scss/base.scss */
+/* line 151, ../scss/base.scss */
 .container {
   position: absolute;
 }
-/* line 155, ../scss/base.scss */
-.container.ng-enter {
+/* line 154, ../scss/base.scss */
+.container.ng-hide-remove, .container.ng-enter {
   -moz-animation: scale-enter 0.4s;
   -webkit-animation: scale-enter 0.4s;
   animation: scale-enter 0.4s;
