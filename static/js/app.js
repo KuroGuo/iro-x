@@ -106,9 +106,7 @@
 
                             $('#loading_cover .progress-bar').css('width', (percent * 100) + '%');
                             if (percent === 1) {
-                                scope.$apply(function () {
-                                    scope.loaded = true;    
-                                });
+                                scope.loaded = true;
                             }
                         });
                         return xhr;
