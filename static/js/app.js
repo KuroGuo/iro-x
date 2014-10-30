@@ -98,7 +98,7 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: $('body').css('background').match(/url\((.+?)\)/)[1],
+                    url: $('body').css('background-image').match(/url\("?(.+?)"?\)/)[1],
                     xhr: function () {
                         var xhr = $.ajaxSettings.xhr();
                         xhr.addEventListener('progress', function (e) {
@@ -106,7 +106,9 @@
 
                             $('#loading_cover .progress-bar').css('width', (percent * 100) + '%');
                             if (percent === 1) {
-                                scope.loaded = true;
+                                scope.$apply(function () {
+                                    scope.loaded = true;    
+                                });
                             }
                         });
                         return xhr;

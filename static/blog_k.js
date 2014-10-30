@@ -676,22 +676,24 @@ angular.module('kuro.draggable', ['kuro.event']).
                     }
                 }).triggerHandler('resize');
 
-                $.ajax({
-                    type: 'GET',
-                    url: $('body').css('background').match(/url\((.+?)\)/)[1],
-                    xhr: function () {
-                        var xhr = $.ajaxSettings.xhr();
-                        xhr.addEventListener('progress', function (e) {
-                            var percent = e.loaded / e.total;
+                // $.ajax({
+                //     type: 'GET',
+                //     url: $('body').css('background-image').match(/url\("?(.+?)"?\)/)[1],
+                //     xhr: function () {
+                //         var xhr = $.ajaxSettings.xhr();
+                //         xhr.addEventListener('progress', function (e) {
+                //             var percent = e.loaded / e.total;
 
-                            $('#loading_cover .progress-bar').css('width', (percent * 100) + '%');
-                            if (percent === 1) {
-                                scope.loaded = true;
-                            }
-                        });
-                        return xhr;
-                    }
-                });
+                //             $('#loading_cover .progress-bar').css('width', (percent * 100) + '%');
+                //             if (percent === 1) {
+                //                 scope.$apply(function () {
+                //                     scope.loaded = true;    
+                //                 });
+                //             }
+                //         });
+                //         return xhr;
+                //     }
+                // });
 
                 function bindEvents() {
                     $(document)
