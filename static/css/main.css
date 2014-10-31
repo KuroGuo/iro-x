@@ -135,9 +135,9 @@ body {
 }
 /* line 76, ../scss/base.scss */
 #loading_cover.ng-hide {
-  -moz-animation: fade-out 0.4s forwards;
-  -webkit-animation: fade-out 0.4s forwards;
-  animation: fade-out 0.4s forwards;
+  -moz-animation: fade-out 1s forwards;
+  -webkit-animation: fade-out 1s forwards;
+  animation: fade-out 1s forwards;
 }
 /* line 80, ../scss/base.scss */
 #loading_cover h1 {
@@ -157,10 +157,10 @@ body {
   width: 0;
   height: 1px;
   background-color: #33333d;
-  -moz-transition: width 0.4s linear;
-  -o-transition: width 0.4s linear;
-  -webkit-transition: width 0.4s linear;
-  transition: width 0.4s linear;
+  -moz-transition: width 0.2s linear;
+  -o-transition: width 0.2s linear;
+  -webkit-transition: width 0.2s linear;
+  transition: width 0.2s linear;
 }
 /* line 100, ../scss/base.scss */
 #loading_cover p {
@@ -225,42 +225,48 @@ body {
   position: absolute;
 }
 /* line 154, ../scss/base.scss */
-.container.ng-hide-remove, .container.ng-enter {
+.container.ng-hide-remove {
+  -moz-animation: scale-enter 1s;
+  -webkit-animation: scale-enter 1s;
+  animation: scale-enter 1s;
+}
+/* line 157, ../scss/base.scss */
+.container.ng-enter {
   -moz-animation: scale-enter 0.4s;
   -webkit-animation: scale-enter 0.4s;
   animation: scale-enter 0.4s;
 }
-/* line 158, ../scss/base.scss */
+/* line 160, ../scss/base.scss */
 .container.ng-leave {
   -moz-animation: scale-leave 0.4s forwards;
   -webkit-animation: scale-leave 0.4s forwards;
   animation: scale-leave 0.4s forwards;
 }
 
-/* line 165, ../scss/base.scss */
+/* line 167, ../scss/base.scss */
 .state-back .container.ng-enter {
   -moz-animation: scale-back-enter 0.4s;
   -webkit-animation: scale-back-enter 0.4s;
   animation: scale-back-enter 0.4s;
 }
-/* line 168, ../scss/base.scss */
+/* line 170, ../scss/base.scss */
 .state-back .container.ng-leave {
   -moz-animation: scale-back-leave 0.4s forwards;
   -webkit-animation: scale-back-leave 0.4s forwards;
   animation: scale-back-leave 0.4s forwards;
 }
 
-/* line 175, ../scss/base.scss */
+/* line 177, ../scss/base.scss */
 .wide-screen #nav_bar {
   left: 0;
   top: 0;
   bottom: 0;
   width: 3.3em;
-  -moz-animation: slide-fade-in-left 0.4s;
-  -webkit-animation: slide-fade-in-left 0.4s;
-  animation: slide-fade-in-left 0.4s;
+  -moz-animation: slide-fade-in-left 1s;
+  -webkit-animation: slide-fade-in-left 1s;
+  animation: slide-fade-in-left 1s;
 }
-/* line 183, ../scss/base.scss */
+/* line 185, ../scss/base.scss */
 .wide-screen .container {
   left: 3.3em;
   right: 0;
@@ -268,17 +274,17 @@ body {
   bottom: 0;
 }
 
-/* line 192, ../scss/base.scss */
+/* line 194, ../scss/base.scss */
 .high-screen #nav_bar {
   left: 0;
   right: 0;
   bottom: 0;
   height: 3.3em;
-  -moz-animation: slide-fade-in-bottom 0.4s;
-  -webkit-animation: slide-fade-in-bottom 0.4s;
-  animation: slide-fade-in-bottom 0.4s;
+  -moz-animation: slide-fade-in-bottom 1s;
+  -webkit-animation: slide-fade-in-bottom 1s;
+  animation: slide-fade-in-bottom 1s;
 }
-/* line 200, ../scss/base.scss */
+/* line 202, ../scss/base.scss */
 .high-screen .container {
   top: 0;
   bottom: 3.3em;
@@ -287,7 +293,7 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-  /* line 209, ../scss/base.scss */
+  /* line 211, ../scss/base.scss */
   body {
     font-size: 14px;
   }
@@ -306,7 +312,7 @@ body {
   src: url("/static/images/iconfont/iconfont.eot?#iefix") format("embedded-opentype"), url("/static/images/iconfont/iconfont.woff") format("woff"), url("/static/images/iconfont/iconfont.ttf") format("truetype"), url("/static/images/iconfont/iconfont.svg#iconfont") format("svg");
   /* iOS 4.1- */
 }
-/* line 233, ../scss/base.scss */
+/* line 235, ../scss/base.scss */
 .iconfont {
   font-family: "iconfont" !important;
   font-style: normal;
@@ -315,57 +321,57 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 241, ../scss/base.scss */
+/* line 243, ../scss/base.scss */
 .icon-bofang:before {
   content: "\e601";
 }
 
-/* line 243, ../scss/base.scss */
+/* line 245, ../scss/base.scss */
 .icon-wenzhang:before {
   content: "\e603";
 }
 
-/* line 245, ../scss/base.scss */
+/* line 247, ../scss/base.scss */
 .icon-yinleren:before {
   content: "\e602";
 }
 
-/* line 247, ../scss/base.scss */
+/* line 249, ../scss/base.scss */
 .icon-jingmeibizhi:before {
   content: "\e604";
 }
 
-/* line 249, ../scss/base.scss */
+/* line 251, ../scss/base.scss */
 .icon-wangzhandaohang:before {
   content: "\e600";
 }
 
-/* line 251, ../scss/base.scss */
+/* line 253, ../scss/base.scss */
 .icon-bofang1:before {
   content: "\e605";
 }
 
-/* line 253, ../scss/base.scss */
+/* line 255, ../scss/base.scss */
 .icon-zanting:before {
   content: "\e606";
 }
 
-/* line 255, ../scss/base.scss */
+/* line 257, ../scss/base.scss */
 .icon-quanping:before {
   content: "\e609";
 }
 
-/* line 257, ../scss/base.scss */
+/* line 259, ../scss/base.scss */
 .icon-suoxiao:before {
   content: "\e60a";
 }
 
-/* line 259, ../scss/base.scss */
+/* line 261, ../scss/base.scss */
 .icon-kuaijin:before {
   content: "\e60b";
 }
 
-/* line 261, ../scss/base.scss */
+/* line 263, ../scss/base.scss */
 .icon-kuaitui:before {
   content: "\e60c";
 }
