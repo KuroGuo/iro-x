@@ -74,7 +74,7 @@ $nav-bar-width: 3.3em;
     color: $color;
 
     &.ng-hide {
-        @include animation(fade-out 1s forwards);
+        @include animation(fade-out .6s forwards);
     }
 
     h1 {
@@ -152,7 +152,7 @@ $nav-bar-width: 3.3em;
     position: absolute;
 
     &.ng-hide-remove{
-        @include animation(scale-enter 1s);
+        @include animation(scale-enter .6s);
     }
     &.ng-enter {
         @include animation(scale-enter .4s);
@@ -179,7 +179,10 @@ $nav-bar-width: 3.3em;
         top: 0;
         bottom: 0;
         width: $nav-bar-width;
-        @include animation(slide-fade-in-left 1s);
+
+        &.ng-hide-remove {
+            @include animation(slide-fade-in-left .6s);
+        }
     }
 
     .container {
@@ -196,7 +199,10 @@ $nav-bar-width: 3.3em;
         right: 0;
         bottom: 0;
         height: $nav-bar-width;
-        @include animation(slide-fade-in-bottom 1s);
+
+        &.ng-hide-remove {
+            @include animation(slide-fade-in-bottom .6s);    
+        }
     }
 
     .container {
