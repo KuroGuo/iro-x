@@ -231,7 +231,7 @@ body {
   font-family: 'Italiana';
   font-style: normal;
   font-weight: 400;
-  src: local("Italiana"), local("Italiana-Regular"), url(/static/images/fonts/Italiana.woff2) format("woff2");
+  src: local("Italiana"), local("Italiana-Regular"), url(/static/images/fonts/Italiana.woff2) format("woff2"), url(/static/images/fonts/Italiana.ttf) format("truetype");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 @font-face {
@@ -241,7 +241,7 @@ body {
   src: url("/static/images/iconfont/iconfont.eot?#iefix") format("embedded-opentype"), url("/static/images/iconfont/iconfont.woff") format("woff"), url("/static/images/iconfont/iconfont.ttf") format("truetype"), url("/static/images/iconfont/iconfont.svg#iconfont") format("svg");
   /* iOS 4.1- */
 }
-/* line 231, ../scss/base.scss */
+/* line 233, ../scss/base.scss */
 .iconfont {
   font-family: "iconfont" !important;
   font-style: normal;
@@ -250,57 +250,57 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 239, ../scss/base.scss */
+/* line 241, ../scss/base.scss */
 .icon-bofang:before {
   content: "\e601";
 }
 
-/* line 241, ../scss/base.scss */
+/* line 243, ../scss/base.scss */
 .icon-wenzhang:before {
   content: "\e603";
 }
 
-/* line 243, ../scss/base.scss */
+/* line 245, ../scss/base.scss */
 .icon-yinleren:before {
   content: "\e602";
 }
 
-/* line 245, ../scss/base.scss */
+/* line 247, ../scss/base.scss */
 .icon-jingmeibizhi:before {
   content: "\e604";
 }
 
-/* line 247, ../scss/base.scss */
+/* line 249, ../scss/base.scss */
 .icon-wangzhandaohang:before {
   content: "\e600";
 }
 
-/* line 249, ../scss/base.scss */
+/* line 251, ../scss/base.scss */
 .icon-bofang1:before {
   content: "\e605";
 }
 
-/* line 251, ../scss/base.scss */
+/* line 253, ../scss/base.scss */
 .icon-zanting:before {
   content: "\e606";
 }
 
-/* line 253, ../scss/base.scss */
+/* line 255, ../scss/base.scss */
 .icon-quanping:before {
   content: "\e609";
 }
 
-/* line 255, ../scss/base.scss */
+/* line 257, ../scss/base.scss */
 .icon-suoxiao:before {
   content: "\e60a";
 }
 
-/* line 257, ../scss/base.scss */
+/* line 259, ../scss/base.scss */
 .icon-kuaijin:before {
   content: "\e60b";
 }
 
-/* line 259, ../scss/base.scss */
+/* line 261, ../scss/base.scss */
 .icon-kuaitui:before {
   content: "\e60c";
 }
