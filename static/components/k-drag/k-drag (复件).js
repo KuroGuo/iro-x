@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('kuro.draggable', ['kuro.event']).
+angular.module('kDrag', ['kuro.event']).
     factory('KuroDraggable', ['KuroEvent', '$timeout', function (Event, $timeout) {
         var dragId = 0;
 

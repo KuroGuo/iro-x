@@ -1,16 +1,17 @@
 module.exports = function(grunt) {
   var jsFiles = [
-    'static/bower_components/cryptojslib/rollups/md5.js',
     'static/components/extended/extended.js',
+    'static/bower_components/cryptojslib/rollups/md5.js',
     'static/bower_components/jquery/dist/jquery.min.js',
     'static/bower_components/velocity/velocity.min.js',
     'static/bower_components/angular/angular.min.js',
-    'static/components/k-tap/k-tap.js',
     'static/bower_components/angular-resource/angular-resource.min.js',
     'static/bower_components/angular-animate/angular-animate.min.js',
     'static/bower_components/angular-ui-router/release/angular-ui-router.min.js',
-    'static/components/kuro.event/kuro.event.js',
-    'static/components/kuro.draggable/kuro.draggable.js',
+    'static/components/k-tap/k-tap.js',
+    'static/components/k-drag/k-drag.js',
+    'static/components/k-scroll/k-scroll.js',
+    'static/components/k-player/k-player.js',
     'static/js/**/*.js'
   ];
 

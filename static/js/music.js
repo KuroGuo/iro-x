@@ -7,20 +7,40 @@
             };
 
             musicPlayer.loadAllToList = function () {
-                list = music.query();
+                musicPlayer.list = music.query();
+            };
+
+            musicPlayer.play = function (music) {
+                musicPlayer.audio.src = music.path;
+                musicPlayer.audio.play();
             };
 
             return musicPlayer;
         }])
-        .controller('MusicCtrl', ['$scope', function ($scope) {
-            $scope.paused = true;
-            $scope.title = '一番の宝物';
+        .controller('MusicCtrl', ['$scope', 'musicPlayer', function ($scope, musicPlayer) {
+            if (!musicPlayer.list) {
+                musicPlayer.loadAllToList();
+            }
+            $scope.musics = musicPlayer.list;
+
+            $scope.play = function (music) {
+                musicPlayer.play(music);
+                $scope.title = music.name;
+            };
+
+            musicPlayer.audio.addEventListener('play', checkPaused);
+            musicPlayer.audio.addEventListener('pause', checkPaused);
+
+            function checkPaused() {
+                $scope.$apply(function () {
+                    $scope.paused = musicPlayer.audio.paused;
+                });
+            }
         }])
         .directive('blogKMusic', ['musicPlayer', function (musicPlayer) {
             return {
                 restrict: 'E',
                 link: function (scope, element, attrs, controller) {
-                    musicPlayer.loadList();
                 }
             };
         }]);

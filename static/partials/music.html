@@ -1,10 +1,25 @@
 <blog-k-music id="music">
-    <div class="background"></div>
-    <div class="title">{{title}}</div>
-    <div class="controls">
-        <span class="btn-pre iconfont icon-kuaitui"></span><!--
-        --><span class="btn-play iconfont icon-bofang1" ng-show="paused"></span><!--
-        --><span class="btn-pause iconfont icon-zanting" ng-show="!paused"></span><!--
-        --><span class="btn-next iconfont icon-kuaijin"></span>
+    <div class="main-area">
+        <div class="background"></div>
+        <div class="title">{{title}}</div>
+        <div class="controls">
+            <span class="btn-pre iconfont icon-kuaitui"></span><!--
+            --><span class="btn-play iconfont icon-bofang1" ng-show="paused !== false"></span><!--
+            --><span class="btn-pause iconfont icon-zanting" ng-hide="paused !== false"></span><!--
+            --><span class="btn-next iconfont icon-kuaijin"></span>
+        </div>
+    </div>
+    <div k-scroller-wrapper class="music-list">
+        <ul k-scroller>
+            <li ng-class="{selected: music.name === title}" ng-repeat="music in musics" k-tap="play(music)">
+                {{music.name}}
+            </li>
+            <li ng-class="{selected: music.name === title}" ng-repeat="music in musics" k-tap="play(music)">
+                {{music.name}}
+            </li>
+            <li ng-class="{selected: music.name === title}" ng-repeat="music in musics" k-tap="play(music)">
+                {{music.name}}
+            </li>
+        </ul>
     </div>
 </blog-k-music>

@@ -44,7 +44,7 @@ app.use(session({
 //     }, 1000);
 // });
 
-app.use(webRouter);
+app.use('/api', webRouter);
 
 app.use(view);
 

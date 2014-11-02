@@ -1,6 +1,8 @@
 ;(function (angular) { 'use strict';
     angular.module('blog_k', [
         'kTap',
+        'kDrag',
+        'kScroll',
         'ngAnimate',
         'ui.router',
         'blog_k.home',
@@ -120,6 +122,9 @@
 
                 function bindEvents() {
                     $(document)
+                        .on('dragstart', function (e) {
+                            e.preventDefault();
+                        })
                         .on('touchmove', function (e) {
                             e.preventDefault();
                         })
@@ -139,12 +144,15 @@
                         // .on('touchstart touchend touchmove click tap mousedown mouseup', function (e) {
                         //     $('.container').append(e.type + '<br />');
                         // })
-                        .on('tap', 'a', function (e) {
+                        .on('ktap', 'a', function (e) {
                             if (e.pointerType === 'touch' && $(e.currentTarget).attr('href')) {
                                 $(e.currentTarget).trigger('click');
                             }
                         })
-                        .on('touchstart touchend', 'a', function (e) {
+                        .on('touchstart touchend', function (e) {
+                            if ($(e.target).is('input[type="text"], textarea, [contenteditable]')) {
+                                return;
+                            }
                             e.preventDefault();
                         });
                 }

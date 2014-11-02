@@ -1,76 +1,149 @@
+@import "compass/css3";
+@import "base.scss";
+
 #music {
     position: absolute;
     width: 100%;
     height: 100%;
     background-color: black;
 
-    .background {
+    .main-area {
         position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: .7;
-        background-image: url(/static/images/temp_music_image.jpg);
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-    }
 
-    .title {
-        position: absolute;
-        top: 5%;
-        left: 6%;
-        right: 6%;
-        font-size: 6em;
-        color: white;
-        cursor: default;
-        @media screen and (max-width: 768px) {
-            font-size: 4em;
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: .7;
+            background-image: url(/static/images/temp_music_image.jpg);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
         }
-    }
 
-    .controls {
-        position: absolute;
-        bottom: 10%;
-        left: 6%;
-
-        $btn-size: 3em;
-
-        .btn {
-            display: inline-block;
-            border: .2em solid white;
-            border-radius: 50%;
+        .title {
+            position: absolute;
+            top: 5%;
+            left: 6%;
+            right: 6%;
+            font-size: 6em;
             color: white;
-            width: $btn-size;
-            height: $btn-size;
-            line-height: $btn-size;
-            text-align: center;
-            cursor: pointer;
-
-            &.hover {
-                background-color: rgba(255, 255, 255, .2);
+            cursor: default;
+            @media screen and (max-width: 768px) {
+                font-size: 4em;
             }
-            &.active {
-                border-color: black;
-                background-color: black;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 10%;
+            left: 6%;
+
+            $btn-size: 3em;
+
+            .btn {
+                display: inline-block;
+                border: .2em solid white;
+                border-radius: 50%;
                 color: white;
+                width: $btn-size;
+                height: $btn-size;
+                line-height: $btn-size;
+                text-align: center;
+                cursor: pointer;
+
+                &.hover {
+                    background-color: rgba(255, 255, 255, .2);
+                }
+                &.active {
+                    border-color: black;
+                    background-color: black;
+                    color: white;
+                }
+            }
+
+            .btn-pre,
+            .btn-play,
+            .btn-pause,
+            .btn-next {
+                @extend .btn;
+                margin-right: 1em;
+            }
+
+            .btn-pre:before {
+                position: relative;
+                left: -.1em;
+            }
+            .btn-next:before {
+                position: relative;
+                left: .1em;
             }
         }
+    }
 
-        .btn-pre,
-        .btn-play,
-        .btn-pause,
-        .btn-next {
-            @extend .btn;
-            margin-right: 1em;
+    .music-list {
+        position: absolute;
+        background-color: white;
+        overflow: hidden;
+        @include box-sizing(border-box);
+
+        li {
+            cursor: pointer;
+            padding: .8em 1em;
+            text-overflow:ellipsis; 
+            overflow:hidden;
+            white-space:nowrap; 
+            border-left: 0 solid $base-color;
+            @include transition(border-left .2s);
+
+            &:nth-child(odd) {
+                background-color: #eee;
+            }
+            &:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            &.selected {
+                border-left-width: .5em;
+            }
+        }
+    }
+}
+
+.wide-screen {
+    $music-list-width: 18em;
+    #music {
+        .main-area {
+            left: 0;
+            right: $music-list-width;
+            top: 0;
+            bottom: 0;
+        }
+        .music-list {
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: $music-list-width;
+        }
+    }
+}
+
+.high-screen {
+    $music-list-height: 30%;
+
+    #music {
+        .main-area {
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: $music-list-height;
         }
 
-        .btn-pre:before {
-            position: relative;
-            left: -.1em;
-        }
-        .btn-next:before {
-            position: relative;
-            left: .1em;
+        .music-list {
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: $music-list-height;
         }
     }
 }

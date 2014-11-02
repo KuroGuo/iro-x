@@ -130,17 +130,17 @@
                                     e.preventDefault();
                                 }
                             })
-                            .on('tap', '.textbox-comment', function (e) {
+                            .on('ktap', '.textbox-comment', function (e) {
                                 if (e.pointerType === 'touch') {
                                     $textboxComment.trigger('focus');
                                 }
                             })
-                            .on('tap', function (e) {
+                            .on('ktap', function (e) {
                                 if (e.pointerType === 'touch' && !$(e.target).is('.textbox-comment')) {
                                     $textboxComment.trigger('blur');
                                 }
                             })
-                            .on('tap', '.time-bar-wrapper', function (e) {
+                            .on('ktap', '.time-bar-wrapper', function (e) {
                                 var $timeBar = $(e.currentTarget);
                                 var innerX = e.pageX - $timeBar.offset().left;
                                 var percent = innerX / $timeBar.innerWidth();
@@ -155,7 +155,7 @@
                                     transform: 'translateX(' +  (($timeBar.innerWidth() - $barTip.outerWidth()) * parcent) + 'px)'
                                 });
                             })
-                            .on('tap', '.btn-send', function (e) {
+                            .on('ktap', '.btn-send', function (e) {
                                 fireDanmu();
                             })
                             .on({
