@@ -1,5 +1,5 @@
 ;(function (angular) { 'use strict';
-    angular.module('blog_k.music', ['blog_k.services.music'])
+    angular.module('blog_k.music', ['blog_k.services.music', 'cfp.loadingBar'])
         .factory('musicPlayer', ['music', function (music) {
             var musicPlayer = {
                 audio: document.createElement('audio'),
@@ -17,7 +17,8 @@
 
             return musicPlayer;
         }])
-        .controller('MusicCtrl', ['$scope', 'musicPlayer', function ($scope, musicPlayer) {
+        .controller('MusicCtrl', ['$scope', 'musicPlayer', 'cfpLoadingBar',
+        function ($scope, musicPlayer, cfpLoadingBar) {
             if (!musicPlayer.list) {
                 musicPlayer.loadAllToList();
             }
@@ -30,6 +31,12 @@
 
             musicPlayer.audio.addEventListener('play', checkPaused);
             musicPlayer.audio.addEventListener('pause', checkPaused);
+            musicPlayer.audio.addEventListener('loadstart', function () {
+                cfpLoadingBar.start();
+            });
+            musicPlayer.audio.addEventListener('canplay', function () {
+                cfpLoadingBar.complete();
+            });
 
             function checkPaused() {
                 $scope.$apply(function () {

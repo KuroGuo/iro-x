@@ -1597,7 +1597,7 @@ angular.module('kScroll', ['kDrag']).
             };
         }]);
 })(angular);;;(function (angular) { 'use strict';
-    angular.module('blog_k.music', ['blog_k.services.music'])
+    angular.module('blog_k.music', ['blog_k.services.music', 'cfp.loadingBar'])
         .factory('musicPlayer', ['music', function (music) {
             var musicPlayer = {
                 audio: document.createElement('audio'),
@@ -1615,7 +1615,8 @@ angular.module('kScroll', ['kDrag']).
 
             return musicPlayer;
         }])
-        .controller('MusicCtrl', ['$scope', 'musicPlayer', function ($scope, musicPlayer) {
+        .controller('MusicCtrl', ['$scope', 'musicPlayer', 'cfpLoadingBar',
+        function ($scope, musicPlayer, cfpLoadingBar) {
             if (!musicPlayer.list) {
                 musicPlayer.loadAllToList();
             }
@@ -1628,6 +1629,12 @@ angular.module('kScroll', ['kDrag']).
 
             musicPlayer.audio.addEventListener('play', checkPaused);
             musicPlayer.audio.addEventListener('pause', checkPaused);
+            musicPlayer.audio.addEventListener('loadstart', function () {
+                cfpLoadingBar.start();
+            });
+            musicPlayer.audio.addEventListener('canplay', function () {
+                cfpLoadingBar.complete();
+            });
 
             function checkPaused() {
                 $scope.$apply(function () {
