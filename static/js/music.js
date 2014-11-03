@@ -34,7 +34,7 @@
             musicPlayer.audio.addEventListener('loadstart', function () {
                 cfpLoadingBar.start();
             });
-            musicPlayer.audio.addEventListener('canplaythrough', function () {
+            musicPlayer.audio.addEventListener('canplay', function () {
                 cfpLoadingBar.complete();
             });
 
