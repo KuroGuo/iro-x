@@ -7,6 +7,7 @@ module.exports = function(grunt) {
     'static/bower_components/angular/angular.min.js',
     'static/bower_components/angular-resource/angular-resource.min.js',
     'static/bower_components/angular-animate/angular-animate.min.js',
+    'static/bower_components/angular-loading-bar/build/loading-bar.min.js',
     'static/bower_components/angular-ui-router/release/angular-ui-router.min.js',
     'static/components/k-tap/k-tap.js',
     'static/components/k-drag/k-drag.js',

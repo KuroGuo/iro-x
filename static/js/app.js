@@ -4,6 +4,7 @@
         'kDrag',
         'kScroll',
         'ngAnimate',
+        'angular-loading-bar',
         'ui.router',
         'blog_k.home',
         'blog_k.video',
