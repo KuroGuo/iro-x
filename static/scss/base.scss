@@ -61,6 +61,18 @@ body {
     }
 }
 
+#loading-bar {
+    position: absolute;
+    z-index: 10002;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    .bar {
+        position: absolute;
+    }
+}
+
 $nav-bar-background-color: rgba(120, 200, 255, 0.3);
 $nav-bar-width: 3.3em;
 

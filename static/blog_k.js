@@ -1445,6 +1445,8 @@ angular.module('kScroll', ['kDrag']).
                 }
             }
         };
+    }]).config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.includeSpinner = false;
     }]);
 })(angular);;;(function (angular) { 'use strict';
     angular.module('blog_k.home', [])
@@ -1632,7 +1634,7 @@ angular.module('kScroll', ['kDrag']).
             musicPlayer.audio.addEventListener('loadstart', function () {
                 cfpLoadingBar.start();
             });
-            musicPlayer.audio.addEventListener('canplay', function () {
+            musicPlayer.audio.addEventListener('canplaythrough', function () {
                 cfpLoadingBar.complete();
             });
 
