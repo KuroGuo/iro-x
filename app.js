@@ -38,11 +38,11 @@ app.use(session({
     store: new MongoStore({ db: mongoose.connection.db })
 }));
 
-app.use(function (req, res, next) {
-    setTimeout(function () {
-        next();
-    }, 3000);
-});
+// app.use(function (req, res, next) {
+//     setTimeout(function () {
+//         next();
+//     }, 3000);
+// });
 
 app.use('/api', webRouter);
 
