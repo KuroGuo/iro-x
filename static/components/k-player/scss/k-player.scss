@@ -189,8 +189,7 @@ k-player {
             }
         }
 
-        .btn-play,
-        .btn-pause {
+        .btn-play-pause {
             @extend .ctrl-btn;
             left: 0;
         }
@@ -250,9 +249,13 @@ k-player {
       -moz-osx-font-smoothing: grayscale;
     }
 
-    .icon-bofang:before { content: "\e600"; }
+    .icon-wenjianku:before { content: "\e602"; }
+
+    .icon-quanping:before { content: "\e604"; }
 
     .icon-zanting:before { content: "\e601"; }
+
+    .icon-bofang:before { content: "\e600"; }
 }
 
 @font-face {font-family: "iconfont-kplayer";

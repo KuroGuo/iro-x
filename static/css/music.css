@@ -575,8 +575,8 @@ body {
 }
 @-moz-keyframes fade-in-top {
   from {
-    -moz-transform: translateY(-2em);
-    transform: translateY(-2em);
+    -moz-transform: translateY(-0.3em);
+    transform: translateY(-0.3em);
     opacity: 0;
   }
   to {
@@ -587,8 +587,8 @@ body {
 }
 @-webkit-keyframes fade-in-top {
   from {
-    -webkit-transform: translateY(-2em);
-    transform: translateY(-2em);
+    -webkit-transform: translateY(-0.3em);
+    transform: translateY(-0.3em);
     opacity: 0;
   }
   to {
@@ -599,10 +599,10 @@ body {
 }
 @keyframes fade-in-top {
   from {
-    -moz-transform: translateY(-2em);
-    -ms-transform: translateY(-2em);
-    -webkit-transform: translateY(-2em);
-    transform: translateY(-2em);
+    -moz-transform: translateY(-0.3em);
+    -ms-transform: translateY(-0.3em);
+    -webkit-transform: translateY(-0.3em);
+    transform: translateY(-0.3em);
     opacity: 0;
   }
   to {
@@ -620,8 +620,8 @@ body {
     opacity: 1;
   }
   to {
-    -moz-transform: translateY(-2em);
-    transform: translateY(-2em);
+    -moz-transform: translateY(-0.3em);
+    transform: translateY(-0.3em);
     opacity: 0;
   }
 }
@@ -632,8 +632,8 @@ body {
     opacity: 1;
   }
   to {
-    -webkit-transform: translateY(-2em);
-    transform: translateY(-2em);
+    -webkit-transform: translateY(-0.3em);
+    transform: translateY(-0.3em);
     opacity: 0;
   }
 }
@@ -646,17 +646,17 @@ body {
     opacity: 1;
   }
   to {
-    -moz-transform: translateY(-2em);
-    -ms-transform: translateY(-2em);
-    -webkit-transform: translateY(-2em);
-    transform: translateY(-2em);
+    -moz-transform: translateY(-0.3em);
+    -ms-transform: translateY(-0.3em);
+    -webkit-transform: translateY(-0.3em);
+    transform: translateY(-0.3em);
     opacity: 0;
   }
 }
 @-moz-keyframes fade-in-bottom {
   from {
-    -moz-transform: translateY(2em);
-    transform: translateY(2em);
+    -moz-transform: translateY(0.3em);
+    transform: translateY(0.3em);
     opacity: 0;
   }
   to {
@@ -667,8 +667,8 @@ body {
 }
 @-webkit-keyframes fade-in-bottom {
   from {
-    -webkit-transform: translateY(2em);
-    transform: translateY(2em);
+    -webkit-transform: translateY(0.3em);
+    transform: translateY(0.3em);
     opacity: 0;
   }
   to {
@@ -679,10 +679,10 @@ body {
 }
 @keyframes fade-in-bottom {
   from {
-    -moz-transform: translateY(2em);
-    -ms-transform: translateY(2em);
-    -webkit-transform: translateY(2em);
-    transform: translateY(2em);
+    -moz-transform: translateY(0.3em);
+    -ms-transform: translateY(0.3em);
+    -webkit-transform: translateY(0.3em);
+    transform: translateY(0.3em);
     opacity: 0;
   }
   to {
@@ -700,8 +700,8 @@ body {
     opacity: 1;
   }
   to {
-    -moz-transform: translateY(2em);
-    transform: translateY(2em);
+    -moz-transform: translateY(0.3em);
+    transform: translateY(0.3em);
     opacity: 0;
   }
 }
@@ -712,8 +712,8 @@ body {
     opacity: 1;
   }
   to {
-    -webkit-transform: translateY(2em);
-    transform: translateY(2em);
+    -webkit-transform: translateY(0.3em);
+    transform: translateY(0.3em);
     opacity: 0;
   }
 }
@@ -726,17 +726,17 @@ body {
     opacity: 1;
   }
   to {
-    -moz-transform: translateY(2em);
-    -ms-transform: translateY(2em);
-    -webkit-transform: translateY(2em);
-    transform: translateY(2em);
+    -moz-transform: translateY(0.3em);
+    -ms-transform: translateY(0.3em);
+    -webkit-transform: translateY(0.3em);
+    transform: translateY(0.3em);
     opacity: 0;
   }
 }
 @-moz-keyframes fade-in-right {
   from {
-    -moz-transform: translateX(2em);
-    transform: translateX(2em);
+    -moz-transform: translateX(0.3em);
+    transform: translateX(0.3em);
     opacity: 0;
   }
   to {
@@ -747,8 +747,8 @@ body {
 }
 @-webkit-keyframes fade-in-right {
   from {
-    -webkit-transform: translateX(2em);
-    transform: translateX(2em);
+    -webkit-transform: translateX(0.3em);
+    transform: translateX(0.3em);
     opacity: 0;
   }
   to {
@@ -759,10 +759,10 @@ body {
 }
 @keyframes fade-in-right {
   from {
-    -moz-transform: translateX(2em);
-    -ms-transform: translateX(2em);
-    -webkit-transform: translateX(2em);
-    transform: translateX(2em);
+    -moz-transform: translateX(0.3em);
+    -ms-transform: translateX(0.3em);
+    -webkit-transform: translateX(0.3em);
+    transform: translateX(0.3em);
     opacity: 0;
   }
   to {
@@ -780,8 +780,8 @@ body {
     opacity: 1;
   }
   to {
-    -moz-transform: translateX(2em);
-    transform: translateX(2em);
+    -moz-transform: translateX(0.3em);
+    transform: translateX(0.3em);
     opacity: 0;
   }
 }
@@ -792,8 +792,8 @@ body {
     opacity: 1;
   }
   to {
-    -webkit-transform: translateX(2em);
-    transform: translateX(2em);
+    -webkit-transform: translateX(0.3em);
+    transform: translateX(0.3em);
     opacity: 0;
   }
 }
@@ -806,17 +806,17 @@ body {
     opacity: 1;
   }
   to {
-    -moz-transform: translateX(2em);
-    -ms-transform: translateX(2em);
-    -webkit-transform: translateX(2em);
-    transform: translateX(2em);
+    -moz-transform: translateX(0.3em);
+    -ms-transform: translateX(0.3em);
+    -webkit-transform: translateX(0.3em);
+    transform: translateX(0.3em);
     opacity: 0;
   }
 }
 @-moz-keyframes fade-in-left {
   from {
-    -moz-transform: translateX(-2em);
-    transform: translateX(-2em);
+    -moz-transform: translateX(-0.3em);
+    transform: translateX(-0.3em);
     opacity: 0;
   }
   to {
@@ -827,8 +827,8 @@ body {
 }
 @-webkit-keyframes fade-in-left {
   from {
-    -webkit-transform: translateX(-2em);
-    transform: translateX(-2em);
+    -webkit-transform: translateX(-0.3em);
+    transform: translateX(-0.3em);
     opacity: 0;
   }
   to {
@@ -839,10 +839,10 @@ body {
 }
 @keyframes fade-in-left {
   from {
-    -moz-transform: translateX(-2em);
-    -ms-transform: translateX(-2em);
-    -webkit-transform: translateX(-2em);
-    transform: translateX(-2em);
+    -moz-transform: translateX(-0.3em);
+    -ms-transform: translateX(-0.3em);
+    -webkit-transform: translateX(-0.3em);
+    transform: translateX(-0.3em);
     opacity: 0;
   }
   to {
@@ -860,8 +860,8 @@ body {
     opacity: 1;
   }
   to {
-    -moz-transform: translateX(-2em);
-    transform: translateX(-2em);
+    -moz-transform: translateX(-0.3em);
+    transform: translateX(-0.3em);
     opacity: 0;
   }
 }
@@ -872,8 +872,8 @@ body {
     opacity: 1;
   }
   to {
-    -webkit-transform: translateX(-2em);
-    transform: translateX(-2em);
+    -webkit-transform: translateX(-0.3em);
+    transform: translateX(-0.3em);
     opacity: 0;
   }
 }
@@ -886,10 +886,10 @@ body {
     opacity: 1;
   }
   to {
-    -moz-transform: translateX(-2em);
-    -ms-transform: translateX(-2em);
-    -webkit-transform: translateX(-2em);
-    transform: translateX(-2em);
+    -moz-transform: translateX(-0.3em);
+    -ms-transform: translateX(-0.3em);
+    -webkit-transform: translateX(-0.3em);
+    transform: translateX(-0.3em);
     opacity: 0;
   }
 }
@@ -967,26 +967,75 @@ body {
   top: 5%;
   left: 6%;
   right: 6%;
-  font-size: 6em;
+  font-size: 5em;
   color: white;
   cursor: default;
+}
+@media screen and (max-width: 1024px) {
+  /* line 24, ../scss/music.scss */
+  #music .main-area .title {
+    font-size: 3.8em;
+  }
 }
 @media screen and (max-width: 768px) {
   /* line 24, ../scss/music.scss */
   #music .main-area .title {
-    font-size: 4em;
+    font-size: 2.5em;
   }
 }
-/* line 37, ../scss/music.scss */
+/* line 40, ../scss/music.scss */
+#music .main-area .lrc-list {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 38%;
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+/* line 47, ../scss/music.scss */
+#music .main-area .lrc-list li {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  text-align: right;
+  color: white;
+  font-size: 3em;
+}
+@media screen and (max-width: 1024px) {
+  /* line 47, ../scss/music.scss */
+  #music .main-area .lrc-list li {
+    font-size: 1.8em;
+  }
+}
+@media screen and (max-width: 768px) {
+  /* line 47, ../scss/music.scss */
+  #music .main-area .lrc-list li {
+    font-size: 1.2em;
+  }
+}
+/* line 63, ../scss/music.scss */
+#music .main-area .lrc-list li.ng-hide {
+  -moz-animation: fade-out-top 0.4s forwards;
+  -webkit-animation: fade-out-top 0.4s forwards;
+  animation: fade-out-top 0.4s forwards;
+}
+/* line 66, ../scss/music.scss */
+#music .main-area .lrc-list li.ng-hide-remove {
+  -moz-animation: fade-in-bottom 0.4s;
+  -webkit-animation: fade-in-bottom 0.4s;
+  animation: fade-in-bottom 0.4s;
+}
+/* line 72, ../scss/music.scss */
 #music .main-area .controls {
   position: absolute;
-  bottom: 10%;
+  bottom: 6%;
   left: 6%;
 }
-/* line 44, ../scss/music.scss */
+/* line 79, ../scss/music.scss */
 #music .main-area .controls .btn, #music .main-area .controls .btn-pre,
-#music .main-area .controls .btn-play,
-#music .main-area .controls .btn-pause,
+#music .main-area .controls .btn-play-pause,
 #music .main-area .controls .btn-next {
   display: inline-block;
   border: .2em solid white;
@@ -998,40 +1047,37 @@ body {
   text-align: center;
   cursor: pointer;
 }
-/* line 55, ../scss/music.scss */
+/* line 90, ../scss/music.scss */
 #music .main-area .controls .btn.hover, #music .main-area .controls .hover.btn-pre,
-#music .main-area .controls .hover.btn-play,
-#music .main-area .controls .hover.btn-pause,
+#music .main-area .controls .hover.btn-play-pause,
 #music .main-area .controls .hover.btn-next {
   background-color: rgba(255, 255, 255, 0.2);
 }
-/* line 58, ../scss/music.scss */
+/* line 93, ../scss/music.scss */
 #music .main-area .controls .btn.active, #music .main-area .controls .active.btn-pre,
-#music .main-area .controls .active.btn-play,
-#music .main-area .controls .active.btn-pause,
+#music .main-area .controls .active.btn-play-pause,
 #music .main-area .controls .active.btn-next {
   border-color: black;
   background-color: black;
   color: white;
 }
-/* line 65, ../scss/music.scss */
+/* line 100, ../scss/music.scss */
 #music .main-area .controls .btn-pre,
-#music .main-area .controls .btn-play,
-#music .main-area .controls .btn-pause,
+#music .main-area .controls .btn-play-pause,
 #music .main-area .controls .btn-next {
   margin-right: 1em;
 }
-/* line 73, ../scss/music.scss */
+/* line 107, ../scss/music.scss */
 #music .main-area .controls .btn-pre:before {
   position: relative;
   left: -.1em;
 }
-/* line 77, ../scss/music.scss */
+/* line 111, ../scss/music.scss */
 #music .main-area .controls .btn-next:before {
   position: relative;
   left: .1em;
 }
-/* line 84, ../scss/music.scss */
+/* line 118, ../scss/music.scss */
 #music .music-list {
   position: absolute;
   background-color: white;
@@ -1040,7 +1086,7 @@ body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 90, ../scss/music.scss */
+/* line 124, ../scss/music.scss */
 #music .music-list li {
   cursor: pointer;
   padding: .8em 1em;
@@ -1053,27 +1099,27 @@ body {
   -webkit-transition: border-left 0.2s;
   transition: border-left 0.2s;
 }
-/* line 99, ../scss/music.scss */
+/* line 133, ../scss/music.scss */
 #music .music-list li:nth-child(odd) {
   background-color: #eee;
 }
-/* line 102, ../scss/music.scss */
+/* line 136, ../scss/music.scss */
 #music .music-list li:nth-child(even) {
   background-color: #f9f9f9;
 }
-/* line 106, ../scss/music.scss */
+/* line 140, ../scss/music.scss */
 #music .music-list li.selected {
   border-left-width: .5em;
 }
 
-/* line 116, ../scss/music.scss */
+/* line 150, ../scss/music.scss */
 .wide-screen #music .main-area {
   left: 0;
   right: 18em;
   top: 0;
   bottom: 0;
 }
-/* line 122, ../scss/music.scss */
+/* line 156, ../scss/music.scss */
 .wide-screen #music .music-list {
   top: 0;
   bottom: 0;
@@ -1081,17 +1127,17 @@ body {
   width: 18em;
 }
 
-/* line 135, ../scss/music.scss */
+/* line 169, ../scss/music.scss */
 .high-screen #music .main-area {
   left: 0;
   right: 0;
   top: 0;
-  bottom: 30%;
+  bottom: 38%;
 }
-/* line 142, ../scss/music.scss */
+/* line 176, ../scss/music.scss */
 .high-screen #music .music-list {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 30%;
+  height: 38%;
 }

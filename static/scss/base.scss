@@ -357,7 +357,7 @@ $nav-bar-width: 3.3em;
 
 @include keyframes(fade-in-top) {
     from {
-        @include transform(translateY(-2em));
+        @include transform(translateY(-0.3em));
         opacity: 0;
     }
     to {
@@ -371,14 +371,14 @@ $nav-bar-width: 3.3em;
         opacity: 1;
     }
     to {
-        @include transform(translateY(-2em));
+        @include transform(translateY(-0.3em));
         opacity: 0;
     }
 }
 
 @include keyframes(fade-in-bottom) {
     from {
-        @include transform(translateY(2em));
+        @include transform(translateY(0.3em));
         opacity: 0;
     }
     to {
@@ -392,14 +392,14 @@ $nav-bar-width: 3.3em;
         opacity: 1;
     }
     to {
-        @include transform(translateY(2em));
+        @include transform(translateY(0.3em));
         opacity: 0;
     }
 }
 
 @include keyframes(fade-in-right) {
     from {
-        @include transform(translateX(2em));
+        @include transform(translateX(0.3em));
         opacity: 0;
     }
     to {
@@ -413,14 +413,14 @@ $nav-bar-width: 3.3em;
         opacity: 1;
     }
     to {
-        @include transform(translateX(2em));
+        @include transform(translateX(0.3em));
         opacity: 0;
     }
 }
 
 @include keyframes(fade-in-left) {
     from {
-        @include transform(translateX(-2em));
+        @include transform(translateX(-0.3em));
         opacity: 0;
     }
     to {
@@ -434,7 +434,7 @@ $nav-bar-width: 3.3em;
         opacity: 1;
     }
     to {
-        @include transform(translateX(-2em));
+        @include transform(translateX(-0.3em));
         opacity: 0;
     }
 }

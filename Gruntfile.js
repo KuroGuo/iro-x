@@ -34,7 +34,7 @@ module.exports = function(grunt) {
       },
       build: {
         src: jsFiles,
-        dest: 'static/<%= pkg.name %>.min.js'
+        dest: 'static/<%= pkg.name %>.js'
       }
     },
     watch: {

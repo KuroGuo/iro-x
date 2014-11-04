@@ -26,17 +26,52 @@
             top: 5%;
             left: 6%;
             right: 6%;
-            font-size: 6em;
+            font-size: 5em;
             color: white;
             cursor: default;
+            @media screen and (max-width: 1024px) {
+                font-size: 3.8em;
+            }
             @media screen and (max-width: 768px) {
-                font-size: 4em;
+                font-size: 2.5em;
+            }
+        }
+
+        .lrc-list {
+            position: absolute;
+            left: 6%;
+            right: 6%;
+            bottom: 38%;
+            @include backface-visibility(hidden);
+
+            li {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                text-align: right;
+                color: white;
+                font-size: 3em;
+
+                @media screen and (max-width: 1024px) {
+                    font-size: 1.8em;
+                }
+                @media screen and (max-width: 768px) {
+                    font-size: 1.2em;
+                }
+
+                &.ng-hide {
+                    @include animation(fade-out-top .4s forwards);
+                }
+                &.ng-hide-remove {
+                    @include animation(fade-in-bottom .4s);
+                }
             }
         }
 
         .controls {
             position: absolute;
-            bottom: 10%;
+            bottom: 6%;
             left: 6%;
 
             $btn-size: 3em;
@@ -63,8 +98,7 @@
             }
 
             .btn-pre,
-            .btn-play,
-            .btn-pause,
+            .btn-play-pause,
             .btn-next {
                 @extend .btn;
                 margin-right: 1em;
@@ -129,7 +163,7 @@
 }
 
 .high-screen {
-    $music-list-height: 30%;
+    $music-list-height: 38%;
 
     #music {
         .main-area {

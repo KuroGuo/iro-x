@@ -323,12 +323,12 @@
                         if (!content || !video.duration)
                             return;
 
-                        socket.emit('say', {content: content, videoTime: video.currentTime});
-                        addNewDanmuToCanvas({
-                            _id: new Date().getTime(),
-                            content: content,
-                            videoTime: video.currentTime
-                        });
+                        var newDanmu = {content: content, videoTime: video.currentTime};
+
+                        socket.emit('say', newDanmu);
+                        newDanmu._id = new Date().getTime();
+                        addNewDanmuToCanvas(newDanmu);
+                        scope.player.danmus.push(newDanmu);
                         $textboxComment.empty();
                     }
 

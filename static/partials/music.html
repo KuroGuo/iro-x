@@ -1,11 +1,13 @@
-<blog-k-music id="music">
+<div id="music">
     <div class="main-area">
         <div class="background"></div>
         <div class="title">{{currentMusic.name}}</div>
+        <ul class="lrc-list">
+            <li ng-repeat="lrc in lrcList" ng-show="lrc.time === currentLrc.time">{{lrc.content}}</li>
+        </ul>
         <div class="controls">
             <span class="btn-pre iconfont icon-kuaitui" k-tap="pre()"></span><!--
-            --><span class="btn-play iconfont icon-bofang1" k-tap="play()" ng-show="paused !== false"></span><!--
-            --><span class="btn-pause iconfont icon-zanting" k-tap="pause()" ng-hide="paused !== false"></span><!--
+            --><span class="btn-play-pause iconfont icon-bofang1" ng-class="{'icon-bofang1': paused, 'icon-zanting': !paused}" k-tap="paused ? play() : pause()"></span><!--
             --><span class="btn-next iconfont icon-kuaijin" k-tap="next()"></span>
         </div>
     </div>
@@ -16,4 +18,4 @@
             </li>
         </ul>
     </div>
-</blog-k-music>
+</div>

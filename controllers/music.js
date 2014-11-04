@@ -9,7 +9,9 @@ exports.all = function (req, res, next) {
             return next(err);
         }
 
-        var musicList = files.map(function (file) {
+        var musicList = files.filter(function (file) {
+            return /\.mp3$/.test(file);
+        }).map(function (file) {
             return {
                 name: path.basename(file, '.mp3'),
                 path: '/static/music/' + file

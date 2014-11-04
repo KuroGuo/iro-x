@@ -20,8 +20,7 @@ k-player:-webkit-full-screen {
   height: 100%;
 }
 /* line 25, ../scss/k-player.scss */
-k-player .btn, k-player .btn-normal, k-player .main-area .btn-open, k-player .ctrl-bar .ctrl-btn, k-player .ctrl-bar .btn-play,
-k-player .ctrl-bar .btn-pause, k-player .ctrl-bar .btn-send, k-player .ctrl-bar .btn-open, k-player .ctrl-bar .btn-fullscreen {
+k-player .btn, k-player .btn-normal, k-player .main-area .btn-open, k-player .ctrl-bar .ctrl-btn, k-player .ctrl-bar .btn-play-pause, k-player .ctrl-bar .btn-send, k-player .ctrl-bar .btn-open, k-player .ctrl-bar .btn-fullscreen {
   cursor: pointer;
   display: inline-block;
   text-align: center;
@@ -174,8 +173,7 @@ k-player .ctrl-bar {
   height: 2.6em;
 }
 /* line 170, ../scss/k-player.scss */
-k-player .ctrl-bar .ctrl-btn, k-player .ctrl-bar .btn-play,
-k-player .ctrl-bar .btn-pause, k-player .ctrl-bar .btn-send, k-player .ctrl-bar .btn-open, k-player .ctrl-bar .btn-fullscreen {
+k-player .ctrl-bar .ctrl-btn, k-player .ctrl-bar .btn-play-pause, k-player .ctrl-bar .btn-send, k-player .ctrl-bar .btn-open, k-player .ctrl-bar .btn-fullscreen {
   display: block;
   position: absolute;
   height: 2.6em;
@@ -185,26 +183,22 @@ k-player .ctrl-bar .btn-pause, k-player .ctrl-bar .btn-send, k-player .ctrl-bar 
   top: 0;
 }
 /* line 180, ../scss/k-player.scss */
-k-player .ctrl-bar .ctrl-btn.hover, k-player .ctrl-bar .hover.btn-play,
-k-player .ctrl-bar .hover.btn-pause, k-player .ctrl-bar .hover.btn-send, k-player .ctrl-bar .hover.btn-open, k-player .ctrl-bar .hover.btn-fullscreen {
+k-player .ctrl-bar .ctrl-btn.hover, k-player .ctrl-bar .hover.btn-play-pause, k-player .ctrl-bar .hover.btn-send, k-player .ctrl-bar .hover.btn-open, k-player .ctrl-bar .hover.btn-fullscreen {
   color: #7cf;
 }
 /* line 183, ../scss/k-player.scss */
-k-player .ctrl-bar .ctrl-btn.active, k-player .ctrl-bar .active.btn-play,
-k-player .ctrl-bar .active.btn-pause, k-player .ctrl-bar .active.btn-send, k-player .ctrl-bar .active.btn-open, k-player .ctrl-bar .active.btn-fullscreen {
+k-player .ctrl-bar .ctrl-btn.active, k-player .ctrl-bar .active.btn-play-pause, k-player .ctrl-bar .active.btn-send, k-player .ctrl-bar .active.btn-open, k-player .ctrl-bar .active.btn-fullscreen {
   color: #5af;
 }
 /* line 187, ../scss/k-player.scss */
-k-player .ctrl-bar .ctrl-btn .text, k-player .ctrl-bar .btn-play .text,
-k-player .ctrl-bar .btn-pause .text, k-player .ctrl-bar .btn-send .text, k-player .ctrl-bar .btn-open .text, k-player .ctrl-bar .btn-fullscreen .text {
+k-player .ctrl-bar .ctrl-btn .text, k-player .ctrl-bar .btn-play-pause .text, k-player .ctrl-bar .btn-send .text, k-player .ctrl-bar .btn-open .text, k-player .ctrl-bar .btn-fullscreen .text {
   font-size: 1.2em;
 }
 /* line 192, ../scss/k-player.scss */
-k-player .ctrl-bar .btn-play,
-k-player .ctrl-bar .btn-pause {
+k-player .ctrl-bar .btn-play-pause {
   left: 0;
 }
-/* line 198, ../scss/k-player.scss */
+/* line 197, ../scss/k-player.scss */
 k-player .ctrl-bar .time {
   display: block;
   position: absolute;
@@ -215,11 +209,11 @@ k-player .ctrl-bar .time {
   line-height: 2.6em;
   text-align: center;
 }
-/* line 208, ../scss/k-player.scss */
+/* line 207, ../scss/k-player.scss */
 k-player .ctrl-bar .time .current {
   color: #6bf;
 }
-/* line 213, ../scss/k-player.scss */
+/* line 212, ../scss/k-player.scss */
 k-player .ctrl-bar .textbox-comment {
   display: block;
   border: 2px solid #ddd;
@@ -237,20 +231,20 @@ k-player .ctrl-bar .textbox-comment {
   -webkit-user-select: text;
   user-select: text;
 }
-/* line 228, ../scss/k-player.scss */
+/* line 227, ../scss/k-player.scss */
 k-player .ctrl-bar .btn-send {
   right: 5.2em;
   width: 4em;
 }
-/* line 234, ../scss/k-player.scss */
+/* line 233, ../scss/k-player.scss */
 k-player .ctrl-bar .btn-open {
   right: 2.6em;
 }
-/* line 239, ../scss/k-player.scss */
+/* line 238, ../scss/k-player.scss */
 k-player .ctrl-bar .btn-fullscreen {
   right: 0;
 }
-/* line 245, ../scss/k-player.scss */
+/* line 244, ../scss/k-player.scss */
 k-player .iconfont {
   font-family: "iconfont-kplayer" !important;
   font-style: normal;
@@ -258,13 +252,21 @@ k-player .iconfont {
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 253, ../scss/k-player.scss */
-k-player .icon-bofang:before {
-  content: "\e600";
+/* line 252, ../scss/k-player.scss */
+k-player .icon-wenjianku:before {
+  content: "\e602";
 }
-/* line 255, ../scss/k-player.scss */
+/* line 254, ../scss/k-player.scss */
+k-player .icon-quanping:before {
+  content: "\e604";
+}
+/* line 256, ../scss/k-player.scss */
 k-player .icon-zanting:before {
   content: "\e601";
+}
+/* line 258, ../scss/k-player.scss */
+k-player .icon-bofang:before {
+  content: "\e600";
 }
 
 @font-face {

@@ -10,11 +10,10 @@
     <span class="bar-tip"></span>
 </div>
 <div class="ctrl-bar">
-    <span class="btn-play iconfont" ng-show="player.paused !== false" k-tap="player.play()"><span class="text">&#xe600;</span></span>
-    <span class="btn-pause iconfont" ng-hide="player.paused !== false" k-tap="player.pause()"><span class="text">&#xe601;</span></span>
+    <span class="btn-play-pause" k-tap="player.paused ? player.play() : player.pause()"><span class="text iconfont" ng-class="{'icon-bofang': player.paused !== false, 'icon-zanting': player.paused === false}"></span></span>
     <span class="time"><span class="current">{{player.currentTimeDisplay}}</span> / {{player.durationDisplay}}</span>
     <div class="textbox-comment" contenteditable="true" spellcheck="false"></div>
     <span class="btn-send"><span class="text">发送</span></span>
-    <span class="btn-open iconfont" title="打开文件" k-tap="player.openFile()"><span class="text">&#xe602;</span></span>
-    <span class="btn-fullscreen iconfont" k-tap="player.toggleFullscreen()" title="全屏"><span class="text">&#xe604;</span></span>
+    <span class="btn-open" title="打开文件" k-tap="player.openFile()"><span class="text iconfont icon-wenjianku"></span></span>
+    <span class="btn-fullscreen" k-tap="player.toggleFullscreen()" title="全屏"><span class="text iconfont icon-quanping"></span></span>
 </div>
