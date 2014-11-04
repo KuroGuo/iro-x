@@ -43,10 +43,9 @@
                                         }
                                     }
 
-                                    vx = (pageXY.x - lastFramePageXY.x) / (currentStepTime - lastStepTime) || 0;
-                                    vy = (pageXY.y - lastFramePageXY.y) / (currentStepTime - lastStepTime) || 0;
-
                                     if (state === 2) {
+                                        vx = (pageXY.x - lastFramePageXY.x) / (currentStepTime - lastStepTime) || 0;
+                                        vy = (pageXY.y - lastFramePageXY.y) / (currentStepTime - lastStepTime) || 0;
                                         _event = newEvent('kdrag', e);
                                         $(target).trigger(_event);
                                     }
@@ -79,11 +78,6 @@
                             state = 0;
                         });
                     });
-
-                    $document
-                        .on('kdragstart kdrag kdragend', function (e) {
-                            console.log(e.type);
-                        });
 
                     function getEventPageXY(e) {
                         var touch, pageX, pageY;

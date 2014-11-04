@@ -12,7 +12,7 @@
                 scope: {
                     player: '=kModel'
                 },
-                link: function (scope, element, attrs, ctrl) {console.log(scope.player);
+                link: function (scope, element, attrs, ctrl) {
                     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
                     Blob.prototype.slice = Blob.prototype.slice || Blob.prototype.webkitSlice;
 
@@ -112,7 +112,6 @@
                             inputFile.style.visibility = 'hidden';
                             inputFile.onchange = function (e) {
                                 var inputFile = e.currentTarget;
-                                console.log('file');
                                 var file = inputFile.files[0];
                                 setupPlayer(file, function () {
                                     $(inputFile).remove();
@@ -238,8 +237,6 @@
                             name: 'load',
                             handler: function (e) {
                                 var danmus = e.danmus;
-
-                                console.log('danmus', danmus, scope.player.paused);
 
                                 if (scope.player.paused !== true) {
                                     video.play();

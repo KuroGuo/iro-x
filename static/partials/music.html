@@ -1,17 +1,17 @@
 <blog-k-music id="music">
     <div class="main-area">
         <div class="background"></div>
-        <div class="title">{{title}}</div>
+        <div class="title">{{currentMusic.name}}</div>
         <div class="controls">
-            <span class="btn-pre iconfont icon-kuaitui"></span><!--
-            --><span class="btn-play iconfont icon-bofang1" ng-show="paused !== false"></span><!--
-            --><span class="btn-pause iconfont icon-zanting" ng-hide="paused !== false"></span><!--
-            --><span class="btn-next iconfont icon-kuaijin"></span>
+            <span class="btn-pre iconfont icon-kuaitui" k-tap="pre()"></span><!--
+            --><span class="btn-play iconfont icon-bofang1" k-tap="play()" ng-show="paused !== false"></span><!--
+            --><span class="btn-pause iconfont icon-zanting" k-tap="pause()" ng-hide="paused !== false"></span><!--
+            --><span class="btn-next iconfont icon-kuaijin" k-tap="next()"></span>
         </div>
     </div>
     <div k-scroller-wrapper class="music-list">
         <ul k-scroller>
-            <li ng-class="{selected: music.name === title}" ng-repeat="music in musics" k-tap="play(music)">
+            <li ng-class="{selected: music.name === currentMusic.name}" ng-repeat="music in musics track by $index" k-tap="play(music)">
                 {{music.name}}
             </li>
         </ul>

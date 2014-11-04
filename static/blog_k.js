@@ -469,10 +469,9 @@ b,c,e){e=e||{};if(b=Q("removeClass",a,l(b,"-remove"),e.from))return C(a,c),b;x()
                                         }
                                     }
 
-                                    vx = (pageXY.x - lastFramePageXY.x) / (currentStepTime - lastStepTime) || 0;
-                                    vy = (pageXY.y - lastFramePageXY.y) / (currentStepTime - lastStepTime) || 0;
-
                                     if (state === 2) {
+                                        vx = (pageXY.x - lastFramePageXY.x) / (currentStepTime - lastStepTime) || 0;
+                                        vy = (pageXY.y - lastFramePageXY.y) / (currentStepTime - lastStepTime) || 0;
                                         _event = newEvent('kdrag', e);
                                         $(target).trigger(_event);
                                     }
@@ -505,11 +504,6 @@ b,c,e){e=e||{};if(b=Q("removeClass",a,l(b,"-remove"),e.from))return C(a,c),b;x()
                             state = 0;
                         });
                     });
-
-                    $document
-                        .on('kdragstart kdrag kdragend', function (e) {
-                            console.log(e.type);
-                        });
 
                     function getEventPageXY(e) {
                         var touch, pageX, pageY;
@@ -795,7 +789,7 @@ angular.module('kScroll', ['kDrag']).
                 scope: {
                     player: '=kModel'
                 },
-                link: function (scope, element, attrs, ctrl) {console.log(scope.player);
+                link: function (scope, element, attrs, ctrl) {
                     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
                     Blob.prototype.slice = Blob.prototype.slice || Blob.prototype.webkitSlice;
 
@@ -895,7 +889,6 @@ angular.module('kScroll', ['kDrag']).
                             inputFile.style.visibility = 'hidden';
                             inputFile.onchange = function (e) {
                                 var inputFile = e.currentTarget;
-                                console.log('file');
                                 var file = inputFile.files[0];
                                 setupPlayer(file, function () {
                                     $(inputFile).remove();
@@ -1021,8 +1014,6 @@ angular.module('kScroll', ['kDrag']).
                             name: 'load',
                             handler: function (e) {
                                 var danmus = e.danmus;
-
-                                console.log('danmus', danmus, scope.player.paused);
 
                                 if (scope.player.paused !== true) {
                                     video.play();
@@ -1601,46 +1592,143 @@ angular.module('kScroll', ['kDrag']).
 })(angular);;;(function (angular) { 'use strict';
     angular.module('blog_k.music', ['blog_k.services.music', 'cfp.loadingBar'])
         .factory('musicPlayer', ['music', function (music) {
+            var audio = document.createElement('audio');
+            var currentMusic = null;
+
             var musicPlayer = {
-                audio: document.createElement('audio'),
                 list: null
             };
 
-            musicPlayer.loadAllToList = function () {
-                musicPlayer.list = music.query();
+            Object.defineProperty(musicPlayer, 'paused', {
+                get: function () {
+                    return audio.paused;
+                },
+                set: function (newValue) {
+                    audio.paused = newValue;
+                }
+            });
+
+            Object.defineProperty(musicPlayer, 'currentMusic', {
+                get: function () {
+                    return currentMusic;
+                },
+                set: function (music) {
+                    audio.src = music.path;
+                    currentMusic = music;
+                }
+            });
+
+            musicPlayer.on = function (eventName, handler) {
+                audio.addEventListener(eventName, handler);
             };
 
-            musicPlayer.play = function (music) {
-                musicPlayer.audio.src = music.path;
-                musicPlayer.audio.play();
+            musicPlayer.loadAllToList = function (callback) {
+                var _this = this;
+                this.list = music.query(function (list) {
+                    var i, j, temp;
+
+                    for (i = 0; i < list.length - 1; i++) {
+                        j = Math.floor(i + 1 + Math.random() * (list.length - i - 1));
+                        temp = list[i];
+                        list[i] = list[j];
+                        list[j] = temp;
+                    }
+
+                    if (typeof callback === 'function')
+                        callback.call(_this, _this.list);
+                });
             };
+
+            musicPlayer.play = function (musicOrIndex) {
+                var music;
+
+                if (typeof musicOrIndex === 'number') {
+                    if (musicOrIndex < 0) {
+                        musicOrIndex = this.list.length - 1;
+                    } else if (musicOrIndex >= this.list.length) {
+                        musicOrIndex = 0;
+                    }
+                    music = this.list[musicOrIndex];
+                } else {
+                    music = musicOrIndex;
+                }
+
+                if (music && music !== currentMusic) {
+                    this.currentMusic = music;
+                }
+
+                audio.play();
+            };
+
+            musicPlayer.pause = function () {
+                audio.pause();
+            };
+
+            musicPlayer.pre = function () {
+                this.play(getCurrentMusicIndex() - 1);
+            };
+
+            musicPlayer.next = function () {
+                this.play(getCurrentMusicIndex() + 1);
+            };
+
+            function getCurrentMusicIndex () {
+                var i;
+                for (i = 0; i < musicPlayer.list.length; i++) {
+                    if (musicPlayer.list[i].name === musicPlayer.currentMusic.name) {
+                        return i;
+                    }
+                }
+            }
 
             return musicPlayer;
         }])
         .controller('MusicCtrl', ['$scope', 'musicPlayer', 'cfpLoadingBar',
         function ($scope, musicPlayer, cfpLoadingBar) {
             if (!musicPlayer.list) {
-                musicPlayer.loadAllToList();
+                musicPlayer.loadAllToList(function () {
+                    this.play(0);
+                });
             }
             $scope.musics = musicPlayer.list;
 
-            $scope.play = function (music) {
-                musicPlayer.play(music);
-                $scope.title = music.name;
+            $scope.play = function (musicOrIndex) {
+                musicPlayer.play(musicOrIndex);
             };
 
-            musicPlayer.audio.addEventListener('play', checkPaused);
-            musicPlayer.audio.addEventListener('pause', checkPaused);
-            musicPlayer.audio.addEventListener('loadstart', function () {
+            $scope.pause = function () {
+                musicPlayer.pause();
+            };
+
+            $scope.pre = function () {
+                musicPlayer.pre();
+            };
+
+            $scope.next = function () {
+                musicPlayer.next();
+            };
+
+            Object.defineProperty($scope, 'currentMusic', {
+                get: function () {
+                    return musicPlayer.currentMusic;
+                },
+                set: function (music) {
+                    musicPlayer.play(music);
+                }
+            });
+
+            musicPlayer.on('play', checkPaused);
+            musicPlayer.on('pause', checkPaused);
+            musicPlayer.on('loadstart', function () {
                 cfpLoadingBar.start();
             });
-            musicPlayer.audio.addEventListener('canplay', function () {
+            musicPlayer.on('canplay', function () {
                 cfpLoadingBar.complete();
             });
 
             function checkPaused() {
                 $scope.$apply(function () {
-                    $scope.paused = musicPlayer.audio.paused;
+                    $scope.paused = musicPlayer.paused;
                 });
             }
         }])
