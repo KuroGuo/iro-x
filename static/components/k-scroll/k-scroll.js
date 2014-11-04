@@ -78,9 +78,9 @@ angular.module('kScroll', ['kDrag']).
                             return;
 
                         if (scope.model.currentScrollTop > maxScroll) {
-                            e.stepY /= Math.abs(scope.model.currentScrollTop - maxScroll);
+                            e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - maxScroll);
                         } else if (scope.model.currentScrollTop < minScroll) {
-                            e.stepY /= Math.abs(scope.model.currentScrollTop - minScroll);
+                            e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - minScroll);
                         }
                         scrollTo(scope.model.currentScrollTop - e.stepY / parseFloat(wrapperFontSize), false, false);
                     })
