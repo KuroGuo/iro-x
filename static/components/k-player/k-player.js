@@ -239,6 +239,11 @@
                                 var danmus = e.danmus;
 
                                 if (scope.player.paused !== true) {
+                                    $canvas.prop({
+                                        width: $canvas.width(),
+                                        height: $canvas.height()
+                                    });
+                                    
                                     video.play();
                                 }
 

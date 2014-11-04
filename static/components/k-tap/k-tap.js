@@ -64,8 +64,8 @@
                             if (Math.abs(pageX - startPageX) > 10 || Math.abs(pageY - startPageY) > 10)
                                 return;
 
-                            if (now - startTime > 750)
-                                return;
+                            // if (now - startTime > 750)
+                            //     return;
 
                              if (e.target !== startTarget)
                                 return;

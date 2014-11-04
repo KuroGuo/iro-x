@@ -398,8 +398,8 @@ b,c,e){e=e||{};if(b=Q("removeClass",a,l(b,"-remove"),e.from))return C(a,c),b;x()
                             if (Math.abs(pageX - startPageX) > 10 || Math.abs(pageY - startPageY) > 10)
                                 return;
 
-                            if (now - startTime > 750)
-                                return;
+                            // if (now - startTime > 750)
+                            //     return;
 
                              if (e.target !== startTarget)
                                 return;
@@ -447,6 +447,10 @@ b,c,e){e=e||{};if(b=Q("removeClass",a,l(b,"-remove"),e.from))return C(a,c),b;x()
                             state = 1;
                         })
                         .on('mousemove touchmove', function (e) {
+                            if (e.which && e.which !== 1) {
+                                return;
+                            }
+                            
                             if (state < 1) {
                                 return;
                             }
@@ -632,8 +636,10 @@ angular.module('kScroll', ['kDrag']).
                         if (!$wrapper.hasClass('dragging'))
                             return;
 
-                        if (scope.model.currentScrollTop > maxScroll || scope.model.currentScrollTop < minScroll) {
-                            e.stepY *= 0.3;
+                        if (scope.model.currentScrollTop > maxScroll) {
+                            e.stepY /= Math.abs(scope.model.currentScrollTop - maxScroll);
+                        } else if (scope.model.currentScrollTop < minScroll) {
+                            e.stepY /= Math.abs(scope.model.currentScrollTop - minScroll);
                         }
                         scrollTo(scope.model.currentScrollTop - e.stepY / parseFloat(wrapperFontSize), false, false);
                     })
@@ -1016,6 +1022,11 @@ angular.module('kScroll', ['kDrag']).
                                 var danmus = e.danmus;
 
                                 if (scope.player.paused !== true) {
+                                    $canvas.prop({
+                                        width: $canvas.width(),
+                                        height: $canvas.height()
+                                    });
+                                    
                                     video.play();
                                 }
 
@@ -1692,6 +1703,24 @@ angular.module('kScroll', ['kDrag']).
             }
             $scope.musics = musicPlayer.list;
 
+            Object.defineProperty($scope, 'currentMusic', {
+                get: function () {
+                    return musicPlayer.currentMusic;
+                },
+                set: function (music) {
+                    musicPlayer.play(music);
+                }
+            });
+
+            Object.defineProperty($scope, 'paused', {
+                get: function () {
+                    return musicPlayer.paused;
+                },
+                set: function (newValue) {
+                    musicPlayer.paused = newValue;
+                }
+            });
+
             $scope.play = function (musicOrIndex) {
                 musicPlayer.play(musicOrIndex);
             };
@@ -1708,29 +1737,12 @@ angular.module('kScroll', ['kDrag']).
                 musicPlayer.next();
             };
 
-            Object.defineProperty($scope, 'currentMusic', {
-                get: function () {
-                    return musicPlayer.currentMusic;
-                },
-                set: function (music) {
-                    musicPlayer.play(music);
-                }
-            });
-
-            musicPlayer.on('play', checkPaused);
-            musicPlayer.on('pause', checkPaused);
             musicPlayer.on('loadstart', function () {
                 cfpLoadingBar.start();
             });
             musicPlayer.on('canplay', function () {
                 cfpLoadingBar.complete();
             });
-
-            function checkPaused() {
-                $scope.$apply(function () {
-                    $scope.paused = musicPlayer.paused;
-                });
-            }
         }])
         .directive('blogKMusic', ['musicPlayer', function (musicPlayer) {
             return {

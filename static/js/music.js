@@ -101,6 +101,24 @@
             }
             $scope.musics = musicPlayer.list;
 
+            Object.defineProperty($scope, 'currentMusic', {
+                get: function () {
+                    return musicPlayer.currentMusic;
+                },
+                set: function (music) {
+                    musicPlayer.play(music);
+                }
+            });
+
+            Object.defineProperty($scope, 'paused', {
+                get: function () {
+                    return musicPlayer.paused;
+                },
+                set: function (newValue) {
+                    musicPlayer.paused = newValue;
+                }
+            });
+
             $scope.play = function (musicOrIndex) {
                 musicPlayer.play(musicOrIndex);
             };
@@ -117,29 +135,12 @@
                 musicPlayer.next();
             };
 
-            Object.defineProperty($scope, 'currentMusic', {
-                get: function () {
-                    return musicPlayer.currentMusic;
-                },
-                set: function (music) {
-                    musicPlayer.play(music);
-                }
-            });
-
-            musicPlayer.on('play', checkPaused);
-            musicPlayer.on('pause', checkPaused);
             musicPlayer.on('loadstart', function () {
                 cfpLoadingBar.start();
             });
             musicPlayer.on('canplay', function () {
                 cfpLoadingBar.complete();
             });
-
-            function checkPaused() {
-                $scope.$apply(function () {
-                    $scope.paused = musicPlayer.paused;
-                });
-            }
         }])
         .directive('blogKMusic', ['musicPlayer', function (musicPlayer) {
             return {

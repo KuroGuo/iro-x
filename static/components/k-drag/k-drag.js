@@ -21,6 +21,10 @@
                             state = 1;
                         })
                         .on('mousemove touchmove', function (e) {
+                            if (e.which && e.which !== 1) {
+                                return;
+                            }
+                            
                             if (state < 1) {
                                 return;
                             }
