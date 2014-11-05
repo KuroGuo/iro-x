@@ -30,11 +30,13 @@
                             }
 
                             if (!animationFrameRequested) {
-                                $window.requestAnimationFrame(function (time) {
+                                $window.requestAnimationFrame(function () {
                                     var adsorb, _event;
 
+                                    lastFramePageXY = pageXY;
                                     pageXY = getEventPageXY(e);
-                                    currentStepTime = time;
+                                    lastStepTime = currentStepTime;
+                                    currentStepTime = new Date().getTime();
 
                                     if (state === 1) {
                                         adsorb = parseFloat($(target).attr('k-drag-adsorb')) || 0;
@@ -53,9 +55,6 @@
                                         _event = newEvent('kdrag', e);
                                         $(target).trigger(_event);
                                     }
-
-                                    lastFramePageXY = pageXY;
-                                    lastStepTime = currentStepTime;
                                     animationFrameRequested = false;
                                 });
                                 animationFrameRequested = true;
@@ -65,6 +64,11 @@
                             $window.requestAnimationFrame(function () {
                                 var _event;
                                 if (state === 2) {
+                                    currentStepTime = new Date().getTime();
+
+                                    vx = (pageXY.x - lastFramePageXY.x) / (currentStepTime - lastStepTime) || 0;
+                                    vy = (pageXY.y - lastFramePageXY.y) / (currentStepTime - lastStepTime) || 0;
+
                                     _event = newEvent('kdragend', e);
                                     $(target).trigger(_event);
                                 }

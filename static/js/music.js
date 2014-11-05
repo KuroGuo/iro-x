@@ -5,7 +5,7 @@
             var currentMusic = null;
 
             var musicPlayer = {
-                list: null, // 播放列表， 类型：[{name: String, path: String}]
+                list: null, // 播放列表， 类型：[{name: String, src: String, lrcUrl: String, bgSrc: String}]
                 lrcList: null, // 歌词列表，类型：[{time: Number, content: String}],
                 currentLrc: null // 当前歌词，类型：{time: Number, content: String}
             };
@@ -28,6 +28,9 @@
                     musicPlayer.currentLrc = musicPlayer.lrcList[i - 1];
                 }
             });
+            audio.addEventListener('ended', function () {
+                musicPlayer.next();
+            });
 
             Object.defineProperty(musicPlayer, 'paused', {
                 get: function () {
@@ -43,29 +46,32 @@
                     return currentMusic;
                 },
                 set: function (music) {
-                    audio.src = music.path;
+                    audio.src = music.src;
                     currentMusic = music;
-                    $http({
-                        method: 'GET',
-                        url: currentMusic.path.replace(/\.mp3$/, '.lrc'),
-                        responseType: 'blob'
-                    }).success(function (blob) {
-                        var fr = new FileReader();
-                        fr.onload = function () {
-                            musicPlayer.lrcList = this.result.replace(/\r/g, '').split('\n').map(function (lrc) {
-                                var matched = lrc.match(/^\[(\d\d)\:(\d\d\.\d\d)\](.*)$/);
-                                if (matched) {
-                                    return {
-                                        time: parseFloat(matched[1]) * 60 + parseFloat(matched[2]),
-                                        content: matched[3]
-                                    };
-                                }
-                            }).filter(function (lrc) {
-                                return lrc;
-                            });
-                        };
-                        fr.readAsText(blob);
-                    });
+                    musicPlayer.lrcList = null;
+                    if (music.lrcUrl) {
+                        $http({
+                            method: 'GET',
+                            url: music.lrcUrl,
+                            responseType: 'blob'
+                        }).success(function (blob) {
+                            var fr = new FileReader();
+                            fr.onload = function () {
+                                musicPlayer.lrcList = this.result.replace(/\r/g, '').split('\n').map(function (lrc) {
+                                    var matched = lrc.match(/^\[(\d\d)\:(\d\d\.\d\d)\](.*)$/);
+                                    if (matched) {
+                                        return {
+                                            time: parseFloat(matched[1]) * 60 + parseFloat(matched[2]),
+                                            content: matched[3]
+                                        };
+                                    }
+                                }).filter(function (lrc) {
+                                    return lrc;
+                                });
+                            };
+                            fr.readAsText(blob);
+                        });
+                    }
                 }
             });
 
@@ -82,8 +88,8 @@
                 this.list = music.query(function (list) {
                     var i, j, temp;
 
-                    for (i = 0; i < list.length - 1; i++) {
-                        j = Math.floor(i + 1 + Math.random() * (list.length - i - 1));
+                    for (i = 0; i < list.length; i++) {
+                        j = Math.floor(Math.random() * list.length);
                         temp = list[i];
                         list[i] = list[j];
                         list[j] = temp;
@@ -104,6 +110,12 @@
                         musicOrIndex = 0;
                     }
                     music = this.list[musicOrIndex];
+                } else if (typeof musicOrIndex === 'string') {
+                    music = this.list.filter(function (music) {
+                        return music.name === musicOrIndex;
+                    });
+                    if (!music)
+                        music = this.list[0];
                 } else {
                     music = musicOrIndex;
                 }

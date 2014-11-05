@@ -1,6 +1,5 @@
 <div id="music">
     <div class="main-area">
-        <div class="background"></div>
         <div class="title">{{currentMusic.name}}</div>
         <ul class="lrc-list">
             <li ng-repeat="lrc in lrcList" ng-show="lrc.time === currentLrc.time">{{lrc.content}}</li>

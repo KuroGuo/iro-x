@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="/static/components/k-player/css/k-player.css" />
         <link rel="stylesheet" href="/static/components/k-scroll/k-scroll.css" />
     </head>
-    <body ng-class="{loaded: loaded}">
+    <body ng-class="{loaded: loaded}" style="background-image: url('{{global.customWallpaperSrc ? global.customWallpaperSrc : wallpaperSrc}}');">
         <div id="loading_cover" ng-hide="loaded">
             <h1>iro</h1>
             <span class="progress-bar"></span>

@@ -8,29 +8,18 @@
 
     .main-area {
         position: absolute;
-
-        .background {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, .5);
-            // opacity: .7;
-            // background-image: url(/static/images/temp_music_image.jpg);
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-        }
-
+        background-color: rgba(0, 0, 0, .3);
+        
         .title {
             position: absolute;
             top: 5%;
-            left: 6%;
-            right: 6%;
-            font-size: 5em;
+            left: 5%;
+            right: 5%;
+            font-size: 4.5em;
             color: white;
             cursor: default;
             @media screen and (max-width: 1024px) {
-                font-size: 3.8em;
+                font-size: 3.5em;
             }
             @media screen and (max-width: 768px) {
                 font-size: 2.5em;
@@ -39,9 +28,9 @@
 
         .lrc-list {
             position: absolute;
-            left: 6%;
-            right: 6%;
-            bottom: 38%;
+            left: 5%;
+            right: 5%;
+            bottom: 20%;
             @include backface-visibility(hidden);
 
             li {
@@ -51,7 +40,7 @@
                 top: 0;
                 text-align: right;
                 color: white;
-                font-size: 3em;
+                font-size: 2.5em;
 
                 @media screen and (max-width: 1024px) {
                     font-size: 1.8em;
@@ -71,8 +60,8 @@
 
         .controls {
             position: absolute;
-            bottom: 6%;
-            left: 6%;
+            bottom: 5%;
+            left: 5%;
 
             $btn-size: 3em;
 
@@ -117,7 +106,7 @@
 
     .music-list {
         position: absolute;
-        background-color: white;
+        background-color: rgba(0, 0, 0, .4);
         overflow: hidden;
         @include box-sizing(border-box);
 
@@ -128,14 +117,15 @@
             overflow:hidden;
             white-space:nowrap; 
             border-left: 0 solid $base-color;
+            color: white;
             @include transition(border-left .2s);
 
-            &:nth-child(odd) {
-                background-color: #eee;
-            }
-            &:nth-child(even) {
-                background-color: #f9f9f9;
-            }
+            // &:nth-child(odd) {
+            //     background-color: #eee;
+            // }
+            // &:nth-child(even) {
+            //     background-color: #f9f9f9;
+            // }
 
             &.selected {
                 border-left-width: .5em;
