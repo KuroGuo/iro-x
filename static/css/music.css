@@ -951,7 +951,7 @@ body {
 /* line 9, ../scss/music.scss */
 #music .main-area {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 /* line 13, ../scss/music.scss */
 #music .main-area .title {
@@ -1072,7 +1072,7 @@ body {
 /* line 107, ../scss/music.scss */
 #music .music-list {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
   overflow: hidden;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
