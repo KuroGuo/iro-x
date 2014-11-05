@@ -12,25 +12,28 @@
         
         .title {
             position: absolute;
-            top: 5%;
-            left: 5%;
-            right: 5%;
-            font-size: 4.5em;
+            top: 3em;
+            left: 3em;
+            right: 3em;
             color: white;
             cursor: default;
-            @media screen and (max-width: 1024px) {
-                font-size: 3.5em;
-            }
-            @media screen and (max-width: 768px) {
-                font-size: 2.5em;
+
+            .text {
+                font-size: 4.5em;
+                @media screen and (max-width: 1024px) {
+                    font-size: 3.5em;
+                }
+                @media screen and (max-width: 768px) {
+                    font-size: 2.5em;
+                }
             }
         }
 
         .lrc-list {
             position: absolute;
-            left: 5%;
-            right: 5%;
-            bottom: 20%;
+            left: 3em;
+            right: 3em;
+            bottom: 10em;
             @include backface-visibility(hidden);
 
             li {

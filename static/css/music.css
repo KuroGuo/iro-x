@@ -956,36 +956,39 @@ body {
 /* line 13, ../scss/music.scss */
 #music .main-area .title {
   position: absolute;
-  top: 5%;
-  left: 5%;
-  right: 5%;
-  font-size: 4.5em;
+  top: 3em;
+  left: 3em;
+  right: 3em;
   color: white;
   cursor: default;
 }
+/* line 21, ../scss/music.scss */
+#music .main-area .title .text {
+  font-size: 4.5em;
+}
 @media screen and (max-width: 1024px) {
-  /* line 13, ../scss/music.scss */
-  #music .main-area .title {
+  /* line 21, ../scss/music.scss */
+  #music .main-area .title .text {
     font-size: 3.5em;
   }
 }
 @media screen and (max-width: 768px) {
-  /* line 13, ../scss/music.scss */
-  #music .main-area .title {
+  /* line 21, ../scss/music.scss */
+  #music .main-area .title .text {
     font-size: 2.5em;
   }
 }
-/* line 29, ../scss/music.scss */
+/* line 32, ../scss/music.scss */
 #music .main-area .lrc-list {
   position: absolute;
-  left: 5%;
-  right: 5%;
-  bottom: 20%;
+  left: 3em;
+  right: 3em;
+  bottom: 10em;
   -moz-backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-/* line 36, ../scss/music.scss */
+/* line 39, ../scss/music.scss */
 #music .main-area .lrc-list li {
   position: absolute;
   left: 0;
@@ -996,36 +999,36 @@ body {
   font-size: 2.5em;
 }
 @media screen and (max-width: 1024px) {
-  /* line 36, ../scss/music.scss */
+  /* line 39, ../scss/music.scss */
   #music .main-area .lrc-list li {
     font-size: 1.8em;
   }
 }
 @media screen and (max-width: 768px) {
-  /* line 36, ../scss/music.scss */
+  /* line 39, ../scss/music.scss */
   #music .main-area .lrc-list li {
     font-size: 1.2em;
   }
 }
-/* line 52, ../scss/music.scss */
+/* line 55, ../scss/music.scss */
 #music .main-area .lrc-list li.ng-hide {
   -moz-animation: fade-out-top 0.4s forwards;
   -webkit-animation: fade-out-top 0.4s forwards;
   animation: fade-out-top 0.4s forwards;
 }
-/* line 55, ../scss/music.scss */
+/* line 58, ../scss/music.scss */
 #music .main-area .lrc-list li.ng-hide-remove {
   -moz-animation: fade-in-bottom 0.4s;
   -webkit-animation: fade-in-bottom 0.4s;
   animation: fade-in-bottom 0.4s;
 }
-/* line 61, ../scss/music.scss */
+/* line 64, ../scss/music.scss */
 #music .main-area .controls {
   position: absolute;
   bottom: 5%;
   left: 5%;
 }
-/* line 68, ../scss/music.scss */
+/* line 71, ../scss/music.scss */
 #music .main-area .controls .btn, #music .main-area .controls .btn-pre,
 #music .main-area .controls .btn-play-pause,
 #music .main-area .controls .btn-next {
@@ -1039,13 +1042,13 @@ body {
   text-align: center;
   cursor: pointer;
 }
-/* line 79, ../scss/music.scss */
+/* line 82, ../scss/music.scss */
 #music .main-area .controls .btn.hover, #music .main-area .controls .hover.btn-pre,
 #music .main-area .controls .hover.btn-play-pause,
 #music .main-area .controls .hover.btn-next {
   background-color: rgba(255, 255, 255, 0.2);
 }
-/* line 82, ../scss/music.scss */
+/* line 85, ../scss/music.scss */
 #music .main-area .controls .btn.active, #music .main-area .controls .active.btn-pre,
 #music .main-area .controls .active.btn-play-pause,
 #music .main-area .controls .active.btn-next {
@@ -1053,23 +1056,23 @@ body {
   background-color: black;
   color: white;
 }
-/* line 89, ../scss/music.scss */
+/* line 92, ../scss/music.scss */
 #music .main-area .controls .btn-pre,
 #music .main-area .controls .btn-play-pause,
 #music .main-area .controls .btn-next {
   margin-right: 1em;
 }
-/* line 96, ../scss/music.scss */
+/* line 99, ../scss/music.scss */
 #music .main-area .controls .btn-pre:before {
   position: relative;
   left: -.1em;
 }
-/* line 100, ../scss/music.scss */
+/* line 103, ../scss/music.scss */
 #music .main-area .controls .btn-next:before {
   position: relative;
   left: .1em;
 }
-/* line 107, ../scss/music.scss */
+/* line 110, ../scss/music.scss */
 #music .music-list {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
@@ -1078,7 +1081,7 @@ body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 113, ../scss/music.scss */
+/* line 116, ../scss/music.scss */
 #music .music-list li {
   cursor: pointer;
   padding: .8em 1em;
@@ -1092,19 +1095,19 @@ body {
   -webkit-transition: border-left 0.2s;
   transition: border-left 0.2s;
 }
-/* line 130, ../scss/music.scss */
+/* line 133, ../scss/music.scss */
 #music .music-list li.selected {
   border-left-width: .5em;
 }
 
-/* line 140, ../scss/music.scss */
+/* line 143, ../scss/music.scss */
 .wide-screen #music .main-area {
   left: 0;
   right: 18em;
   top: 0;
   bottom: 0;
 }
-/* line 146, ../scss/music.scss */
+/* line 149, ../scss/music.scss */
 .wide-screen #music .music-list {
   top: 0;
   bottom: 0;
@@ -1112,14 +1115,14 @@ body {
   width: 18em;
 }
 
-/* line 159, ../scss/music.scss */
+/* line 162, ../scss/music.scss */
 .high-screen #music .main-area {
   left: 0;
   right: 0;
   top: 0;
   bottom: 38%;
 }
-/* line 166, ../scss/music.scss */
+/* line 169, ../scss/music.scss */
 .high-screen #music .music-list {
   left: 0;
   right: 0;
