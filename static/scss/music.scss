@@ -8,7 +8,7 @@
 
     .main-area {
         position: absolute;
-        background-color: rgba(0, 0, 0, .3);
+        background-color: rgba(0, 0, 0, .4);
         
         .title {
             position: absolute;
@@ -106,7 +106,7 @@
 
     .music-list {
         position: absolute;
-        background-color: rgba(0, 0, 0, .4);
+        background-color: rgba(0, 0, 0, .5);
         overflow: hidden;
         @include box-sizing(border-box);
 
