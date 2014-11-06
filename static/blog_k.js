@@ -1404,9 +1404,6 @@ angular.module('kScroll', ['kDrag']).
                 }
 
                 $($window)
-                    .on('focus', function () {
-                        scope.$apply();
-                    })
                     .on('resize', function () {
                         if ($window.innerWidth >= $window.innerHeight) {
                             $('html').removeClass('high-screen').addClass('wide-screen');
