@@ -111,16 +111,18 @@
                     $('html').addClass('ipad ios7');
                 }
 
-                $($window).on('resize', function () {
-                    if ($window.innerWidth >= $window.innerHeight) {
-                        $('html').removeClass('high-screen').addClass('wide-screen');
-                    } else {
-                        $('html').removeClass('wide-screen').addClass('high-screen');
-                    }
-                    if ($('html').hasClass('ipad ios7')) {
-                        $('body').height(window.innerHeight);
-                    }
-                }).triggerHandler('resize');
+                $($window)
+                    .on('resize', function () {
+                        if ($window.innerWidth >= $window.innerHeight) {
+                            $('html').removeClass('high-screen').addClass('wide-screen');
+                        } else {
+                            $('html').removeClass('wide-screen').addClass('high-screen');
+                        }
+                        if ($('html').hasClass('ipad ios7')) {
+                            $('body').height(window.innerHeight);
+                        }
+                    })
+                    .triggerHandler('resize');
 
                 var wallpaperSrc = '/static/images/wallpaper.jpg';
 
