@@ -1,0 +1,62 @@
+{
+    "host": "iro.oss-cn-hangzhou.aliyuncs.com",
+    "list": [
+        {
+            "name": "Black Holy",
+            "src": "/music/Black Holy.mp3"
+        },
+        {
+            "name": "Brave Song",
+            "src": "/music/Brave Song.mp3",
+            "bgSrc": "/music/Brave Song.jpg"
+        },
+        {
+            "name": "My Song",
+            "src": "/music/My Song.mp3",
+            "lrcUrl": "/music/My Song.lrc",
+            "bgSrc": "/music/My Song.jpg"
+        },
+        {
+            "name": "One more time, One more chance",
+            "src": "/music/One more time, One more chance.mp3",
+            "bgSrc": "/music/One more time, One more chance.jpg"
+        },
+        {
+            "name": "unity",
+            "src": "/music/unity.mp3",
+            "bgSrc": "/music/unity.jpg"
+        },
+        {
+            "name": "コイノシルシ",
+            "src": "/music/コイノシルシ.mp3",
+            "bgSrc": "/music/コイノシルシ.jpg"
+        },
+        {
+            "name": "一番の宝物",
+            "src": "/music/一番の宝物.mp3",
+            "lrcUrl": "/music/一番の宝物.lrc",
+            "bgSrc": "/music/一番の宝物.jpg"
+        },
+        {
+            "name": "今日の日はさようなら",
+            "src": "/music/今日の日はさようなら.mp3",
+            "bgSrc": "/music/今日の日はさようなら.jpg"
+        },
+        {
+            "name": "君のままで",
+            "src": "/music/君のままで.mp3",
+            "bgSrc": "/music/君のままで.jpg"
+        },
+        {
+            "name": "時を刻む唄",
+            "src": "/music/時を刻む唄.mp3",
+            "lrcUrl": "/music/時を刻む唄.lrc",
+            "bgSrc": "/music/時を刻む唄.jpg"
+        },
+        {
+            "name": "比翼の羽根",
+            "src": "/music/比翼の羽根.mp3",
+            "bgSrc": "/music/比翼の羽根.jpg"
+        }
+    ]
+}
