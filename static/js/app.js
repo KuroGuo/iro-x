@@ -83,13 +83,6 @@
         member.checkOnline(function (err, user) {
             $scope.setUser(user);
         });
-
-        musicPlayer.on('play', apply);
-        musicPlayer.on('ended', apply);
-
-        function apply() {
-            $scope.$apply();
-        }
     }]).directive('html', ['$window', '$document', '$state', '$timeout', function ($window, $document, $state, $timeout) {
         var document = $document[0];
 

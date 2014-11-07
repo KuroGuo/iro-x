@@ -1,7 +1,7 @@
 ;(function (angular) { 'use strict';
     angular.module('blog_k.music', ['blog_k.services.music', 'cfp.loadingBar'])
         .factory('musicPlayer', ['music', 'cfpLoadingBar', '$http', function (music, cfpLoadingBar, $http) {
-            var audio = document.createElement('audio', 'cfpLoadingBar');
+            var audio = document.createElement('audio');
             var currentMusic = null;
 
             var musicPlayer = {
@@ -38,6 +38,15 @@
                 },
                 set: function (newValue) {
                     audio.paused = newValue;
+                }
+            });
+
+            Object.defineProperty(musicPlayer, 'currentTime', {
+                get: function () {
+                    return audio.currentTime;
+                },
+                set: function (newValue) {
+                    audio.currentTime = newValue;
                 }
             });
 
@@ -172,6 +181,15 @@
                 }
             });
 
+            Object.defineProperty($scope, 'currentTime', {
+                get: function () {
+                    return musicPlayer.currentTime;
+                },
+                set: function (newValue) {
+                    musicPlayer.currentTime = newValue;
+                }
+            });
+
             Object.defineProperty($scope, 'paused', {
                 get: function () {
                     return musicPlayer.paused;
@@ -208,15 +226,5 @@
             $scope.next = function () {
                 musicPlayer.next();
             };
-
-            musicPlayer.on('timeupdate', apply);
-
-            $scope.$on("$destroy", function(){
-                musicPlayer.off('timeupdate', apply);
-            });
-
-            function apply() {
-                $scope.$apply();
-            }
         }]);
 })(angular);
