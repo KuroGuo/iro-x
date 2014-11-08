@@ -12,8 +12,7 @@
 
         a {
             display: inline-block;
-            padding: .5em 1em;
-            font-size: 2em;
+            padding: 1rem 1.6rem;
             color: white;
             text-align: center;
 
@@ -30,12 +29,12 @@
             }
 
             .icon {
-                font-size: 2em;
-                margin-bottom: .2em;
+                font-size: 4rem;
+                margin-bottom: .8rem;
             }
 
             .text {
-                font-size: .6em;
+                font-size: 1.1rem;
             }
         }
     }
@@ -48,7 +47,7 @@
         right: 4%;
         bottom: 4%;
         text-align: right;
-        padding: 1em;
+        padding: 1rem;
 
         .date,
         .time,
@@ -57,13 +56,13 @@
         }
 
         .time {
-            font-size: 6em;
+            font-size: 5rem;
             line-height: 0.9em;
         }
 
         .date,
         .day {
-            font-size: 1.6em;
+            font-size: 1.2rem;
             line-height: 1.2em;
         }
     }

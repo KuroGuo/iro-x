@@ -6,35 +6,48 @@
     width: 100%;
     height: 100%;
 
+    $padding: 2rem;
+    $controls-btn-size: 3rem;
+    $controls-btn-border-size: $controls-btn-size / 18;
+    $lrc-font-size: 1.2rem;
+
     .main-area {
         position: absolute;
         background-color: rgba(0, 0, 0, .4);
         
         .title {
             position: absolute;
-            top: 3em;
-            left: 3em;
-            right: 3em;
+            top: $padding;
+            left: $padding;
+            right: $padding;
             color: white;
             cursor: default;
 
             .text {
-                font-size: 4.5em;
+                font-size: 4rem;
                 @media screen and (max-width: 1024px) {
-                    font-size: 3.5em;
+                    font-size: 3rem;
                 }
                 @media screen and (max-width: 768px) {
-                    font-size: 2.5em;
+                    font-size: 2rem;
                 }
             }
         }
 
         .lrc-list {
             position: absolute;
-            left: 3em;
-            right: 3em;
-            bottom: 10em;
+            left: $padding;
+            right: $padding;
+            height: $lrc-font-size;
+            cursor: default;
             @include backface-visibility(hidden);
+
+            .wide-screen & {
+                bottom: $padding;
+            }
+            .high-screen & {
+                bottom: $padding * 2 + $controls-btn-size + $controls-btn-border-size * 2;
+            }
 
             li {
                 position: absolute;
@@ -43,14 +56,7 @@
                 top: 0;
                 text-align: right;
                 color: white;
-                font-size: 2.5em;
-
-                @media screen and (max-width: 1024px) {
-                    font-size: 1.8em;
-                }
-                @media screen and (max-width: 768px) {
-                    font-size: 1.2em;
-                }
+                font-size: $lrc-font-size;
 
                 &.ng-hide {
                     @include animation(fade-out-top .4s forwards);
@@ -63,19 +69,19 @@
 
         .controls {
             position: absolute;
-            bottom: 5%;
-            left: 5%;
-
-            $btn-size: 3em;
+            bottom: $padding;
+            left: $padding;
+            height: $controls-btn-size + $controls-btn-border-size * 2;
 
             .btn {
                 display: inline-block;
-                border: .2em solid white;
-                border-radius: 50%;
+                border: $controls-btn-border-size solid white;
+                border-radius: 100%;
                 color: white;
-                width: $btn-size;
-                height: $btn-size;
-                line-height: $btn-size;
+                width: $controls-btn-size;
+                height: $controls-btn-size;
+                line-height: $controls-btn-size;
+                font-size: $controls-btn-size / 3;
                 text-align: center;
                 cursor: pointer;
 
@@ -93,16 +99,20 @@
             .btn-play-pause,
             .btn-next {
                 @extend .btn;
-                margin-right: 1em;
+                margin-right: 1rem;
             }
 
             .btn-pre:before {
                 position: relative;
-                left: -.1em;
+                left: -.1rem;
+            }
+            .btn-play-pause.icon-bofang1:before {
+                position: relative;
+                left: .1rem;
             }
             .btn-next:before {
                 position: relative;
-                left: .1em;
+                left: .1rem;
             }
         }
     }
@@ -115,7 +125,7 @@
 
         li {
             cursor: pointer;
-            padding: .8em 1em;
+            padding: .8rem 1rem;
             text-overflow:ellipsis; 
             overflow:hidden;
             white-space:nowrap; 
@@ -131,14 +141,14 @@
             // }
 
             &.selected {
-                border-left-width: .5em;
+                border-left-width: .5rem;
             }
         }
     }
 }
 
 .wide-screen {
-    $music-list-width: 18em;
+    $music-list-width: 16rem;
     #music {
         .main-area {
             left: 0;

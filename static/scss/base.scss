@@ -37,11 +37,14 @@ a {
 html {
     width: 100%;
     height: 100%;
+    font-size: 12px;
+    @media screen and (min-width: 768px) {
+        font-size: 14px;
+    }
 }
 
 body {
     position: relative;
-    font-size: 12px;
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -76,7 +79,7 @@ body {
 }
 
 $nav-bar-background-color: rgba(0, 0, 0, .3);
-$nav-bar-width: 3.3em;
+$nav-bar-width: 3.3rem;
 
 #loading_cover {
     position: absolute;
@@ -97,7 +100,7 @@ $nav-bar-width: 3.3em;
         bottom: 50%;
         left: 0;
         right: 0;
-        font-size: 10em;
+        font-size: 10rem;
         font-family: Italiana, sans-serif;
         line-height: .82em;
     }
@@ -117,7 +120,7 @@ $nav-bar-width: 3.3em;
         top: 51%;
         left: 0;
         right: 0;
-        font-size: 1.2em;
+        font-size: 1.2rem;
     }
 }
 
@@ -143,16 +146,13 @@ $nav-bar-width: 3.3em;
             text-align: center;
             cursor: pointer;
             color: white;
-            text-shadow: 0 .1em 0 black;
 
             &.hover {
                 background-color: $nav-bar-background-color;
-                text-shadow: 0 .1em 0 $nav-bar-background-color;
             }
             &.active {
                 background-color: $base-color-light;
-                @include box-shadow(inset 0 0 .6em $base-color-big-rich);
-                text-shadow: 0 .1em 0 $base-color-big-rich;
+                @include box-shadow(inset 0 0 .6rem $base-color-big-rich);
             }
 
             .text {
@@ -224,12 +224,6 @@ $nav-bar-width: 3.3em;
         bottom: $nav-bar-width;
         left: 0;
         right: 0;
-    }
-}
-
-@media screen and (min-width: 768px) {
-    body {
-        font-size: 14px;
     }
 }
 
@@ -357,7 +351,7 @@ $nav-bar-width: 3.3em;
 
 @include keyframes(fade-in-top) {
     from {
-        @include transform(translateY(-0.3em));
+        @include transform(translateY(-0.3rem));
         opacity: 0;
     }
     to {
@@ -371,14 +365,14 @@ $nav-bar-width: 3.3em;
         opacity: 1;
     }
     to {
-        @include transform(translateY(-0.3em));
+        @include transform(translateY(-0.3rem));
         opacity: 0;
     }
 }
 
 @include keyframes(fade-in-bottom) {
     from {
-        @include transform(translateY(0.3em));
+        @include transform(translateY(0.3rem));
         opacity: 0;
     }
     to {
@@ -392,14 +386,14 @@ $nav-bar-width: 3.3em;
         opacity: 1;
     }
     to {
-        @include transform(translateY(0.3em));
+        @include transform(translateY(0.3rem));
         opacity: 0;
     }
 }
 
 @include keyframes(fade-in-right) {
     from {
-        @include transform(translateX(0.3em));
+        @include transform(translateX(0.3rem));
         opacity: 0;
     }
     to {
@@ -413,14 +407,14 @@ $nav-bar-width: 3.3em;
         opacity: 1;
     }
     to {
-        @include transform(translateX(0.3em));
+        @include transform(translateX(0.3rem));
         opacity: 0;
     }
 }
 
 @include keyframes(fade-in-left) {
     from {
-        @include transform(translateX(-0.3em));
+        @include transform(translateX(-0.3rem));
         opacity: 0;
     }
     to {
@@ -434,7 +428,7 @@ $nav-bar-width: 3.3em;
         opacity: 1;
     }
     to {
-        @include transform(translateX(-0.3em));
+        @include transform(translateX(-0.3rem));
         opacity: 0;
     }
 }

@@ -9,7 +9,7 @@ k-player {
     color: black;
     position: relative;
     width: 100%;
-    height: 35em;
+    height: 35rem;
     display: block;
     @include user-select(none);
 
@@ -32,7 +32,7 @@ k-player {
 
     .btn-normal {
         @extend .btn;
-        padding: .7em 1em;
+        padding: .7rem 1rem;
         background-color: $baseColor;
         color: white;
 
@@ -45,11 +45,11 @@ k-player {
     }
     // common end
 
-    $ctrlbarHeight: 2.6em;
-    $timebarHeight: .25em;
-    $cursorSize: 1.2em;
-    $timebarBoldHeight: .6em;
-    $timeStringWidth: 6em;
+    $ctrlbarHeight: 2.6rem;
+    $timebarHeight: .25rem;
+    $cursorSize: 1.2rem;
+    $timebarBoldHeight: .6rem;
+    $timeStringWidth: 6rem;
 
     .main-area {
         position: absolute;
@@ -64,7 +64,6 @@ k-player {
         canvas {
             width: 100%;
             height: 100%;
-            @include transform(translateZ(0));
         }
 
         .btn-open {
@@ -75,19 +74,19 @@ k-player {
             left: 0;
             right: 0;
             padding: 0;
-            height: 2.6em;
-            width: 8em;
-            line-height: 2.6em;
+            height: 2.6rem;
+            width: 8rem;
+            line-height: 2.6rem;
             margin: auto;
         }
     }
 
     .time-bar-wrapper {
         position: absolute;
-        bottom: $ctrlbarHeight - 0.4em;
+        bottom: $ctrlbarHeight - 0.4rem;
         left: 0;
         right: 0;
-        height: $timebarBoldHeight * 4;
+        height: $timebarBoldHeight * 4.5;
         cursor: pointer;
         z-index: 1;
 
@@ -95,7 +94,7 @@ k-player {
             position: absolute;
             left: 0;
             right: 0;
-            bottom: 0.4em;
+            bottom: .4rem;
             height: $timebarHeight;
             background-color: #aaa;
             @include transition(height .2s);
@@ -118,7 +117,7 @@ k-player {
                 border-radius: $cursorSize / 2;
                 background-color: $baseColor;
                 @include transform(translateX(0));
-                @include box-shadow(0 .1em .3em #666);
+                @include box-shadow(0 .1rem .3rem #666);
                 @include transition(top .2s);
 
                 &.hover {
@@ -136,9 +135,9 @@ k-player {
             left: 0;
             background-color: #666;
             color: white;
-            padding: .2em;
+            padding: .2rem;
             display: none;
-            font-size: .8em;
+            font-size: .8rem;
         }
 
         &.hover {
@@ -159,7 +158,7 @@ k-player {
 
     .ctrl-bar {
         $btnWidth: $ctrlbarHeight;
-        $btnSendWidth: 4em;
+        $btnSendWidth: 4rem;
 
         position: absolute;
         bottom: 0;
@@ -185,7 +184,7 @@ k-player {
             }
 
             .text {
-                font-size: 1.2em;
+                font-size: 1.2rem;
             }
         }
 
@@ -203,6 +202,7 @@ k-player {
             width: $timeStringWidth;
             line-height: $ctrlbarHeight;
             text-align: center;
+            cursor: default;
 
             .current {
                 color: $baseColor;
@@ -213,12 +213,12 @@ k-player {
             display: block;
             border: 2px solid #ddd;
             position: absolute;
-            padding: .3em;
-            height: 1em;
+            padding: .3rem;
+            height: 1rem;
             line-height: 1em;
             top: 0;
             bottom: 0;
-            left: $btnWidth + $timeStringWidth + .8em;
+            left: $btnWidth + $timeStringWidth + .8rem;
             right: $btnWidth * 2 + $btnSendWidth;
             margin: auto;
             @include user-select(text);
@@ -228,6 +228,10 @@ k-player {
             @extend .ctrl-btn;
             right: $btnWidth * 2;
             width: $btnSendWidth;
+
+            .text {
+                font-size: 1.1rem;
+            }
         }
 
         .btn-open {

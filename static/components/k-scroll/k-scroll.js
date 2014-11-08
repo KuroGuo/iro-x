@@ -21,14 +21,12 @@ angular.module('kScroll', ['kDrag']).
                         easing: [0, 0, 0.58, 1]
                     },
                     minScroll = 0,
-                    scrollerHeightEm,
-                    wrapperHeightEm,
-                    scrollerBarHeightEm,
+                    scrollerHeightRem,
+                    wrapperHeightRem,
+                    scrollerBarHeightRem,
                     maxScroll,
                     scrollerBarHeightPercent,
-                    wrapperFontSize ,
-                    scrollerFontSize,
-                    scrollerBarFontSize,
+                    htmlFontSize,
                     vy,
                     lastStepTime;
 
@@ -41,13 +39,11 @@ angular.module('kScroll', ['kDrag']).
 
                 $wrapper
                     .on('mouseenter mousedown touchstart', function () {
-                        wrapperFontSize = parseFloat($wrapper.css('font-size'));
-                        scrollerFontSize = parseFloat($scroller.css('font-size'));
-                        scrollerBarFontSize = parseFloat($scrollerBar.css('font-size'));
-                        wrapperHeightEm = $wrapper.innerHeight() / wrapperFontSize;
-                        scrollerHeightEm = $scroller.outerHeight(true) / scrollerFontSize;
-                        maxScroll = Math.max(0, scrollerHeightEm - wrapperHeightEm);
-                        scrollerBarHeightPercent = wrapperHeightEm / scrollerHeightEm;
+                        htmlFontSize = parseFloat($('html').css('font-size'));
+                        wrapperHeightRem = $wrapper.innerHeight() / htmlFontSize;
+                        scrollerHeightRem = $scroller.outerHeight(true) / htmlFontSize;
+                        maxScroll = Math.max(0, scrollerHeightRem - wrapperHeightRem);
+                        scrollerBarHeightPercent = wrapperHeightRem / scrollerHeightRem;
                         if (scrollerBarHeightPercent > 1)
                             scrollerBarHeightPercent = 0;
                     })
@@ -82,7 +78,7 @@ angular.module('kScroll', ['kDrag']).
                         } else if (scope.model.currentScrollTop < minScroll) {
                             e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - minScroll);
                         }
-                        scrollTo(scope.model.currentScrollTop - e.stepY / parseFloat(wrapperFontSize), false, false);
+                        scrollTo(scope.model.currentScrollTop - e.stepY / parseFloat(htmlFontSize), false, false);
                     })
                     .on('kdragend', function (e) {                    
                         var $wrapper = $(e.currentTarget);
@@ -106,12 +102,12 @@ angular.module('kScroll', ['kDrag']).
                 $scrollerBar
                     .on('kdragstart', function (e) {
                         var $scrollerBar = $(e.currentTarget);
-                        scrollerBarHeightEm = $scrollerBar.outerHeight(true) / scrollerBarFontSize;
+                        scrollerBarHeightRem = $scrollerBar.outerHeight(true) / htmlFontSize;
                         $scrollerBar.data('dragStartScrollTop', scope.model.currentScrollTop).addClass('dragging');
                     })
                     .on('kdrag', function (e) {
                         var $scrollerBar = $(e.currentTarget);
-                        var destScrollTop = $scrollerBar.data('dragStartScrollTop') + e.deltaY / scrollerBarFontSize * (scrollerHeightEm - wrapperHeightEm) / (wrapperHeightEm - scrollerBarHeightEm)
+                        var destScrollTop = $scrollerBar.data('dragStartScrollTop') + e.deltaY / htmlFontSize * (scrollerHeightRem - wrapperHeightRem) / (wrapperHeightRem - scrollerBarHeightRem)
                         if (destScrollTop > maxScroll)
                             destScrollTop = maxScroll;
                         else if (destScrollTop < minScroll)
@@ -128,7 +124,7 @@ angular.module('kScroll', ['kDrag']).
 
                     if (lastStepTime) {
                         timeSpan = time - lastStepTime;
-                        destScrollTop = scope.model.currentScrollTop - vy * timeSpan / wrapperFontSize;
+                        destScrollTop = scope.model.currentScrollTop - vy * timeSpan / htmlFontSize;
 
                         scrollTo(destScrollTop, false, false);
 
@@ -136,7 +132,7 @@ angular.module('kScroll', ['kDrag']).
 
                         if (scope.model.currentScrollTop > maxScroll) {
                             if (vy > 0) {
-                                vy = (scope.model.currentScrollTop - maxScroll) * wrapperFontSize / 150;
+                                vy = (scope.model.currentScrollTop - maxScroll) * htmlFontSize / 150;
                                 if (vy < 0.03) {
                                     vy = 0.03;
                                 }
@@ -145,7 +141,7 @@ angular.module('kScroll', ['kDrag']).
                             }
                         } else if (scope.model.currentScrollTop < minScroll) {
                             if (vy < 0) {
-                                vy = (scope.model.currentScrollTop - minScroll) * wrapperFontSize / 150;
+                                vy = (scope.model.currentScrollTop - minScroll) * htmlFontSize / 150;
                                  if (vy > -0.03) {
                                     vy = -0.03;
                                 }
@@ -175,7 +171,7 @@ angular.module('kScroll', ['kDrag']).
                 }
 
                 function resetscrollerBarStyle (currentScrollTop, doAnimation) {
-                    var scrollPercent = (currentScrollTop || scope.model.currentScrollTop) / (scrollerHeightEm - wrapperHeightEm);
+                    var scrollPercent = (currentScrollTop || scope.model.currentScrollTop) / (scrollerHeightRem - wrapperHeightRem);
 
                     if (scrollerBarHeightPercent <= 0) {
                         $scrollerBar.css('display', 'none');
@@ -205,7 +201,7 @@ angular.module('kScroll', ['kDrag']).
 
                     if (doAnimation) {
                         $scroller.velocity('stop').velocity({
-                            translateY: (-scope.model.currentScrollTop) + 'em'
+                            translateY: (-scope.model.currentScrollTop) + 'rem'
                         }, angular.extend(animationOption, {
                             begin: function () {
                                 $wrapper.addClass('scrolling');
@@ -215,7 +211,7 @@ angular.module('kScroll', ['kDrag']).
                             }
                         }));  
                     } else {
-                        $.Velocity.hook($scroller, "translateY", -scope.model.currentScrollTop + 'em');
+                        $.Velocity.hook($scroller, "translateY", -scope.model.currentScrollTop + 'rem');
                     }
                 
                     resetscrollerBarStyle(null, scrollerBarDoAnimation);                        

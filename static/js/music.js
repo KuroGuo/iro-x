@@ -4,6 +4,10 @@
             var audio = document.createElement('audio');
             var currentMusic = null;
 
+            var watcher = {
+                currentLrcChanged: []
+            };
+
             var musicPlayer = {
                 list: null, // 播放列表， 类型：[{name: String, src: String, lrcUrl: String, bgSrc: String}]
                 lrcList: null, // 歌词列表，类型：[{time: Number, content: String}],
@@ -26,6 +30,7 @@
                             break;
                     }
                     musicPlayer.currentLrc = musicPlayer.lrcList[i - 1];
+                    emit('currentLrcChanged');
                 }
             });
             audio.addEventListener('ended', function () {
@@ -85,11 +90,27 @@
             });
 
             musicPlayer.on = function (eventName, handler) {
-                audio.addEventListener(eventName, handler);
+                if (!watcher[eventName])
+                    return;
+
+                watcher[eventName].push(handler);
             };
 
             musicPlayer.off = function (eventName, handler) {
-                audio.removeEventListener(eventName, handler);
+                if (!watcher[eventName])
+                    return;
+
+                if (!(watcher[eventName] instanceof Array))
+                    throw new Error('watcher不是数组');
+
+                var i;
+
+                for(i = 0; i < watcher[eventName].length; i++) {
+                    if (watcher[eventName][i] === handler) {
+                        watcher[eventName][i].splice(i);
+                        return;
+                    }
+                }
             };
 
             musicPlayer.loadAllToList = function (callback) {
@@ -148,13 +169,25 @@
                 this.play(getCurrentMusicIndex() + 1);
             };
 
-            function getCurrentMusicIndex () {
+            function getCurrentMusicIndex() {
                 var i;
                 for (i = 0; i < musicPlayer.list.length; i++) {
                     if (musicPlayer.list[i].name === musicPlayer.currentMusic.name) {
                         return i;
                     }
                 }
+            }
+
+            function emit(eventName) {
+                if (!watcher[eventName])
+                    return
+
+                if (!(watcher[eventName] instanceof Array))
+                    throw new Error('watcher不是数组');
+
+                watcher[eventName].forEach(function (handler) {
+                    handler.call(musicPlayer);
+                });
             }
 
             return musicPlayer;
@@ -226,5 +259,9 @@
             $scope.next = function () {
                 musicPlayer.next();
             };
+
+            musicPlayer.on('currentLrcChanged', function () {
+                $scope.$apply();
+            });
         }]);
 })(angular);
