@@ -6,11 +6,6 @@
             "src": "/music/Black Holy.mp3"
         },
         {
-            "name": "Brave Song",
-            "src": "/music/Brave Song.mp3",
-            "bgSrc": "/music/Brave Song.jpg"
-        },
-        {
             "name": "My Song",
             "src": "/music/My Song.mp3",
             "lrcUrl": "/music/My Song.lrc",
