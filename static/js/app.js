@@ -117,7 +117,7 @@
                     })
                     .triggerHandler('resize');
 
-                var wallpaperSrc = 'http://kuro-iro.b0.upaiyun.com/static/images/wallpaper.jpg';
+                var wallpaperSrc = 'http://kuro-iro.b0.upaiyun.com/images/wallpaper.jpg';
 
                 $.ajax({
                     type: 'GET',
