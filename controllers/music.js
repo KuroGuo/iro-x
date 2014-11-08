@@ -6,9 +6,9 @@ exports.all = function (req, res, next) {
     var musics = music.list.map(function (thisMusic) {
         return {
             name: thisMusic.name,
-            src: 'http://' + music.host + thisMusic.src,
-            lrcUrl: thisMusic.lrcUrl ? 'http://' + music.host + thisMusic.lrcUrl : undefined,
-            bgSrc: thisMusic.bgSrc ? 'http://' + music.host + thisMusic.bgSrc : undefined
+            src: music.pre + thisMusic.src,
+            lrcUrl: thisMusic.lrcUrl ? music.pre + thisMusic.lrcUrl : undefined,
+            bgSrc: thisMusic.bgSrc ? music.pre + thisMusic.bgSrc : undefined
         };
     });
     res.send(musics);
