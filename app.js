@@ -55,5 +55,5 @@ app.use(errorhandler);
 setupsocket(io);
 
 server.listen(config.port, function () {
-    console.log('Listenning port ' + (process.env.PORT || 1337) + '.');
+    console.log('Listenning port ' + config.port + '.');
 });
