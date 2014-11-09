@@ -6,6 +6,7 @@ exports.all = function (req, res, next) {
     music.findAll(function (err, musicList) {
         if (err) {
             next(err);
+            return;
         }
         res.send(musicList);
     });
