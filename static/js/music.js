@@ -1,6 +1,6 @@
 ;(function (angular) { 'use strict';
     angular.module('blog_k.music', ['blog_k.services.music', 'cfp.loadingBar'])
-        .factory('musicPlayer', ['music', 'cfpLoadingBar', '$http', function (music, cfpLoadingBar, $http) {
+        .factory('musicPlayer', ['music', 'cfpLoadingBar', '$http', '$window', function (music, cfpLoadingBar, $http, $window) {
             var audio = document.createElement('audio');
             var currentMusic = null;
 

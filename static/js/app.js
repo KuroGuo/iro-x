@@ -119,25 +119,21 @@
 
                 var wallpaperSrc = 'http://kuro-iro.b0.upaiyun.com/images/wallpaper.jpg';
 
-                $.ajax({
-                    type: 'GET',
-                    url: wallpaperSrc,
-                    xhr: function () {
-                        var xhr = $.ajaxSettings.xhr();
-                        xhr.addEventListener('progress', function (e) {
-                            var percent = e.loaded / e.total;
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', wallpaperSrc);
+                xhr.responseType = 'blob';
+                xhr.onprogress = function (e) {
+                    var percent = e.loaded / e.total;
 
-                            $('#loading_cover .progress-bar').css('width', (percent * 100) + '%');
-                            if (percent === 1) {
-                                scope.wallpaperSrc = wallpaperSrc;
-                                $timeout(function () {
-                                    scope.loaded = true;
-                                }, 800);
-                            }
-                        });
-                        return xhr;
-                    }
-                });
+                    $('#loading_cover .progress-bar').css('width', (percent * 100) + '%');
+                };
+                xhr.onload = function () {
+                    scope.wallpaperSrc = wallpaperSrc;
+                    $timeout(function () {
+                        scope.loaded = true;
+                    }, 800);
+                };
+                xhr.send();
 
                 function bindEvents() {
                     $(document)
