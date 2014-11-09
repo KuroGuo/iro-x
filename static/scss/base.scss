@@ -56,7 +56,6 @@ body {
     color: $text-color;
     -ms-touch-action: none;
     touch-action: none;
-    @include backface-visibility(hidden);
 }
 
 .ipad.ios7 {
