@@ -1,17 +1,14 @@
 'use strict';
 
-var music = require('../db/music.json');
+var music = require('../services/music');
 
 exports.all = function (req, res, next) {
-    var musics = music.list.map(function (thisMusic) {
-        return {
-            name: thisMusic.name,
-            src: music.pre + thisMusic.src,
-            lrcUrl: thisMusic.lrcUrl ? music.pre + thisMusic.lrcUrl : undefined,
-            bgSrc: thisMusic.bgSrc ? music.pre + thisMusic.bgSrc : undefined
-        };
+    music.findAll(function (err, musicList) {
+        if (err) {
+            next(err);
+        }
+        res.send(musicList);
     });
-    res.send(musics);
 };
 
 // exports.all = function (req, res, next) {
