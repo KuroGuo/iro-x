@@ -29,4 +29,6 @@ node_modules
 
 .sass-cache
 
-static/music/*
+/static/music/*
+
+/config.js

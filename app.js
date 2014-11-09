@@ -1,20 +1,22 @@
 'use strict';
 
+var config = require('./config');
+
 var express = require('express');
 var session = require('express-session');
 var compression = require('compression');
 var bodyParser = require('body-parser');
-var errorhandler = require('./middlewares/errorhandler.js');
+var errorhandler = require('./middlewares/errorhandler');
 var mongoose = require('mongoose');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-var webRouter = require('./web_router.js');
-var setupsocket = require('./setupsocket.js');
+var webRouter = require('./web_router');
+var setupsocket = require('./setupsocket');
 var MongoStore = require('connect-mongo')(session);
-var view = require('./middlewares/view.js');
+var view = require('./middlewares/view');
 
-mongoose.connect('mongodb://localhost/wahu');
+mongoose.connect(config.db);
 
 mongoose.connection.on('error', function (err) {
     console.error(err)
@@ -52,6 +54,6 @@ app.use(errorhandler);
 
 setupsocket(io);
 
-server.listen(process.env.PORT || 1337, function () {
+server.listen(config.port, function () {
     console.log('Listenning port ' + (process.env.PORT || 1337) + '.');
 });
