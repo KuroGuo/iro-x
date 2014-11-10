@@ -1,5 +1,7 @@
 'use strict';
 
+var config = require('../config');
+
 var music = require('../services/music');
 
 exports.all = function (req, res, next) {
@@ -8,6 +10,18 @@ exports.all = function (req, res, next) {
             next(err);
             return;
         }
+
+        if (config.musicPathPre) {
+            musicList = musicList.map(function (music) {
+                return {
+                    name: music.name,
+                    src: config.musicPathPre + music.src,
+                    lrcUrl: music.lrcUrl ? config.musicPathPre + music.lrcUrl : undefined,
+                    bgSrc: music.bgSrc ? config.musicPathPre + music.bgSrc : undefined
+                };
+            });
+        }
+
         res.send(musicList);
     });
 };
