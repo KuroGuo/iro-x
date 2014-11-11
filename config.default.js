@@ -1,4 +1,4 @@
-// mongodb 默认配置
+// 默认配置
 
 var config = {
     db: 'mongodb://localhost/iro',
