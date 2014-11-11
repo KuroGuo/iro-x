@@ -111,7 +111,7 @@
 
                 $($window)
                     .on('resize', function () {
-                        if ($window.innerWidth / $window.innerHeight > 4 / 3) {
+                        if ($window.innerWidth / $window.innerHeight >= 4 / 3) {
                             $('html').removeClass('high-screen').addClass('wide-screen');
                         } else {
                             $('html').removeClass('wide-screen').addClass('high-screen');
