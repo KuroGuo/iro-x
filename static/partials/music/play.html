@@ -1,4 +1,4 @@
-<div class="title"><span class="text">{{currentMusic.name}}</span></div>
+<div class="title"><span class="text" ng-bind="{{currentMusic.name}}"></span></div>
 <ul class="lrc-list">
     <li ng-repeat="lrc in lrcList" ng-show="lrc.time === currentLrc.time">{{lrc.content}}</li>
 </ul>
