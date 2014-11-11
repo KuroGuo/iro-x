@@ -148,14 +148,32 @@ $nav-bar-width: 3.3rem;
     li {
         display: block;
         position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin: auto;
         width: $nav-bar-width;
         height: $nav-bar-width;
         line-height: $nav-bar-width;
+        margin: auto;
+
+        &.home {
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+         &.github {
+            .wide-screen & {
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+
+            .high-screen & {
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+        }
+
         a {
             display: block;
             text-align: center;
@@ -268,6 +286,8 @@ $nav-bar-width: 3.3rem;
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.icon-github:before { content: "\e607"; }
 
 .icon-bofang:before { content: "\e601"; }
 
