@@ -54,7 +54,8 @@
             .otherwise('/');
 
         $locationProvider.html5Mode(true).hashPrefix('!');
-    }]).controller('MainCtrl', ['$scope' ,'$state', 'member', 'musicPlayer', function ($scope ,$state, member, musicPlayer) {
+    }]).controller('MainCtrl', ['$scope' ,'$state', 'member', 'musicPlayer', '$window',
+    function ($scope ,$state, member, musicPlayer, $window) {
         $scope.setUser = function (user) {
             if ($scope.$$phase) {
                 $scope.user = user; 
@@ -67,6 +68,10 @@
 
         $scope.stateGo = function (sref) {
             $state.go(sref);
+        };
+
+        $scope.openWindow = function (href) {
+            $window.open(href);
         };
 
         $scope.global = {
