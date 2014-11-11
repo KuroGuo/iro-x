@@ -155,6 +155,13 @@
             right: $music-list-width;
             top: 0;
             bottom: 0;
+
+            &.ng-enter {
+                @include animation(fade-in .4s);
+            }
+            &.ng-leave {
+                @include animation(fade-out .4s forwards);
+            }
         }
         .music-list {
             top: 0;

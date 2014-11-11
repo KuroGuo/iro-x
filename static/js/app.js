@@ -24,8 +24,13 @@
             })
             .state('music', {
                 url: '/music',
-                templateUrl: '/static/partials/music.html',
+                templateUrl: '/static/partials/music/index.html',
                 controller: 'MusicCtrl'
+            })
+            .state('music.play', {
+                url: '/:name',
+                templateUrl: '/static/partials/music/play.html',
+                controller: 'MusicPlayCtrl'
             })
             .state('article', {
                 url: '/article',
@@ -106,7 +111,7 @@
 
                 $($window)
                     .on('resize', function () {
-                        if ($window.innerWidth >= $window.innerHeight) {
+                        if ($window.innerWidth / $window.innerHeight > 4 / 3) {
                             $('html').removeClass('high-screen').addClass('wide-screen');
                         } else {
                             $('html').removeClass('wide-screen').addClass('high-screen');

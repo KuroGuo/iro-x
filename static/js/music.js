@@ -5,7 +5,8 @@
             var currentMusic = null;
 
             var watcher = {
-                currentLrcChanged: []
+                currentLrcChanged: [],
+                currentMusicChanged: []
             };
 
             var musicPlayer = {
@@ -61,7 +62,10 @@
                 },
                 set: function (music) {
                     audio.src = music.src;
-                    currentMusic = music;
+                    if (!currentMusic || currentMusic.name !== music.name) {
+                        currentMusic = music;
+                        emit('currentMusicChanged');
+                    }
                     musicPlayer.lrcList = null;
                     if (music.lrcUrl) {
                         $http({
@@ -91,7 +95,7 @@
 
             musicPlayer.on = function (eventName, handler) {
                 if (!watcher[eventName])
-                    return;
+                    throw new Error('没有这个事件观察者');
 
                 watcher[eventName].push(handler);
             };
@@ -107,7 +111,7 @@
 
                 for(i = 0; i < watcher[eventName].length; i++) {
                     if (watcher[eventName][i] === handler) {
-                        watcher[eventName][i].splice(i);
+                        watcher[eventName].splice(i);
                         return;
                     }
                 }
@@ -143,7 +147,7 @@
                 } else if (typeof musicOrIndex === 'string') {
                     music = this.list.filter(function (music) {
                         return music.name === musicOrIndex;
-                    });
+                    })[0];
                     if (!music)
                         music = this.list[0];
                 } else {
@@ -192,13 +196,8 @@
 
             return musicPlayer;
         }])
-        .controller('MusicCtrl', ['$scope', 'musicPlayer', function ($scope, musicPlayer) {
-            if (!musicPlayer.list) {
-                musicPlayer.loadAllToList(function () {
-                    this.play(0);
-                });
-            }
-
+        .controller('MusicCtrl', ['$scope', 'musicPlayer', '$state',
+            function ($scope, musicPlayer, $state) {
             Object.defineProperty($scope, 'musics', {
                 get: function () {
                     return musicPlayer.list;
@@ -260,8 +259,45 @@
                 musicPlayer.next();
             };
 
-            musicPlayer.on('currentLrcChanged', function () {
-                $scope.$apply();
+            musicPlayer.on('currentLrcChanged', apply);
+            musicPlayer.on('currentMusicChanged', gotoMusicPlay);
+
+            $scope.$on('$destroy', function () {
+                musicPlayer.off('currentLrcChanged', apply);
+                musicPlayer.off('currentMusicChanged', gotoMusicPlay);
             });
+
+            if ($state.is('music')) {
+                if (!musicPlayer.list) {
+                    musicPlayer.loadAllToList(function (list) {
+                        $state.go('music.play', {name: list[0]});
+                    });
+                } else {
+                    $state.go('music.play', {name: musicPlayer.currentMusic.name});
+                }
+            }
+
+            function apply() {
+                $scope.$apply();
+            }
+
+            function gotoMusicPlay() {
+                $state.go('music.play', {name: musicPlayer.currentMusic.name});
+            }
+        }])
+        .controller('MusicPlayCtrl', ['$stateParams', 'musicPlayer', function ($stateParams, musicPlayer) {
+            if (!musicPlayer.list) {
+                musicPlayer.loadAllToList(function (list) {
+                    play();
+                });
+            } else {
+                play();
+            }
+
+            function play() {
+                if (!musicPlayer.currentMusic || musicPlayer.currentMusic.name !== $stateParams.name) {
+                    musicPlayer.play($stateParams.name || 0);
+                }
+            }
         }]);
 })(angular);

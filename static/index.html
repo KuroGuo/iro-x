@@ -5,17 +5,18 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <base href="/" />
-        <title>iro | coloful world</title>
+        <title>iro | colorful days</title>
         <link rel="stylesheet" href="/static/bower_components/angular-loading-bar/build/loading-bar.min.css" />
         <link rel="stylesheet" href="/static/css/main.css" />
         <link rel="stylesheet" href="/static/components/k-player/css/k-player.css" />
         <link rel="stylesheet" href="/static/components/k-scroll/k-scroll.css" />
     </head>
-    <body ng-class="{loaded: loaded}" ng-style="{'background-image': wallpaperSrc ? 'url(\'' + (global.customWallpaperSrc ? global.customWallpaperSrc : wallpaperSrc) + '\')' : 'none'}">
+    <body ng-class="{loaded: loaded}">
+        <div class="background" ng-repeat="bg in [(global.customWallpaperSrc ? global.customWallpaperSrc : wallpaperSrc)]" ng-style="{'background-image': bg ? 'url(\'' + bg + '\')' : 'none'}"></div>
         <div id="loading_cover" ng-hide="loaded">
             <h1>iro</h1>
             <span class="progress-bar"></span>
-            <p>coloful world</p>
+            <p>colorful days</p>
         </div>
         <div id="nav_bar" ng-show="loaded">
             <ul>
