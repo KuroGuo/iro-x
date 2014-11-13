@@ -43,17 +43,15 @@
                     }
 
                     function initModel() {
-                        if (!scope.player) {
-                            scope.player = {
-                                currentTime: 0,
-                                currentTimeDisplay: '00:00',
-                                duration: 0,
-                                durationDisplay: '00:00',
-                                filename: null,
-                                fileMD5: null,
-                                paused: null
-                            };
-                        }
+                        scope.player = angular.extend({
+                            currentTime: 0,
+                            currentTimeDisplay: '00:00',
+                            duration: 0,
+                            durationDisplay: '00:00',
+                            filename: null,
+                            fileMD5: null,
+                            paused: null
+                        }, scope.player);
 
                         scope.player.play = function () {
                             video.play();

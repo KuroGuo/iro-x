@@ -27,15 +27,17 @@ angular.module('kScroll', ['kDrag']).
                     maxScroll,
                     scrollerBarHeightPercent,
                     htmlFontSize,
-                    vy,
-                    lastStepTime;
+                    lastFrameTime,
+                    requestId,
+                    dragEndvScrollTop;
 
-                if (!scope.model) {
-                    scope.model = {
-                        speed: 8,
-                        currentScrollTop: 0
-                    };    
-                }
+                scope.model = angular.extend({
+                    speed: 8,
+                    currentScrollTop: 0,
+                    vScrollTop: 0
+                }, scope.model);
+
+                currentScrollTop = scope.model.currentScrollTop;
 
                 $wrapper
                     .on('mouseenter mousedown touchstart', function () {
@@ -54,14 +56,14 @@ angular.module('kScroll', ['kDrag']).
                             destScrollTop = maxScroll;
                         else if (destScrollTop < minScroll)
                             destScrollTop = minScroll;
-                        vy = 0;
+                        scope.model.vScrollTop = 0;
                         scrollTo(destScrollTop, true, true);
                     })
                     .on('mouseenter', function () {
                         resetscrollerBarStyle();
                     })
                     .on('kdragstart', function (e) {
-                        if ($(e.target).is('.scroll-bar'))
+                        if ($(e.target).hasClass('scroll-bar'))
                             return;
 
                         var $wrapper = $(e.currentTarget);
@@ -74,13 +76,16 @@ angular.module('kScroll', ['kDrag']).
                             return;
 
                         if (scope.model.currentScrollTop > maxScroll) {
-                            e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - maxScroll);
+                            e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - maxScroll) * 2;
                         } else if (scope.model.currentScrollTop < minScroll) {
-                            e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - minScroll);
+                            e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - minScroll) * 2;
                         }
-                        scrollTo(scope.model.currentScrollTop - e.stepY / parseFloat(htmlFontSize), false, false);
+
+                        scope.model.vScrollTop = -e.vy / parseFloat(htmlFontSize);
+                        scope.model.currentScrollTop -= e.stepY / parseFloat(htmlFontSize);
+                        scrollTo(scope.model.currentScrollTop, false, false);
                     })
-                    .on('kdragend', function (e) {                    
+                    .on('kdragend', function (e) {
                         var $wrapper = $(e.currentTarget);
             
                         if (!$wrapper.hasClass('dragging'))
@@ -88,15 +93,20 @@ angular.module('kScroll', ['kDrag']).
 
                         $wrapper.removeClass('dragging');
                         
-                        if (!vy) {
-                            vy = e.vy;
-                            lastStepTime = null;
-                            $wrapper.addClass('sliding');
-                            slide(0);
-                        }
+                        dragEndvScrollTop = scope.model.vScrollTop = -e.vy / parseFloat(htmlFontSize);
+
+                        lastFrameTime = null;
+                        $wrapper.addClass('sliding');
+                        slide();
                     })
-                    .on('mousedown touchstart', function () {
-                        vy = 0;
+                    .on('mousedown touchstart', function (e) {
+                        if (requestId) {
+                            window.cancelAnimationFrame(requestId);
+                            requestId = null;
+                            $document.data('tapPrevented', true);
+                        }
+                        vScrollTop = 0;
+                        $wrapper.removeClass('sliding');
                     });
 
                 $scrollerBar
@@ -119,39 +129,53 @@ angular.module('kScroll', ['kDrag']).
                         $scrollerBar.removeClass('dragging');
                     });
 
+                $.Velocity.hook($scrollerBar, "translateZ", 0);
+                $.Velocity.hook($scroller, "translateZ", 0);
+                scrollTo(scope.model.currentScrollTop, false, false);
+
                 function slide(time) {
                     var timeSpan, destScrollTop;
 
-                    if (lastStepTime) {
-                        timeSpan = time - lastStepTime;
-                        destScrollTop = scope.model.currentScrollTop - vy * timeSpan / htmlFontSize;
+                    if (lastFrameTime) {
+                        timeSpan = time - lastFrameTime;
+                        destScrollTop = scope.model.currentScrollTop + scope.model.vScrollTop * timeSpan;
 
                         scrollTo(destScrollTop, false, false);
 
-                        vy *= 0.96;
+                        scope.model.vScrollTop *= Math.pow(0.97, timeSpan / 17);
 
                         if (scope.model.currentScrollTop > maxScroll) {
-                            if (vy > 0) {
-                                vy = (scope.model.currentScrollTop - maxScroll) * htmlFontSize / 150;
-                                if (vy < 0.03) {
-                                    vy = 0.03;
+                            if (scope.model.vScrollTop <= 0) {
+                                scope.model.vScrollTop = (maxScroll - scope.model.currentScrollTop) / 150;
+                                if (dragEndvScrollTop < 0 && scope.model.vScrollTop > dragEndvScrollTop) {
+                                    scope.model.vScrollTop = dragEndvScrollTop;
+                                } else if (scope.model.vScrollTop > -0.002) {
+                                    scope.model.vScrollTop = -0.002;
                                 }
                             } else {
-                                vy += (scope.model.currentScrollTop - maxScroll) * 0.005 * timeSpan;
+                                scope.model.vScrollTop -= (scope.model.currentScrollTop - maxScroll) * 0.002 * timeSpan;
+                                if (scope.model.vScrollTop < 0) {
+                                    scope.model.vScrollTop = 0;
+                                }
                             }
                         } else if (scope.model.currentScrollTop < minScroll) {
-                            if (vy < 0) {
-                                vy = (scope.model.currentScrollTop - minScroll) * htmlFontSize / 150;
-                                 if (vy > -0.03) {
-                                    vy = -0.03;
+                            if (scope.model.vScrollTop >= 0) {
+                                scope.model.vScrollTop = (minScroll - scope.model.currentScrollTop) / 150;
+                                if (dragEndvScrollTop > 0 && scope.model.vScrollTop < dragEndvScrollTop) {
+                                    scope.model.vScrollTop = dragEndvScrollTop;
+                                } else if (scope.model.vScrollTop < 0.002) {
+                                    scope.model.vScrollTop = 0.002;
                                 }
                             } else {
-                                vy += (scope.model.currentScrollTop - minScroll) * 0.005 * timeSpan;
+                                scope.model.vScrollTop -= (scope.model.currentScrollTop - minScroll) * 0.002 * timeSpan;
+                                if (scope.model.vScrollTop > 0) {
+                                    scope.model.vScrollTop = 0
+                                }
                             }
                         }
                     }
 
-                    lastStepTime = time;
+                    lastFrameTime = time;
 
                     if (Math.abs(scope.model.currentScrollTop - maxScroll) < 0.03) {
                         scope.model.currentScrollTop = maxScroll;
@@ -160,13 +184,14 @@ angular.module('kScroll', ['kDrag']).
                     }
 
                     if (!$wrapper.hasClass('dragging')
-                    && (Math.abs(vy) > 0.03
+                    && (Math.abs(scope.model.vScrollTop) > 0.002
                     || scope.model.currentScrollTop > maxScroll
                     || scope.model.currentScrollTop < minScroll)) {
-                        window.requestAnimationFrame(slide);
+                        requestId = window.requestAnimationFrame(slide);
                     } else {
-                        vy = 0;
+                        scope.model.vScrollTop = 0;
                         $wrapper.removeClass('sliding');
+                        requestId = null;
                     }
                 }
 

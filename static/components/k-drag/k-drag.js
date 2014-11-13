@@ -7,17 +7,19 @@
                     var state = 0; // 0: 初始状态, 1: 按下, 2: dragging
                     var pointerdownPageXY; // 按下时的PageXY
                     var pageXY; // 拖动时和拖动结束时的PageXY
-                    var lastFramePageXY, lastStepTime, currentStepTime;
+                    var lastFramePageXY, lastMovePageXY, lastMoveTime, currentTime;
                     var vx, vy;
                     var target; // 拖动的目标element，非常重要！！！
+                    var adsorb;
 
                     var animationFrameRequested = false;
 
                     $document
                         .on('mousedown touchstart', function (e) {
-                            pointerdownPageXY = getEventPageXY(e);
-                            lastStepTime = new Date().getTime();
+                            lastFramePageXY = pageXY = pointerdownPageXY = getEventPageXY(e);
+                            lastMoveTime = e.timeStamp;
                             target = e.target;
+                            adsorb = parseFloat($(target).attr('k-drag-adsorb')) || 0;
                             state = 1;
                         })
                         .on('mousemove touchmove', function (e) {
@@ -29,20 +31,32 @@
                                 return;
                             }
 
+                            lastMovePageXY = pageXY;
+                            pageXY = getEventPageXY(e);
+                            lastMoveTime = currentTime;
+                            currentTime = e.timeStamp;
+
+                            vx = (pageXY.x - lastMovePageXY.x) / (currentTime - lastMoveTime) || 0;
+                            vy = (pageXY.y - lastMovePageXY.y) / (currentTime - lastMoveTime) || 0;
+
+                            if (vx > 9)
+                                vx = 9;
+                            else if (vx < -9)
+                                vx = -9
+
+                            if (vy > 9)
+                                vy = 9;
+                            else if (vy < -9)
+                                vy = -9;
+
+
                             if (!animationFrameRequested) {
                                 $window.requestAnimationFrame(function () {
-                                    var adsorb, _event;
-
-                                    lastFramePageXY = pageXY;
-                                    pageXY = getEventPageXY(e);
-                                    lastStepTime = currentStepTime;
-                                    currentStepTime = new Date().getTime();
+                                    var _event;
 
                                     if (state === 1) {
-                                        adsorb = parseFloat($(target).attr('k-drag-adsorb')) || 0;
-                                        if (Math.abs(pageXY.x - pointerdownPageXY.x) > adsorb
-                                        || Math.abs(pageXY.y - pointerdownPageXY.y) > adsorb) {
-                                            lastFramePageXY = pageXY;
+                                        if (Math.abs(pageXY.x - pointerdownPageXY.x) >= adsorb
+                                        || Math.abs(pageXY.y - pointerdownPageXY.y) >= adsorb) {
                                             _event = newEvent('kdragstart', e);
                                             state = 2;
                                             $(target).trigger(_event);
@@ -50,42 +64,42 @@
                                     }
 
                                     if (state === 2) {
-                                        vx = (pageXY.x - lastFramePageXY.x) / (currentStepTime - lastStepTime) || 0;
-                                        vy = (pageXY.y - lastFramePageXY.y) / (currentStepTime - lastStepTime) || 0;
                                         _event = newEvent('kdrag', e);
                                         $(target).trigger(_event);
                                     }
+
+                                    lastFramePageXY = pageXY;
+
                                     animationFrameRequested = false;
                                 });
                                 animationFrameRequested = true;
                             }
                         })
-                        .on('mouseup touchend', function (e) {
-                            $window.requestAnimationFrame(function () {
-                                var _event;
-                                if (state === 2) {
-                                    currentStepTime = new Date().getTime();
+                        .on('mouseup touchend', cancelDrag);
 
-                                    vx = (pageXY.x - lastFramePageXY.x) / (currentStepTime - lastStepTime) || 0;
-                                    vy = (pageXY.y - lastFramePageXY.y) / (currentStepTime - lastStepTime) || 0;
+                    $($window).on('blur', cancelDrag);
 
-                                    _event = newEvent('kdragend', e);
-                                    $(target).trigger(_event);
-                                }
-                                state = 0;
-                            });
-                        });
+                    function cancelDrag(e) {
+                        if (animationFrameRequested) {
+                            $window.requestAnimationFrame(_do);
+                        } else {
+                            _do();
+                        }
 
-                    $($window).on('blur', function (e) {
-                       $window.requestAnimationFrame(function () {
+                        function _do() {
                             var _event;
                             if (state === 2) {
+                                if (e.timeStamp - lastMoveTime > 120) {
+                                    vx = 0;
+                                    vy = 0;
+                                }
+
                                 _event = newEvent('kdragend', e);
                                 $(target).trigger(_event);
                             }
                             state = 0;
-                        });
-                    });
+                        }
+                    }
 
                     function getEventPageXY(e) {
                         var touch, pageX, pageY;

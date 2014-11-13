@@ -146,7 +146,7 @@
                 xhr.send();
 
                 function bindEvents() {
-                    $(document)
+                    $document
                         .on('dragstart', function (e) {
                             e.preventDefault();
                         })

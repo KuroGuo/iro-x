@@ -1,6 +1,25 @@
-[k-scroller-wrapper] {
+/*[k-scroller-wrapper] {
     -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
     backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    perspective: 1000;
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -o-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}*/
+
+[k-scroller],
+[k-scroller-wrapper] > .scroll-bar {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    perspective: 1000;
 }
 
 [k-scroller-wrapper] > .scroll-bar {
@@ -46,9 +65,9 @@
 [k-scroller-wrapper] > .scroll-bar.dragging {
     width: .8em !important;
 }
-
+/*
 [k-scroller-wrapper].dragging [k-scroller],
 [k-scroller-wrapper].scrolling [k-scroller],
 [k-scroller-wrapper].sliding [k-scroller] {
     pointer-events: none;
-}
+}*/

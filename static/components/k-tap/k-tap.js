@@ -1,5 +1,5 @@
 ;(function (angular) { 'use strict';
-    angular.module('kTap', ['kDrag'])
+    angular.module('kTap', [])
         .directive('kTap', ['$window', '$document', '$parse', function ($window, $document, $parse) {
             return {
                 restrict: 'A',
@@ -18,15 +18,22 @@
             return {
                 restrict: 'E',
                 link: function (scope, element, attrs, controller) {
-                    var startTime, startTarget, startPageX, startPageY;
+                    var startPageX, startPageY;
                     var state = 0; //0: 初始状态, 1: 按下
 
                     $document
                         .on('mousedown touchstart', function (e) {
+                            var $document = $(e.currentTarget);
+
                             if (e.which && e.which !== 1) {
                                 return;
                             }
 
+                            if ($document.data('tapPrevented')) {
+                                $document.data('tapPrevented', false);
+                                return;
+                            }
+                            
                             var touch;
 
                             if (e.type === 'mousedown') {
@@ -38,16 +45,12 @@
                                 startPageY = touch.pageY;
                             }
 
-                            startTime = new Date().getTime();
-                            startTarget = e.target;
-
                             state = 1;
                         })
                         .on('mouseup touchend touchcancel', function (e) {
                             if (state < 1)
                                 return;
                             
-                            var now = new Date().getTime();
                             var touch;
                             var _event;
                             var pageX, pageY;
@@ -62,12 +65,6 @@
                             }
 
                             if (Math.abs(pageX - startPageX) > 10 || Math.abs(pageY - startPageY) > 10)
-                                return;
-
-                            // if (now - startTime > 750)
-                            //     return;
-
-                             if (e.target !== startTarget)
                                 return;
 
                             _event = $.Event('ktap');

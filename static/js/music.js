@@ -277,6 +277,10 @@
                 }
             }
 
+            $scope.musiclistScroller = {
+                currentScrollTop: 0
+            };
+
             function apply() {
                 $scope.$apply();
             }
