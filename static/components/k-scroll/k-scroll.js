@@ -14,7 +14,7 @@
                 link: function (scope, element, attrs, controller) {
                     var $wrapper = $(element),
                         $scroller = $wrapper.children('[k-scroller]'),
-                        $scrollerBar = $($document[0].createElement('span')).addClass('scroll-bar').appendTo($wrapper),
+                        $scrollerBar = $($document[0].createElement('span')).addClass('scroll-bar hoverable activable').appendTo($wrapper),
                         animationOption = {
                             duration: 200,
                             easing: [0, 0, 0.58, 1]

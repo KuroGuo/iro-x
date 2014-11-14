@@ -75,11 +75,7 @@
         };
 
         $scope.global = {
-            customWallpaperSrc: null
-        }; 
-
-        Object.defineProperty($scope.global, 'customWallpaperSrc', {
-            get: function () {
+            get customWallpaperSrc() {
                 if (!$state.includes('music') && musicPlayer.paused) {
                     return null;
                 }
@@ -88,7 +84,7 @@
                 }
                 return musicPlayer.currentMusic.bgSrc;
             }
-        });
+        };
 
         member.checkOnline(function (err, user) {
             $scope.setUser(user);
