@@ -152,7 +152,7 @@
                         .on('mouseenter', '.hoverable', function (e) {
                             $(e.currentTarget).addClass('hover');
                         })
-                        .on('mouseleave touchstart', '.hoverable', function (e) {
+                        .on('mouseleave mouseup', '.hoverable', function (e) {
                             $(e.currentTarget).removeClass('hover');
                         })
                         .on('touchstart mousedown', '.activable', function (e) {
