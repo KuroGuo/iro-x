@@ -10,18 +10,8 @@
     -o-transform: translate3d(0,0,0);
     -ms-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
-}*/
-
-[k-scroller],
-[k-scroller-wrapper] > .scroll-bar {
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000;
-    -moz-perspective: 1000;
-    perspective: 1000;
 }
-
+*/
 [k-scroller-wrapper] > .scroll-bar {
     position: absolute;
     right: 0;

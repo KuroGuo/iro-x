@@ -153,17 +153,16 @@
                         .on('touchmove', function (e) {
                             e.preventDefault();
                         })
-                        .on('mouseenter', '*', function (e) {
-                            e.preventDefault();
+                        .on('mouseenter', '.hoverable', function (e) {
                             $(e.currentTarget).addClass('hover');
                         })
-                        .on('mouseleave touchstart', '*', function (e) {
+                        .on('mouseleave touchstart', '.hoverable', function (e) {
                             $(e.currentTarget).removeClass('hover');
                         })
-                        .on('touchstart mousedown', '*', function (e) {
+                        .on('touchstart mousedown', '.activable', function (e) {
                             $(e.currentTarget).addClass('active');
                         })
-                        .on('touchend touchcancel mouseup mouseleave', '*', function (e) {
+                        .on('touchend touchcancel mouseup mouseleave', '.activable', function (e) {
                             $(e.currentTarget).removeClass('active');
                         })
                         // .on('touchstart touchend touchmove click tap mousedown mouseup', function (e) {
@@ -175,7 +174,7 @@
                             }
                         })
                         .on('touchstart touchend', function (e) {
-                            if ($(e.target).is('input[type="text"], textarea, [contenteditable]')) {
+                            if ($(e.target).hasClass('not-prevent-touch-default')) {
                                 return;
                             }
                             e.preventDefault();
