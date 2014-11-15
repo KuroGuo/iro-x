@@ -63,6 +63,7 @@ body {
         background-repeat: no-repeat;
         background-position: center center;
         background-size: cover;
+        @include transform(translateZ(0));
 
         &.ng-enter {
             @include animation(fade-in .4s);
