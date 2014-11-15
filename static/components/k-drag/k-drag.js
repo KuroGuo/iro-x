@@ -36,8 +36,8 @@
                             lastMoveTime = currentTime;
                             currentTime = e.timeStamp;
 
-                            vx = (pageXY.x - lastMovePageXY.x) / Math.max(1, currentTime - lastMoveTime) || 0;
-                            vy = (pageXY.y - lastMovePageXY.y) / Math.max(1, currentTime - lastMoveTime) || 0;
+                            vx = (pageXY.x - lastMovePageXY.x) / Math.max(1, currentTime - lastMoveTime) || vy || 0;
+                            vy = (pageXY.y - lastMovePageXY.y) / Math.max(1, currentTime - lastMoveTime) || vy || 0;
 
                             if (vx > 9)
                                 vx = 9;
