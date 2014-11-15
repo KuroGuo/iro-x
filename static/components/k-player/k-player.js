@@ -105,18 +105,20 @@
                         };
 
                         scope.player.openFile = function () {
+                            $('.k-player-input-file').remove();
                             var inputFile = $document[0].createElement('input');
+                            inputFile.classList.add('k-player-input-file');
                             inputFile.type = 'file';
                             inputFile.style.visibility = 'hidden';
                             inputFile.onchange = function (e) {
                                 var inputFile = e.currentTarget;
                                 var file = inputFile.files[0];
                                 setupPlayer(file, function () {
-                                    $(inputFile).remove();
+                                    $('.k-player-input-file').remove();
                                 });
                             };
                             $('body').append($(inputFile));
-                            $(inputFile).trigger('click');
+                            $('.k-player-input-file').trigger('click');
                         };
                     }
 
