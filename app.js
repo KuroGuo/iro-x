@@ -29,11 +29,11 @@ app.use(compression());
 
 app.use('/static', express.static(__dirname + '/static'));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use('/api', bodyParser.urlencoded({ extended: false }));
+app.use('/api', bodyParser.json());
+app.use('/api', bodyParser.json({ type: 'application/vnd.api+json' }));
 
-app.use(session({
+app.use('/api', session({
     secret: 'kuroguo',
     resave: true,
     saveUninitialized: true,
