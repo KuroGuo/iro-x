@@ -64,11 +64,14 @@
                                 return;
 
                             var $wrapper = $(e.currentTarget);
+                            
                             if (!$wrapper.hasClass('dragging')) {
                                 $wrapper.addClass('dragging');
                             }
                         })
                         .on('kdrag', function (e) {
+                            var $wrapper = $(e.currentTarget);
+
                             if (!$wrapper.hasClass('dragging'))
                                 return;
 
