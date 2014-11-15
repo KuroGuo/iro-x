@@ -8,8 +8,7 @@
         'ui.router',
         'blog_k.home',
         'blog_k.video',
-        'blog_k.music',
-        'blog_k.services.member'
+        'blog_k.music'
     ]).config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state('home', {
@@ -54,8 +53,8 @@
             .otherwise('/');
 
         $locationProvider.html5Mode(true).hashPrefix('!');
-    }]).controller('MainCtrl', ['$scope' ,'$state', 'member', 'musicPlayer', '$window',
-    function ($scope ,$state, member, musicPlayer, $window) {
+    }]).controller('MainCtrl', ['$scope' ,'$state', 'musicPlayer', '$window',
+    function ($scope ,$state, musicPlayer, $window) {
         $scope.setUser = function (user) {
             if ($scope.$$phase) {
                 $scope.user = user; 
@@ -85,10 +84,6 @@
                 return musicPlayer.currentMusic.bgSrc;
             }
         };
-
-        member.checkOnline(function (err, user) {
-            $scope.setUser(user);
-        });
     }]).directive('html', ['$window', '$document', '$state', '$timeout', function ($window, $document, $state, $timeout) {
         var document = $document[0];
 
