@@ -119,6 +119,22 @@ $nav-bar-width: 3.3rem;
         font-size: 10rem;
         font-family: Italiana, sans-serif;
         line-height: .82em;
+        
+
+        .red {
+            color: #ff5f5f;
+            @include text-shadow(0 0 .6rem #ff5f5f);
+        }
+
+        .green {
+            color: #a8d324;
+            @include text-shadow(0 0 .6rem #a8d324);
+        }
+
+        .blue {
+            color: #50c0e9;
+            @include text-shadow(0 0 .6rem #50c0e9);
+        }
     }
 
     .progress-bar {
@@ -127,7 +143,8 @@ $nav-bar-width: 3.3rem;
         left: 0;
         width: 0;
         height: 1px;
-        background-color: $text-color;
+        background-color: red;
+        @include box-shadow(0 0 .6rem red);
         @include transition(width .2s linear);
     }
 
