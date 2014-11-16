@@ -268,7 +268,6 @@
             });
 
             if ($state.is('music')) {
-                console.log('is', $state.is('music'));
                 if (!musicPlayer.list) {
                     musicPlayer.loadAllToList(function (list) {
                         $state.go('music.play', {name: list[0].name}, {location: 'replace'});
