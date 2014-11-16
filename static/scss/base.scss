@@ -145,7 +145,7 @@ $nav-bar-width: 3.3rem;
         height: 1px;
         background-color: rgb(255, 0, 0);
         @include box-shadow(0 0 .4rem rgba(255, 0, 0, .4));
-        @include transition(width .2s linear);
+        @include transition(width .4s linear);
     }
 
     p {

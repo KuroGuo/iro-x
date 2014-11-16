@@ -222,10 +222,10 @@ body > .background.ng-leave {
   -moz-box-shadow: 0 0 0.4rem rgba(255, 0, 0, 0.4);
   -webkit-box-shadow: 0 0 0.4rem rgba(255, 0, 0, 0.4);
   box-shadow: 0 0 0.4rem rgba(255, 0, 0, 0.4);
-  -moz-transition: width 0.2s linear;
-  -o-transition: width 0.2s linear;
-  -webkit-transition: width 0.2s linear;
-  transition: width 0.2s linear;
+  -moz-transition: width 0.4s linear;
+  -o-transition: width 0.4s linear;
+  -webkit-transition: width 0.4s linear;
+  transition: width 0.4s linear;
 }
 /* line 151, ../scss/base.scss */
 #loading_cover p {
