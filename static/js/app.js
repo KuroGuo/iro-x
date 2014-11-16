@@ -129,7 +129,8 @@
                     $('#loading_cover .progress-bar').css('width', (percent * 100) + '%');
                 };
                 xhr.onload = function () {
-                    scope.wallpaperSrc = wallpaperSrc;
+                    $window.wallpaperBlob = this.response;
+                    scope.wallpaperSrc = window.URL.createObjectURL(this.response);
                     $timeout(function () {
                         scope.loaded = true;
                     }, 800);

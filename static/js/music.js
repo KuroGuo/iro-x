@@ -150,11 +150,13 @@
                     })[0];
                     if (!music)
                         music = this.list[0];
-                } else {
+                } else if (musicOrIndex && 'name' in musicOrIndex) {
                     music = musicOrIndex;
                 }
 
-                this.currentMusic = music;
+                if (music && (!this.currentMusic || music.name !== this.currentMusic.name)) {
+                    this.currentMusic = music;
+                }
 
                 audio.play();
             };
