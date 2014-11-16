@@ -1,5 +1,5 @@
 ;(function (angular) { 'use strict';
-    angular.module('kScroll', ['kDrag']).
+    angular.module('kScroll', ['kTap', 'kDrag']).
         directive('kScrollerWrapper', ['$window', '$document', '$timeout', function ($window, $document, $timeout) {
             var computeMouseWheelDelta = function (eventArg) {
                 if (eventArg.type == 'DOMMouseScroll' || eventArg.type == 'mousewheel') {
@@ -103,7 +103,7 @@
                             if (requestId) {
                                 window.cancelAnimationFrame(requestId);
                                 requestId = null;
-                                $document.data('tapPrevented', true);
+                                $document.data('kTapPrevented', true);
                             }
                             scope.model.vScrollTop = 0;
                             $wrapper.removeClass('sliding');

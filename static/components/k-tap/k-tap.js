@@ -29,8 +29,8 @@
                                 return;
                             }
 
-                            if ($document.data('tapPrevented')) {
-                                $document.data('tapPrevented', false);
+                            if ($document.data('kTapPrevented')) {
+                                $document.data('kTapPrevented', false);
                                 return;
                             }
                             
