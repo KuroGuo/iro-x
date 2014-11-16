@@ -15,9 +15,9 @@
     <body ng-class="{loaded: loaded}">
         <div class="background" ng-repeat="bg in [(global.customWallpaperSrc ? global.customWallpaperSrc : wallpaperSrc)]" ng-style="{'background-image': bg ? 'url(\'' + bg + '\')' : 'none'}"></div>
         <div id="loading_cover" ng-hide="loaded">
-            <h1>iro</h1>
+            <h1><span style="color: #ff5f5f;">i</span><span style="color: #a8d324;">r</span><span style="color: #50c0e9;">o</span></h1>
             <span class="progress-bar"></span>
-            <p>colorful days</p>
+            <!-- <p>colorful days</p> -->
         </div>
         <div id="nav_bar" ng-show="loaded">
             <ul>
