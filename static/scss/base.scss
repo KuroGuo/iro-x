@@ -122,18 +122,18 @@ $nav-bar-width: 3.3rem;
         
 
         .red {
-            color: #ff5f5f;
-            @include text-shadow(0 0 .6rem #ff5f5f);
+            color: rgb(255, 95, 95);
+            @include text-shadow(0 0 .4rem rgba(255, 95, 95, .4));
         }
 
         .green {
-            color: #a8d324;
-            @include text-shadow(0 0 .6rem #a8d324);
+            color: rgb(168, 211, 36);
+            @include text-shadow(0 0 .4rem rgba(168, 211, 36, .4));
         }
 
         .blue {
-            color: #50c0e9;
-            @include text-shadow(0 0 .6rem #50c0e9);
+            color: rgb(80, 192, 233);
+            @include text-shadow(0 0 .4rem rgba(80, 192, 233, .4));
         }
     }
 
@@ -143,8 +143,8 @@ $nav-bar-width: 3.3rem;
         left: 0;
         width: 0;
         height: 1px;
-        background-color: red;
-        @include box-shadow(0 0 .6rem red);
+        background-color: rgb(255, 0, 0);
+        @include box-shadow(0 0 .4rem rgba(255, 0, 0, .4));
         @include transition(width .2s linear);
     }
 

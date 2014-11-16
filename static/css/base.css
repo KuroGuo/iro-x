@@ -134,17 +134,17 @@ body > .background.ng-leave {
 /* line 124, ../scss/base.scss */
 #loading_cover h1 .red {
   color: #ff5f5f;
-  text-shadow: 0 0 0.6rem #ff5f5f;
+  text-shadow: 0 0 0.4rem rgba(255, 95, 95, 0.4);
 }
 /* line 129, ../scss/base.scss */
 #loading_cover h1 .green {
   color: #a8d324;
-  text-shadow: 0 0 0.6rem #a8d324;
+  text-shadow: 0 0 0.4rem rgba(168, 211, 36, 0.4);
 }
 /* line 134, ../scss/base.scss */
 #loading_cover h1 .blue {
   color: #50c0e9;
-  text-shadow: 0 0 0.6rem #50c0e9;
+  text-shadow: 0 0 0.4rem rgba(80, 192, 233, 0.4);
 }
 /* line 140, ../scss/base.scss */
 #loading_cover .progress-bar {
@@ -154,9 +154,9 @@ body > .background.ng-leave {
   width: 0;
   height: 1px;
   background-color: red;
-  -moz-box-shadow: 0 0 0.6rem red;
-  -webkit-box-shadow: 0 0 0.6rem red;
-  box-shadow: 0 0 0.6rem red;
+  -moz-box-shadow: 0 0 0.4rem rgba(255, 0, 0, 0.4);
+  -webkit-box-shadow: 0 0 0.4rem rgba(255, 0, 0, 0.4);
+  box-shadow: 0 0 0.4rem rgba(255, 0, 0, 0.4);
   -moz-transition: width 0.2s linear;
   -o-transition: width 0.2s linear;
   -webkit-transition: width 0.2s linear;
