@@ -119,7 +119,7 @@
 
             musicPlayer.loadAllToList = function (callback) {
                 var _this = this;
-                this.list = music.query(function (list) {
+                _this.list = music.query(function (list) {
                     var i, j, temp;
 
                     for (i = 0; i < list.length; i++) {
@@ -154,9 +154,7 @@
                     music = musicOrIndex;
                 }
 
-                if (music && music !== currentMusic) {
-                    this.currentMusic = music;
-                }
+                this.currentMusic = music;
 
                 audio.play();
             };
@@ -270,7 +268,7 @@
             if ($state.is('music')) {
                 if (!musicPlayer.list) {
                     musicPlayer.loadAllToList(function (list) {
-                        $state.go('music.play', {name: list[0].name}, {location: 'replace'});
+                        $state.go('music.play');
                     });
                 } else {
                     $state.go('music.play', {name: musicPlayer.currentMusic.name});
@@ -286,7 +284,7 @@
             }
 
             function gotoMusicPlay() {
-                $state.go('music.play', {name: musicPlayer.currentMusic.name}, {location: $state.includes('music') ? 'replace' : true});
+                $state.go('music.play', {name: musicPlayer.currentMusic.name}, {location: 'replace'});
             }
         }])
         .controller('MusicPlayCtrl', ['$stateParams', 'musicPlayer', function ($stateParams, musicPlayer) {
