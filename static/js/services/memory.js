@@ -1,5 +1,5 @@
 ;(function (angular) { 'use strict';
-    angular.module('blog_k.services.memory', [])
+    angular.module('iro.services.memory', [])
         .factory('memory', [function () {
             var memory = {};
 

@@ -1,14 +1,14 @@
 ;(function (angular) { 'use strict';
-    angular.module('blog_k', [
+    angular.module('iro', [
         'kTap',
         'kDrag',
         'kScroll',
         'ngAnimate',
         'angular-loading-bar',
         'ui.router',
-        'blog_k.home',
-        'blog_k.video',
-        'blog_k.music'
+        'iro.home',
+        'iro.video',
+        'iro.music'
     ]).config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state('home', {
@@ -118,7 +118,7 @@
                     })
                     .triggerHandler('resize');
 
-                var wallpaperSrc = 'http://kuro-iro.b0.upaiyun.com/images/wallpaper.jpg';
+                var wallpaperSrc = '/static/images/wallpaper.jpg';
 
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', wallpaperSrc);

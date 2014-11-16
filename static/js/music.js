@@ -1,5 +1,5 @@
 ;(function (angular) { 'use strict';
-    angular.module('blog_k.music', ['blog_k.services.music', 'cfp.loadingBar'])
+    angular.module('iro.music', ['iro.services.music', 'cfp.loadingBar'])
         .factory('musicPlayer', ['music', 'cfpLoadingBar', '$http', '$window', function (music, cfpLoadingBar, $http, $window) {
             var audio = document.createElement('audio');
             var currentMusic = null;
@@ -268,9 +268,10 @@
             });
 
             if ($state.is('music')) {
+                console.log('is', $state.is('music'));
                 if (!musicPlayer.list) {
                     musicPlayer.loadAllToList(function (list) {
-                        $state.go('music.play', {name: list[0]});
+                        $state.go('music.play', {name: list[0].name}, {location: 'replace'});
                     });
                 } else {
                     $state.go('music.play', {name: musicPlayer.currentMusic.name});
@@ -286,7 +287,7 @@
             }
 
             function gotoMusicPlay() {
-                $state.go('music.play', {name: musicPlayer.currentMusic.name});
+                $state.go('music.play', {name: musicPlayer.currentMusic.name}, {location: $state.includes('music') ? 'replace' : true});
             }
         }])
         .controller('MusicPlayCtrl', ['$stateParams', 'musicPlayer', function ($stateParams, musicPlayer) {

@@ -1,5 +1,5 @@
 ;(function (angular) { 'use strict';
-    angular.module('blog_k.home', [])
+    angular.module('iro.home', [])
         .controller('HomeCtrl', ['$scope', function ($scope) {
         }])
         .directive('datetimeBox', ['$interval', function ($interval) {

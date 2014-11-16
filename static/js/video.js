@@ -1,8 +1,8 @@
 ;(function (angular) { 'use strict';
-    angular.module('blog_k.video', ['blog_k.services.memory', 'k-player'])
+    angular.module('iro.video', ['iro.services.memory', 'k-player'])
         .controller('VideoCtrl', [function () {
         }])
-        .directive('blogKVideo', ['$window', 'memory', function ($window, memory) {
+        .directive('iroVideo', ['$window', 'memory', function ($window, memory) {
             return {
                 restrict: 'E',
                 link: function (scope, element, attrs, controller) {
