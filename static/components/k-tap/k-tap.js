@@ -64,7 +64,7 @@
                                 pageY = touch.pageY;
                             }
 
-                            if (Math.abs(pageX - startPageX) > 5 || Math.abs(pageY - startPageY) > 5)
+                            if (Math.abs(pageX - startPageX) > 3 || Math.abs(pageY - startPageY) > 3)
                                 return;
 
                             _event = $.Event('ktap');
