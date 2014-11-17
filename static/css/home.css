@@ -4,7 +4,7 @@
   width: 100%;
   height: 100%;
 }
-/* line 6, ../scss/home.scss */
+/* line 8, ../scss/home.scss */
 #home .menu-list {
   background-color: rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -12,58 +12,58 @@
   top: 2%;
   left: 2%;
 }
-/* line 13, ../scss/home.scss */
+/* line 15, ../scss/home.scss */
 #home .menu-list a {
   display: inline-block;
   padding: 1rem 1.6rem;
   color: white;
   text-align: center;
 }
-/* line 19, ../scss/home.scss */
+/* line 21, ../scss/home.scss */
 #home .menu-list a.hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
-/* line 22, ../scss/home.scss */
+/* line 24, ../scss/home.scss */
 #home .menu-list a.active {
   background-color: rgba(0, 0, 0, 0.2);
 }
-/* line 26, ../scss/home.scss */
+/* line 28, ../scss/home.scss */
 #home .menu-list a .icon,
 #home .menu-list a .text {
   display: block;
 }
-/* line 31, ../scss/home.scss */
+/* line 33, ../scss/home.scss */
 #home .menu-list a .icon {
   font-size: 4rem;
   margin-bottom: .8rem;
 }
-/* line 36, ../scss/home.scss */
+/* line 38, ../scss/home.scss */
 #home .menu-list a .text {
   font-size: 1.1rem;
 }
-/* line 42, ../scss/home.scss */
+/* line 44, ../scss/home.scss */
 #home .datetime-box {
   display: block;
   cursor: default;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.2);
-  right: 4%;
-  bottom: 4%;
+  right: 2%;
+  bottom: 2%;
   text-align: right;
   padding: 1rem;
 }
-/* line 52, ../scss/home.scss */
+/* line 54, ../scss/home.scss */
 #home .datetime-box .date,
 #home .datetime-box .time,
 #home .datetime-box .day {
   color: white;
 }
-/* line 58, ../scss/home.scss */
+/* line 60, ../scss/home.scss */
 #home .datetime-box .time {
   font-size: 5rem;
   line-height: 0.9em;
 }
-/* line 63, ../scss/home.scss */
+/* line 65, ../scss/home.scss */
 #home .datetime-box .date,
 #home .datetime-box .day {
   font-size: 1.2rem;

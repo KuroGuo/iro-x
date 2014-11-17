@@ -3,12 +3,14 @@
     width: 100%;
     height: 100%;
 
+    $padding: 2%;
+
     .menu-list {
         background-color: rgba(0, 0, 0, 0.2);
         overflow: hidden;
         position: absolute;
-        top: 2%;
-        left: 2%;
+        top: $padding;
+        left: $padding;
 
         a {
             display: inline-block;
@@ -44,8 +46,8 @@
         cursor: default;
         position: absolute;
         background-color: rgba(0, 0, 0, .2);
-        right: 4%;
-        bottom: 4%;
+        right: $padding;
+        bottom: $padding;
         text-align: right;
         padding: 1rem;
 
