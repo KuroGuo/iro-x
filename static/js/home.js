@@ -6,7 +6,11 @@
             return {
                 restrict: 'E',
                 link: function (scope, element, attrs, controller) {
-                    $interval(setDateTime, 1000);
+                    var clock = $interval(setDateTime, 1000);
+
+                    scope.$on('$destroy', function () {
+                        $interval.cancel(clock);
+                    });
 
                     setDateTime();
 
@@ -34,7 +38,7 @@
                             hours = '0' + hours;
                         }
                         if (minutes < 10) {
-                            minutes + '0' + minutes;
+                            minutes = '0' + minutes;
                         }
 
                         return hours + ':' + minutes;
@@ -87,9 +91,5 @@
                     }
                 }
             };
-
-            $interval(function () {
-                $scope.$apply(setDateTime);
-            }, 1000);
         }]);
 })(angular);
