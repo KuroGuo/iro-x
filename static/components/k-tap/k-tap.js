@@ -47,6 +47,25 @@
 
                             state = 1;
                         })
+                        .on('mousemove touchmove', function (e) {
+                            if (state < 1)
+                                return;
+
+                            var touch;
+                            var pageX, pageY;
+
+                            if (e.type === 'mousemove') {
+                                pageX = e.pageX;
+                                pageY = e.pageY;
+                            } else if (e.type === 'touchmove') {
+                                touch = e.originalEvent.changedTouches[0];
+                                pageX = touch.pageX;
+                                pageY = touch.pageY;
+                            }
+
+                            if (Math.abs(pageX - startPageX) > 5 || Math.abs(pageY - startPageY) > 5)
+                                state = 0;
+                        })
                         .on('mouseup touchend touchcancel', function (e) {
                             if (state < 1)
                                 return;
@@ -63,9 +82,6 @@
                                 pageX = touch.pageX;
                                 pageY = touch.pageY;
                             }
-
-                            if (Math.abs(pageX - startPageX) > 3 || Math.abs(pageY - startPageY) > 3)
-                                return;
 
                             _event = $.Event('ktap');
 
