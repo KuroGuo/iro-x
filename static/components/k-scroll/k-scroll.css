@@ -19,7 +19,7 @@
     width: .25em !important;
     height: 20%;
     min-height: 3em;
-    background-color: rgba(0, 0, 0, .3);
+    background-color: rgba(255, 255, 255, .2);
     background-clip: content-box;
     z-index: 100;
     border-left: .5em solid transparent;
@@ -32,7 +32,7 @@
 
 [k-scroller-wrapper] > .scroll-bar.active,
 [k-scroller-wrapper] > .scroll-bar.dragging {
-    background-color: rgba(0, 0, 0, .4);
+    background-color: rgba(255, 255, 255, .4);
 }
 
 [k-scroller-wrapper].hover > .scroll-bar,
