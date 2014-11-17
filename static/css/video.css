@@ -1,7 +1,1 @@
-/* line 1, ../scss/video.scss */
-#video,
-#video k-player {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
+#video,#video k-player{position:absolute;width:100%;height:100%}
