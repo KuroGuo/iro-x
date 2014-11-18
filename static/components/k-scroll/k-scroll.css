@@ -12,7 +12,7 @@
     transform: translate3d(0,0,0);
 }
 */
-[k-scroller-wrapper] > .scroll-bar {
+.k-scroller-wrapper > .scroll-bar {
     position: absolute;
     right: 0;
     top: 0;
@@ -30,29 +30,29 @@
     visibility: hidden;
 }
 
-[k-scroller-wrapper] > .scroll-bar.active,
-[k-scroller-wrapper] > .scroll-bar.dragging {
+.k-scroller-wrapper > .scroll-bar.active,
+.k-scroller-wrapper > .scroll-bar.dragging {
     background-color: rgba(255, 255, 255, .4);
 }
 
-[k-scroller-wrapper].hover > .scroll-bar,
-[k-scroller-wrapper].dragging > .scroll-bar,
-[k-scroller-wrapper].sliding > .scroll-bar,
-[k-scroller-wrapper] > .scroll-bar.dragging {
+.k-scroller-wrapper.hover > .scroll-bar,
+.k-scroller-wrapper.dragging > .scroll-bar,
+.k-scroller-wrapper.sliding > .scroll-bar,
+.k-scroller-wrapper > .scroll-bar.dragging {
     transition-delay: .4s, .4s, 0, 0;
     visibility: visible;
     opacity: 1;
 }
 
-[k-scroller-wrapper] > .scroll-bar.hover,
-[k-scroller-wrapper].dragging > .scroll-bar,
-[k-scroller-wrapper] > .scroll-bar.dragging {
+.k-scroller-wrapper > .scroll-bar.hover,
+.k-scroller-wrapper.dragging > .scroll-bar,
+.k-scroller-wrapper > .scroll-bar.dragging {
     transition-delay: 0, 0, 0, 0;
     border-left-width: 0;
 }
 
-[k-scroller-wrapper] > .scroll-bar.hover,
-[k-scroller-wrapper] > .scroll-bar.dragging {
+.k-scroller-wrapper > .scroll-bar.hover,
+.k-scroller-wrapper > .scroll-bar.dragging {
     width: .8em !important;
 }
 /*
