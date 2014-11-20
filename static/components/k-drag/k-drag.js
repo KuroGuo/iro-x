@@ -36,8 +36,18 @@
                             lastMoveTime = currentTime;
                             currentTime = e.timeStamp;
 
-                            vx = (pageXY.x - lastMovePageXY.x) / Math.max(1, currentTime - lastMoveTime) || vy || 0;
-                            vy = (pageXY.y - lastMovePageXY.y) / Math.max(1, currentTime - lastMoveTime) || vy || 0;
+                            var newVx = (pageXY.x - lastMovePageXY.x) / Math.max(1, currentTime - lastMoveTime) || vy || 0;
+                            var newVy = (pageXY.y - lastMovePageXY.y) / Math.max(1, currentTime - lastMoveTime) || vy || 0;
+                            if (vx) {
+                                vx = (vx + newVx) / 2;
+                            } else {
+                                vx = newVx;
+                            }
+                            if (vy) {
+                                vy = (vy + newVy) / 2;
+                            } else {
+                                vy = newVy;
+                            }
 
                             if (vx > 9)
                                 vx = 9;
