@@ -66,10 +66,10 @@ body {
         @include transform(translateZ(0));
 
         &.ng-enter {
-            @include animation(fade-in .4s);
+            @include animation(fade-in .6s);
         }
         &.ng-leave {
-            @include animation(fade-out .4s forwards);
+            @include animation(fade-out .6s forwards);
         }
     }
 }
@@ -112,9 +112,9 @@ $nav-bar-width: 3.3rem;
     z-index: 100;
     text-align: center;
 
-    &.ng-hide {
-        @include animation(fade-out .6s forwards);
-    }
+    // &.ng-hide {
+    //     @include animation(fade-out .6s forwards);
+    // }
 
     h1 {
         position: absolute;
@@ -221,14 +221,14 @@ $nav-bar-width: 3.3rem;
 .container {
     position: absolute;
 
-    &.ng-hide-remove{
-        @include animation(scale-enter .6s);
-    }
     &.ng-enter {
         @include animation(scale-enter .4s);
     }
     &.ng-leave {
         @include animation(scale-leave .4s forwards);
+    }
+    &.ng-hide-remove{
+        @include animation(scale-enter .6s);
     }
 }
 
