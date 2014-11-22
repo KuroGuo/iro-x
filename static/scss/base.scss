@@ -112,9 +112,9 @@ $nav-bar-width: 3.3rem;
     z-index: 100;
     text-align: center;
 
-    // &.ng-hide {
-    //     @include animation(fade-out .6s forwards);
-    // }
+    &.ng-hide {
+        @include animation(fade-out .6s forwards);
+    }
 
     h1 {
         position: absolute;
