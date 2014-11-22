@@ -228,7 +228,7 @@ $nav-bar-width: 3.3rem;
         @include animation(scale-leave .4s forwards);
     }
     &.ng-hide-remove{
-        @include animation(scale-enter 1.2s);
+        @include animation(scale-enter 1s);
     }
 }
 
@@ -251,7 +251,7 @@ $nav-bar-width: 3.3rem;
         width: $nav-bar-width;
 
         &.ng-hide-remove {
-            @include animation(slide-fade-in-left 1.2s);
+            @include animation(slide-fade-in-left 1s);
         }
     }
 
@@ -271,7 +271,7 @@ $nav-bar-width: 3.3rem;
         height: $nav-bar-width;
 
         &.ng-hide-remove {
-            @include animation(slide-fade-in-bottom 1.2s);    
+            @include animation(slide-fade-in-bottom 1s);    
         }
     }
 
