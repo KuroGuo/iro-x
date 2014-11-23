@@ -40,7 +40,7 @@
             right: $padding;
             height: $lrc-font-size;
             cursor: default;
-            @include backface-visibility(hidden);
+            @include transform(translateZ(0));
 
             .wide-screen & {
                 bottom: $padding;
