@@ -66,10 +66,10 @@ body {
         @include transform(translateZ(0));
 
         &.ng-enter {
-            @include animation(fade-in .4s);
+            @include animation(fade-in .4s cubic-bezier(1,0,.618,1));
         }
         &.ng-leave {
-            @include animation(fade-out .4s forwards);
+            @include animation(fade-out .4s cubic-bezier(1,0,.618,1) forwards);
         }
     }
 }
@@ -113,7 +113,7 @@ $nav-bar-width: 3.3rem;
     text-align: center;
 
     &.ng-hide {
-        @include animation(fade-out 1s forwards);
+        @include animation(fade-out 1s forwards cubic-bezier(1,0,.618,1));
     }
 
     h1 {
@@ -222,23 +222,23 @@ $nav-bar-width: 3.3rem;
     position: absolute;
 
     &.ng-enter {
-        @include animation(scale-enter .4s);
+        @include animation(scale-enter .4s cubic-bezier(1,0,.618,1));
     }
     &.ng-leave {
-        @include animation(scale-leave .4s forwards);
+        @include animation(scale-leave .4s cubic-bezier(1,0,.618,1) forwards);
     }
     &.ng-hide-remove{
-        @include animation(scale-enter 1s);
+        @include animation(scale-enter 1s cubic-bezier(1,0,.618,1));
     }
 }
 
 .state-back {
     .container {
         &.ng-enter {
-            @include animation(scale-back-enter .4s);
+            @include animation(scale-back-enter .4s cubic-bezier(1,0,.618,1));
         }
         &.ng-leave {
-            @include animation(scale-back-leave .4s forwards);
+            @include animation(scale-back-leave .4s cubic-bezier(1,0,.618,1) forwards);
         }
     }
 }
@@ -251,7 +251,7 @@ $nav-bar-width: 3.3rem;
         width: $nav-bar-width;
 
         &.ng-hide-remove {
-            @include animation(slide-fade-in-left 1s);
+            @include animation(slide-fade-in-left 1s cubic-bezier(1,0,.618,1));
         }
     }
 
@@ -271,7 +271,7 @@ $nav-bar-width: 3.3rem;
         height: $nav-bar-width;
 
         &.ng-hide-remove {
-            @include animation(slide-fade-in-bottom 1s);    
+            @include animation(slide-fade-in-bottom 1s cubic-bezier(1,0,.618,1));    
         }
     }
 
