@@ -30,8 +30,10 @@
                         if (musicPlayer.lrcList[i].time > audio.currentTime)
                             break;
                     }
-                    musicPlayer.currentLrc = musicPlayer.lrcList[i - 1];
-                    emit('currentLrcChanged');
+                    if (musicPlayer.currentLrc !== musicPlayer.lrcList[i - 1]) {
+                        musicPlayer.currentLrc = musicPlayer.lrcList[i - 1];
+                        emit('currentLrcChanged');
+                    }
                 }
             });
             audio.addEventListener('ended', function () {
@@ -53,6 +55,15 @@
                 },
                 set: function (newValue) {
                     audio.currentTime = newValue;
+                }
+            });
+
+            Object.defineProperty(musicPlayer, 'duration', {
+                get: function () {
+                    return audio.duration;
+                },
+                set: function () {
+                    audio.duration = duration;
                 }
             });
 
