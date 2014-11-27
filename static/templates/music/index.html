@@ -1,0 +1,10 @@
+<div id="music">
+  <div ui-view class="main-area"></div>
+  <div k-model="musiclistScroller" class="music-list k-scroller-wrapper hoverable">
+    <ul class="k-scroller">
+      <li ng-class="{selected: music.name === currentMusic.name}" ng-repeat="music in musics track by $index" k-tap="play(music)">
+        {{music.name}}
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html ng-app="iro" ng-controller="MainCtrl">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <base href="/" />
-        <title>iro | colorful days</title>
-        <link rel="icon" type="image/x-icon" href="http://kuro-iro.b0.upaiyun.com/images/favicon.ico">
-        <link rel="stylesheet" href="/static/bower_components/angular-loading-bar/build/loading-bar.min.css" />
-        <link rel="stylesheet" href="/static/css/main.css" />
-        <link rel="stylesheet" href="/static/components/k-player/css/k-player.css" />
-        <link rel="stylesheet" href="/static/components/k-scroll/k-scroll.css" />
-    </head>
-    <body ng-class="{loaded: loaded}">
-        <div class="background" ng-repeat="bg in [(global.customWallpaperSrc ? global.customWallpaperSrc : wallpaperSrc)]" ng-style="{'background-image': bg ? 'url(\'' + bg + '\')' : 'none'}"></div>
-        <div id="loading_cover" ng-hide="loaded">
-            <h1><span class="red">i</span><span class="green">r</span><span class="blue">o</span></h1>
-            <span class="progress-bar"></span>
-            <!-- <p>colorful days</p> -->
-        </div>
-        <div id="nav_bar" ng-show="loaded">
-            <ul>
-                <li class="home"><a class="hoverable activable" ui-sref="home"><span class="text iconfont icon-wangzhandaohang"></span></a></li>
-                <li class="github"><a class="hoverable activable" k-tap="openWindow('https://github.com/kuroguo/iro')"><span class="text iconfont icon-github"></span></a></li>
-            </ul>
-        </div>
-        <div class="container" ui-view ng-show="loaded"></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <base href="/" />
+    <title>iro | colorful days</title>
+    <link rel="icon" type="image/x-icon" href="http://kuro-iro.b0.upaiyun.com/images/favicon.ico">
+    <link rel="stylesheet" href="/static/bower_components/angular-loading-bar/build/loading-bar.min.css" />
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <link rel="stylesheet" href="/static/components/k-player/css/k-player.css" />
+    <link rel="stylesheet" href="/static/components/k-scroll/k-scroll.css" />
+  </head>
+  <body ng-class="{loaded: loaded}">
+    <div class="background" ng-repeat="bg in [(global.customWallpaperSrc ? global.customWallpaperSrc : wallpaperSrc)]" ng-style="{'background-image': bg ? 'url(\'{{bg}}\')' : 'none'}"></div>
+    <div id="loading_cover" ng-hide="loaded">
+      <h1><span class="red">i</span><span class="green">r</span><span class="blue">o</span></h1>
+      <span class="progress-bar"></span>
+      <!-- <p>colorful days</p> -->
+    </div>
+    <div id="nav_bar" ng-show="loaded">
+      <ul>
+        <li class="home"><a class="hoverable activable" ui-sref="home"><span class="text iconfont icon-wangzhandaohang"></span></a></li>
+        <li class="github"><a class="hoverable activable" k-tap="openWindow('https://github.com/kuroguo/iro')"><span class="text iconfont icon-github"></span></a></li>
+      </ul>
+    </div>
+    <div class="container" ui-view ng-show="loaded"></div>
 
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/static/iro.js"></script>
-    </body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/static/iro.js"></script>
+  </body>
 </html>

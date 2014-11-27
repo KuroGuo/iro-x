@@ -9,278 +9,279 @@ $base-color-big-rich: #03c;
 $text-color: #33333d;
 
 html {
-    font-family: $font-stack;
+  font-family: $font-stack;
 }
 
 input, textarea, button, [contenteditable="true"] {
-    font: inherit;
-    outline: none;
-    border: none;
+  font: inherit;
+  outline: none;
+  border: none;
 
-    &::-moz-focus-inner {
-        border: none;
-        outline: none;
-        padding: 0;
-        margin: 0;
-    }
+  &::-moz-focus-inner {
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 img {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 a {
-    text-decoration: none;
-    outline: none;
+  text-decoration: none;
+  outline: none;
 }
 
 html {
-    width: 100%;
-    height: 100%;
-    font-size: 12px;
-    @media screen and (min-width: 768px) {
-        font-size: 14px;
-    }
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+  }
+  overflow: hidden;
 }
 
 body {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    @include user-select(none);
-    background-color: #333;
-    color: $text-color;
-    -ms-touch-action: none;
-    touch-action: none;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  @include user-select(none);
+  background-color: #333;
+  color: $text-color;
+  -ms-touch-action: none;
+  touch-action: none;
 
-    & > .background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-        @include transform(translateZ(0));
-
-        &.ng-enter {
-            @include animation(fade-in .4s cubic-bezier(1,0,.618,1));
-        }
-        &.ng-leave {
-            @include animation(fade-out .4s cubic-bezier(1,0,.618,1) forwards);
-        }
-    }
-}
-
-.ipad.ios7 {
-    body {
-        position: fixed;
-        bottom: 0;
-    }
-}
-
-#loading-bar {
+  & > .background {
     position: absolute;
-    z-index: 10002;
     top: 0;
     left: 0;
     width: 100%;
-    display: none;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    @include transform(translateZ(0));
 
-    .loaded & {
-        display: block;
+    &.ng-enter {
+      @include animation(fade-in .6s cubic-bezier(1,0,.618,1));
     }
+    &.ng-leave {
+      @include animation(fade-out .6s cubic-bezier(1,0,.618,1) forwards);
+    }
+  }
+}
 
-    .bar {
-        position: absolute;
-        background-color: red;
-    }
+.ipad.ios7 {
+  body {
+    position: fixed;
+    bottom: 0;
+  }
+}
+
+#loading-bar {
+  position: absolute;
+  z-index: 10002;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+
+  .loaded & {
+    display: block;
+  }
+
+  .bar {
+    position: absolute;
+    background-color: red;
+  }
 }
 
 $nav-bar-background-color: rgba(0, 0, 0, .3);
 $nav-bar-width: 3.3rem;
 
 #loading_cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  text-align: center;
+
+  &.ng-hide {
+    @include animation(fade-out 1s forwards cubic-bezier(1,0,.618,1));
+  }
+
+  h1 {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    bottom: 50%;
     left: 0;
-    top: 0;
-    background-color: white;
-    z-index: 100;
-    text-align: center;
+    right: 0;
+    font-size: 10rem;
+    font-family: Italiana, sans-serif;
+    line-height: .82em;
+    
 
-    &.ng-hide {
-        @include animation(fade-out 1s forwards cubic-bezier(1,0,.618,1));
+    .red {
+      color: rgb(255, 95, 95);
+      @include text-shadow(0 0 .4rem rgba(255, 95, 95, .4));
     }
 
-    h1 {
-        position: absolute;
-        bottom: 50%;
-        left: 0;
-        right: 0;
-        font-size: 10rem;
-        font-family: Italiana, sans-serif;
-        line-height: .82em;
-        
-
-        .red {
-            color: rgb(255, 95, 95);
-            @include text-shadow(0 0 .4rem rgba(255, 95, 95, .4));
-        }
-
-        .green {
-            color: rgb(168, 211, 36);
-            @include text-shadow(0 0 .4rem rgba(168, 211, 36, .4));
-        }
-
-        .blue {
-            color: rgb(80, 192, 233);
-            @include text-shadow(0 0 .4rem rgba(80, 192, 233, .4));
-        }
+    .green {
+      color: rgb(168, 211, 36);
+      @include text-shadow(0 0 .4rem rgba(168, 211, 36, .4));
     }
 
-    .progress-bar {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 0;
-        height: 1px;
-        background-color: rgb(255, 0, 0);
-        @include box-shadow(0 0 .4rem rgba(255, 0, 0, .4));
-        @include transition(width .4s linear);
+    .blue {
+      color: rgb(80, 192, 233);
+      @include text-shadow(0 0 .4rem rgba(80, 192, 233, .4));
     }
+  }
 
-    p {
-        position: absolute;
-        top: 51%;
-        left: 0;
-        right: 0;
-        font-size: 1.2rem;
-    }
+  .progress-bar {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: rgb(255, 0, 0);
+    @include box-shadow(0 0 .4rem rgba(255, 0, 0, .4));
+    @include transition(width .4s linear);
+  }
+
+  p {
+    position: absolute;
+    top: 51%;
+    left: 0;
+    right: 0;
+    font-size: 1.2rem;
+  }
 }
 
 #nav_bar {
+  position: absolute;
+  background-color: $nav-bar-background-color;
+  @include user-select(none);
+  z-index: 1;
+
+  li {
+    display: block;
     position: absolute;
-    background-color: $nav-bar-background-color;
-    @include user-select(none);
-    z-index: 1;
+    width: $nav-bar-width;
+    height: $nav-bar-width;
+    line-height: $nav-bar-width;
+    margin: auto;
 
-    li {
-        display: block;
-        position: absolute;
-        width: $nav-bar-width;
-        height: $nav-bar-width;
-        line-height: $nav-bar-width;
-        margin: auto;
-
-        &.home {
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-        }
-
-         &.github {
-            .wide-screen & {
-                bottom: 0;
-                left: 0;
-                right: 0;
-            }
-
-            .high-screen & {
-                right: 0;
-                top: 0;
-                bottom: 0;
-            }
-        }
-
-        a {
-            display: block;
-            text-align: center;
-            cursor: pointer;
-            color: white;
-
-            &.hover {
-                background-color: $nav-bar-background-color;
-            }
-            &.active {
-                background-color: $base-color-light;
-                @include box-shadow(inset 0 0 .6rem $base-color-big-rich);
-            }
-
-            .text {
-                font-size: $nav-bar-width / 2;
-            }
-        }
+    &.home {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
     }
+
+     &.github {
+      .wide-screen & {
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      .high-screen & {
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      cursor: pointer;
+      color: white;
+
+      &.hover {
+        background-color: $nav-bar-background-color;
+      }
+      &.active {
+        background-color: $base-color-light;
+        @include box-shadow(inset 0 0 .6rem $base-color-big-rich);
+      }
+
+      .text {
+        font-size: $nav-bar-width / 2;
+      }
+    }
+  }
 }
 
 .container {
-    position: absolute;
+  position: absolute;
 
-    &.ng-enter {
-        @include animation(scale-enter .4s cubic-bezier(1,0,.618,1));
-    }
-    &.ng-leave {
-        @include animation(scale-leave .4s cubic-bezier(1,0,.618,1) forwards);
-    }
-    &.ng-hide-remove{
-        @include animation(scale-enter 1s cubic-bezier(1,0,.618,1));
-    }
+  &.ng-enter {
+    @include animation(scale-enter .6s cubic-bezier(1,0,.618,1));
+  }
+  &.ng-leave {
+    @include animation(scale-leave .6s cubic-bezier(1,0,.618,1) forwards);
+  }
+  &.ng-hide-remove{
+    @include animation(scale-enter 1s cubic-bezier(1,0,.618,1));
+  }
 }
 
 .state-back {
-    .container {
-        &.ng-enter {
-            @include animation(scale-back-enter .4s cubic-bezier(1,0,.618,1));
-        }
-        &.ng-leave {
-            @include animation(scale-back-leave .4s cubic-bezier(1,0,.618,1) forwards);
-        }
+  .container {
+    &.ng-enter {
+      @include animation(scale-back-enter .6s cubic-bezier(1,0,.618,1));
     }
+    &.ng-leave {
+      @include animation(scale-back-leave .6s cubic-bezier(1,0,.618,1) forwards);
+    }
+  }
 }
 
 .wide-screen {
-    #nav_bar {
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: $nav-bar-width;
+  #nav_bar {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: $nav-bar-width;
 
-        &.ng-hide-remove {
-            @include animation(slide-fade-in-left 1s cubic-bezier(1,0,.618,1));
-        }
+    &.ng-hide-remove {
+      @include animation(slide-fade-in-left 1s cubic-bezier(1,0,.618,1));
     }
+  }
 
-    .container {
-        left: $nav-bar-width;
-        right: 0;
-        top: 0;
-        bottom: 0;
-    }
+  .container {
+    left: $nav-bar-width;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
 }
 
 .high-screen {
-    #nav_bar {
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: $nav-bar-width;
+  #nav_bar {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: $nav-bar-width;
 
-        &.ng-hide-remove {
-            @include animation(slide-fade-in-bottom 1s cubic-bezier(1,0,.618,1));    
-        }
+    &.ng-hide-remove {
+      @include animation(slide-fade-in-bottom 1s cubic-bezier(1,0,.618,1));    
     }
+  }
 
-    .container {
-        top: 0;
-        bottom: $nav-bar-width;
-        left: 0;
-        right: 0;
-    }
+  .container {
+    top: 0;
+    bottom: $nav-bar-width;
+    left: 0;
+    right: 0;
+  }
 }
 
 @font-face {
@@ -335,176 +336,176 @@ $nav-bar-width: 3.3rem;
 .icon-kuaitui:before { content: "\e60c"; }
 
 @include keyframes(slide-fade-in-left) {
-    from {
-        @include transform(translateX(-100%));
-        opacity: 0;
-    }
-    to {
-        @include transform(translateX(0));
-        opacity: 1;
-    }
+  from {
+    @include transform(translateX(-100%) translateZ(0));
+    opacity: 0;
+  }
+  to {
+    @include transform(translateX(0) translateZ(0));
+    opacity: 1;
+  }
 }
 @include keyframes(slide-fade-in-bottom) {
-    from {
-        @include transform(translateY(100%));
-        opacity: 0;
-    }
-    to {
-        @include transform(translateY(0));
-        opacity: 1;
-    }
+  from {
+    @include transform(translateY(100%) translateZ(0));
+    opacity: 0;
+  }
+  to {
+    @include transform(translateY(0) translateZ(0));
+    opacity: 1;
+  }
 }
 
 @include keyframes(scale-enter) {
-    from {
-        // @include transform(translateX(100%));
-        @include transform(scale(0));
-        opacity: 0;
-    }
-    to {
-        // @include transform(translateX(0));
-        @include transform(scale(1));
-        opacity: 1;
-    }
+  from {
+    // @include transform(translateX(100%));
+    @include transform(scale(0) translateZ(0));
+    opacity: 0;
+  }
+  to {
+    // @include transform(translateX(0));
+    @include transform(scale(1) translateZ(0));
+    opacity: 1;
+  }
 }
 
 @include keyframes(scale-back-enter) {
-    from {
-        // @include transform(translateX(-100%));
-        @include transform(scale(2));
-        opacity: 0;
-    }
-    to {
-        // @include transform(translateX(0));
-        @include transform(scale(1));
-        opacity: 1;
-    }
+  from {
+    // @include transform(translateX(-100%));
+    @include transform(scale(2) translateZ(0));
+    opacity: 0;
+  }
+  to {
+    // @include transform(translateX(0));
+    @include transform(scale(1) translateZ(0));
+    opacity: 1;
+  }
 }
 
 @include keyframes(scale-leave) {
-    from {
-        // @include transform(translateX(0));
-        @include transform(scale(1));
-        opacity: 1;
-    }
-    to {
-        // @include transform(translateX(-100%));
-        @include transform(scale(2));
-        opacity: 0;
-    }
+  from {
+    // @include transform(translateX(0));
+    @include transform(scale(1) translateZ(0));
+    opacity: 1;
+  }
+  to {
+    // @include transform(translateX(-100%));
+    @include transform(scale(2) translateZ(0));
+    opacity: 0;
+  }
 }
 
 @include keyframes(scale-back-leave) {
-    from {
-        // @include transform(translateX(0));
-        @include transform(scale(1));
-        opacity: 1;
-    }
-    to {
-        // @include transform(translateX(100%));
-        @include transform(scale(0));
-        opacity: 0;
-    }
+  from {
+    // @include transform(translateX(0));
+    @include transform(scale(1) translateZ(0));
+    opacity: 1;
+  }
+  to {
+    // @include transform(translateX(100%));
+    @include transform(scale(0) translateZ(0));
+    opacity: 0;
+  }
 }
 
 @include keyframes(fade-in-top) {
-    from {
-        @include transform(translateY(-0.3rem));
-        opacity: 0;
-    }
-    to {
-        @include transform(translateY(0));
-        opacity: 1;
-    }
+  from {
+    @include transform(translateY(-0.3rem) translateZ(0));
+    opacity: 0;
+  }
+  to {
+    @include transform(translateY(0) translateZ(0));
+    opacity: 1;
+  }
 }
 @include keyframes(fade-out-top) {
-    from {
-        @include transform(translateY(0));
-        opacity: 1;
-    }
-    to {
-        @include transform(translateY(-0.3rem));
-        opacity: 0;
-    }
+  from {
+    @include transform(translateY(0) translateZ(0));
+    opacity: 1;
+  }
+  to {
+    @include transform(translateY(-0.3rem) translateZ(0));
+    opacity: 0;
+  }
 }
 
 @include keyframes(fade-in-bottom) {
-    from {
-        @include transform(translateY(0.3rem));
-        opacity: 0;
-    }
-    to {
-        @include transform(translateY(0));
-        opacity: 1;
-    }
+  from {
+    @include transform(translateY(0.3rem) translateZ(0));
+    opacity: 0;
+  }
+  to {
+    @include transform(translateY(0) translateZ(0));
+    opacity: 1;
+  }
 }
 @include keyframes(fade-out-bottom) {
-    from {
-        @include transform(translateY(0));
-        opacity: 1;
-    }
-    to {
-        @include transform(translateY(0.3rem));
-        opacity: 0;
-    }
+  from {
+    @include transform(translateY(0) translateZ(0));
+    opacity: 1;
+  }
+  to {
+    @include transform(translateY(0.3rem) translateZ(0));
+    opacity: 0;
+  }
 }
 
 @include keyframes(fade-in-right) {
-    from {
-        @include transform(translateX(0.3rem));
-        opacity: 0;
-    }
-    to {
-        @include transform(translateX(0));
-        opacity: 1;
-    }
+  from {
+    @include transform(translateX(0.3rem) translateZ(0));
+    opacity: 0;
+  }
+  to {
+    @include transform(translateX(0) translateZ(0));
+    opacity: 1;
+  }
 }
 @include keyframes(fade-out-right) {
-    from {
-        @include transform(translateX(0));
-        opacity: 1;
-    }
-    to {
-        @include transform(translateX(0.3rem));
-        opacity: 0;
-    }
+  from {
+    @include transform(translateX(0) translateZ(0));
+    opacity: 1;
+  }
+  to {
+    @include transform(translateX(0.3rem) translateZ(0));
+    opacity: 0;
+  }
 }
 
 @include keyframes(fade-in-left) {
-    from {
-        @include transform(translateX(-0.3rem));
-        opacity: 0;
-    }
-    to {
-        @include transform(translateX(0));
-        opacity: 1;
-    }
+  from {
+    @include transform(translateX(-0.3rem) translateZ(0));
+    opacity: 0;
+  }
+  to {
+    @include transform(translateX(0) translateZ(0));
+    opacity: 1;
+  }
 }
 @include keyframes(fade-out-left) {
-    from {
-        @include transform(translateX(0));
-        opacity: 1;
-    }
-    to {
-        @include transform(translateX(-0.3rem));
-        opacity: 0;
-    }
+  from {
+    @include transform(translateX(0) translateZ(0));
+    opacity: 1;
+  }
+  to {
+    @include transform(translateX(-0.3rem) translateZ(0));
+    opacity: 0;
+  }
 }
 
 @include keyframes(fade-in) {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @include keyframes(fade-out) {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

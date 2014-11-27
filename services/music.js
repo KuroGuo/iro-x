@@ -3,5 +3,5 @@
 var Music = require('../db/music');
 
 exports.findAll = function (callback) {
-    Music.find(callback);
+  Music.find(callback);
 };

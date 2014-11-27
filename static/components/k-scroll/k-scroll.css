@@ -1,63 +1,43 @@
-/*[k-scroller-wrapper] {
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000;
-    -moz-perspective: 1000;
-    perspective: 1000;
-    -webkit-transform: translate3d(0,0,0);
-    -moz-transform: translate3d(0,0,0);
-    -o-transform: translate3d(0,0,0);
-    -ms-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
-}
-*/
 .k-scroller-wrapper > .scroll-bar {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: .25em !important;
-    height: 20%;
-    min-height: 3em;
-    background-color: rgba(255, 255, 255, .2);
-    background-clip: content-box;
-    z-index: 100;
-    border-left: .5em solid transparent;
-    transition-property: border-left-width, width, opacity, visibility;
-    transition-duration: .2s;
-    transition-delay: .4s, .4s, .6s, .6s;
-    opacity: 0;
-    visibility: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: .25rem !important;
+  height: 20%;
+  min-height: 3rem;
+  background-color: rgba(0, 0, 0, .2);
+  background-clip: content-box;
+  z-index: 100;
+  border-left: .5rem solid transparent;
+  transition-property: border-left-width, width, opacity, visibility;
+  transition-duration: .2s;
+  transition-delay: .4s, .4s, .6s, .6s;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .k-scroller-wrapper > .scroll-bar.active,
 .k-scroller-wrapper > .scroll-bar.dragging {
-    background-color: rgba(255, 255, 255, .4);
+  background-color: rgba(0, 0, 0, .4);
 }
 
 .k-scroller-wrapper.hover > .scroll-bar,
 .k-scroller-wrapper.dragging > .scroll-bar,
 .k-scroller-wrapper.sliding > .scroll-bar,
 .k-scroller-wrapper > .scroll-bar.dragging {
-    transition-delay: .4s, .4s, 0, 0;
-    visibility: visible;
-    opacity: 1;
+  transition-delay: .4s, .4s, 0, 0;
+  visibility: visible;
+  opacity: 1;
 }
 
 .k-scroller-wrapper > .scroll-bar.hover,
 .k-scroller-wrapper.dragging > .scroll-bar,
 .k-scroller-wrapper > .scroll-bar.dragging {
-    transition-delay: 0, 0, 0, 0;
-    border-left-width: 0;
+  transition-delay: 0, 0, 0, 0;
+  border-left-width: 0;
 }
 
 .k-scroller-wrapper > .scroll-bar.hover,
 .k-scroller-wrapper > .scroll-bar.dragging {
-    width: .8em !important;
+  width: .8rem !important;
 }
-/*
-[k-scroller-wrapper].dragging [k-scroller],
-[k-scroller-wrapper].scrolling [k-scroller],
-[k-scroller-wrapper].sliding [k-scroller] {
-    pointer-events: none;
-}*/

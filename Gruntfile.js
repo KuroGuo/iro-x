@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(grunt) {
   var jsFiles = [
     'static/components/extended/extended.js',

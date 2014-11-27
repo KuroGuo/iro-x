@@ -2,192 +2,202 @@
 @import "base.scss";
 
 #music {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  $padding: 2rem;
+  $controls-btn-size: 3rem;
+  $controls-btn-border-size: $controls-btn-size / 18;
+  $lrc-font-size: 1.2rem;
+
+  .main-area {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    background-color: rgba(0, 0, 0, .4);
+    
+    .title {
+      position: absolute;
+      top: $padding;
+      left: $padding;
+      right: $padding;
+      color: white;
+      cursor: default;
 
-    $padding: 2rem;
-    $controls-btn-size: 3rem;
-    $controls-btn-border-size: $controls-btn-size / 18;
-    $lrc-font-size: 1.2rem;
-
-    .main-area {
-        position: absolute;
-        background-color: rgba(0, 0, 0, .4);
-        
-        .title {
-            position: absolute;
-            top: $padding;
-            left: $padding;
-            right: $padding;
-            color: white;
-            cursor: default;
-
-            .text {
-                font-size: 4rem;
-                @media screen and (max-width: 1024px) {
-                    font-size: 3rem;
-                }
-                @media screen and (max-width: 768px) {
-                    font-size: 2rem;
-                }
-            }
+      .text {
+        font-size: 4rem;
+        @media screen and (max-width: 1024px) {
+          font-size: 3rem;
         }
-
-        .lrc-list {
-            position: absolute;
-            left: $padding;
-            right: $padding;
-            height: $lrc-font-size;
-            cursor: default;
-            @include transform(translateZ(0));
-
-            .wide-screen & {
-                bottom: $padding;
-            }
-            .high-screen & {
-                bottom: $padding * 2 + $controls-btn-size + $controls-btn-border-size * 2;
-            }
-
-            li {
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 0;
-                text-align: right;
-                color: white;
-                font-size: $lrc-font-size;
-
-                &.ng-hide {
-                    @include animation(fade-out-top .4s forwards);
-                }
-                &.ng-hide-remove {
-                    @include animation(fade-in-bottom .4s);
-                }
-            }
+        @media screen and (max-width: 768px) {
+          font-size: 2rem;
         }
-
-        .controls {
-            position: absolute;
-            bottom: $padding;
-            left: $padding;
-            height: $controls-btn-size + $controls-btn-border-size * 2;
-
-            .btn {
-                display: inline-block;
-                border: $controls-btn-border-size solid white;
-                border-radius: 100%;
-                color: white;
-                width: $controls-btn-size;
-                height: $controls-btn-size;
-                line-height: $controls-btn-size;
-                font-size: $controls-btn-size / 3;
-                text-align: center;
-                cursor: pointer;
-
-                &.hover {
-                    background-color: rgba(255, 255, 255, .2);
-                }
-                &.active {
-                    border-color: black;
-                    background-color: black;
-                    color: white;
-                }
-            }
-
-            .btn-pre,
-            .btn-play-pause,
-            .btn-next {
-                @extend .btn;
-                margin-right: 1rem;
-            }
-
-            .btn-pre:before {
-                position: relative;
-                left: -.1rem;
-            }
-            .btn-play-pause.icon-bofang1:before {
-                position: relative;
-                left: .1rem;
-            }
-            .btn-next:before {
-                position: relative;
-                left: .1rem;
-            }
-        }
+      }
     }
 
-    .music-list {
+    .lrc-list {
+      position: absolute;
+      left: $padding;
+      right: $padding;
+      height: $lrc-font-size;
+      cursor: default;
+      @include transform(translateZ(0));
+
+      .wide-screen & {
+        bottom: $padding;
+      }
+      .high-screen & {
+        bottom: $padding * 2 + $controls-btn-size + $controls-btn-border-size * 2;
+      }
+
+      li {
         position: absolute;
-        background-color: rgba(0, 0, 0, .5);
-        overflow: hidden;
-        @include box-sizing(border-box);
+        left: 0;
+        right: 0;
+        top: 0;
+        text-align: right;
+        color: white;
+        font-size: $lrc-font-size;
 
-        li {
-            cursor: pointer;
-            padding: .8rem 1rem;
-            text-overflow:ellipsis; 
-            overflow:hidden;
-            white-space:nowrap; 
-            border-left: 0 solid $base-color;
-            color: white;
-            @include transition(border-left .2s);
-
-            // &:nth-child(odd) {
-            //     background-color: #eee;
-            // }
-            // &:nth-child(even) {
-            //     background-color: #f9f9f9;
-            // }
-
-            &.selected {
-                border-left-width: .5rem;
-            }
+        &.ng-hide {
+          @include animation(fade-out-top .4s forwards);
         }
+        &.ng-hide-remove {
+          @include animation(fade-in-bottom .4s);
+        }
+      }
     }
+
+    .controls {
+      position: absolute;
+      bottom: $padding;
+      left: $padding;
+      height: $controls-btn-size + $controls-btn-border-size * 2;
+
+      .btn {
+        display: inline-block;
+        border: $controls-btn-border-size solid white;
+        border-radius: 100%;
+        color: white;
+        width: $controls-btn-size;
+        height: $controls-btn-size;
+        line-height: $controls-btn-size;
+        font-size: $controls-btn-size / 3;
+        text-align: center;
+        cursor: pointer;
+
+        &.hover {
+          background-color: rgba(255, 255, 255, .2);
+        }
+        &.active {
+          border-color: black;
+          background-color: black;
+          color: white;
+        }
+      }
+
+      .btn-pre,
+      .btn-play-pause,
+      .btn-next {
+        @extend .btn;
+        margin-right: 1rem;
+      }
+
+      .btn-pre:before {
+        position: relative;
+        left: -.1rem;
+      }
+      .btn-play-pause.icon-bofang1:before {
+        position: relative;
+        left: .1rem;
+      }
+      .btn-next:before {
+        position: relative;
+        left: .1rem;
+      }
+    }
+  }
+
+  .music-list {
+    position: absolute;
+    background-color: rgba(0, 0, 0, .5);
+    overflow: hidden;
+    @include box-sizing(border-box);
+
+    .scroll-bar {
+        background-color: rgba(255, 255, 255, .2);
+    }
+    .scroll-bar.active,
+    .scroll-bar.dragging {
+        background-color: rgba(255, 255, 255, .4);
+    }
+
+    li {
+      cursor: pointer;
+      padding: .8rem 1rem;
+      text-overflow:ellipsis; 
+      overflow:hidden;
+      white-space:nowrap; 
+      border-left: 0 solid $base-color;
+      color: white;
+      @include transition(border-left .2s);
+
+      // &:nth-child(odd) {
+      //     background-color: #eee;
+      // }
+      // &:nth-child(even) {
+      //     background-color: #f9f9f9;
+      // }
+
+      &.selected {
+        border-left-width: .5rem;
+      }
+    }
+  }
 }
 
 .wide-screen {
-    $music-list-width: 16rem;
-    #music {
-        .main-area {
-            left: 0;
-            right: $music-list-width;
-            top: 0;
-            bottom: 0;
+  $music-list-width: 16rem;
+  #music {
+    .main-area {
+      left: 0;
+      right: $music-list-width;
+      top: 0;
+      bottom: 0;
 
-            &.ng-enter {
-                @include animation(fade-in .4s);
-            }
-            &.ng-leave {
-                @include animation(fade-out .4s forwards);
-            }
-        }
-        .music-list {
-            top: 0;
-            bottom: 0;
-            right: 0;
-            width: $music-list-width;
-        }
+      &.ng-enter {
+        @include animation(fade-in .4s);
+      }
+      &.ng-leave {
+        @include animation(fade-out .4s forwards);
+      }
     }
+    .music-list {
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: $music-list-width;
+    }
+  }
 }
 
 .high-screen {
-    $music-list-height: 38%;
+  $music-list-height: 38%;
 
-    #music {
-        .main-area {
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: $music-list-height;
-        }
-
-        .music-list {
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: $music-list-height;
-        }
+  #music {
+    .main-area {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: $music-list-height;
     }
+
+    .music-list {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: $music-list-height;
+    }
+  }
 }

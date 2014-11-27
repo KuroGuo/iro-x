@@ -1,71 +1,71 @@
 #home {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  $padding: 2%;
+
+  .menu-list {
+    background-color: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
     position: absolute;
-    width: 100%;
-    height: 100%;
+    top: $padding;
+    left: $padding;
 
-    $padding: 2%;
+    a {
+      display: inline-block;
+      padding: 1rem 1.6rem;
+      color: white;
+      text-align: center;
 
-    .menu-list {
-        background-color: rgba(0, 0, 0, 0.2);
-        overflow: hidden;
-        position: absolute;
-        top: $padding;
-        left: $padding;
-
-        a {
-            display: inline-block;
-            padding: 1rem 1.6rem;
-            color: white;
-            text-align: center;
-
-            &.hover {
-                background-color: rgba(0, 0, 0, .1);
-            }
-            &.active {
-                background-color: rgba(0, 0, 0, .2);
-            }
-
-            .icon,
-            .text {
-                display: block;
-            }
-
-            .icon {
-                font-size: 4rem;
-                margin-bottom: .8rem;
-            }
-
-            .text {
-                font-size: 1.1rem;
-            }
-        }
-    }
-
-    .datetime-box {
-        display: block;
-        cursor: default;
-        position: absolute;
+      &.hover {
+        background-color: rgba(0, 0, 0, .1);
+      }
+      &.active {
         background-color: rgba(0, 0, 0, .2);
-        right: $padding;
-        bottom: $padding;
-        text-align: right;
-        padding: 1rem;
+      }
 
-        .date,
-        .time,
-        .day {
-            color: white;
-        }
+      .icon,
+      .text {
+        display: block;
+      }
 
-        .time {
-            font-size: 5rem;
-            line-height: 0.9em;
-        }
+      .icon {
+        font-size: 4rem;
+        margin-bottom: .8rem;
+      }
 
-        .date,
-        .day {
-            font-size: 1.2rem;
-            line-height: 1.2em;
-        }
+      .text {
+        font-size: 1.1rem;
+      }
     }
+  }
+
+  .datetime-box {
+    display: block;
+    cursor: default;
+    position: absolute;
+    background-color: rgba(0, 0, 0, .2);
+    right: $padding;
+    bottom: $padding;
+    text-align: right;
+    padding: 1rem;
+
+    .date,
+    .time,
+    .day {
+      color: white;
+    }
+
+    .time {
+      font-size: 5rem;
+      line-height: 0.9em;
+    }
+
+    .date,
+    .day {
+      font-size: 1.2rem;
+      line-height: 1.2em;
+    }
+  }
 }

@@ -1,0 +1,53 @@
+@import "compass/css3";
+
+#wallpaper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #eee;
+
+  .wallpaper-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    ul {
+      overflow: hidden;
+      padding: 1rem;
+
+      li {
+        position: relative;
+        float: left;
+        width: 33.33333%;
+        @media screen and (max-width: 1000px) {
+          width: 50%;
+        }
+        @media screen and (max-width: 500px) {
+          width: 100%;
+        }
+        height: 16rem;
+
+        .thumb {
+          position: absolute;
+          left: 1rem;
+          right: 1rem;
+          top: 1rem;
+          bottom: 1rem;
+          margin: auto;
+          border: .6rem solid white;
+          @include box-shadow(0 .1rem .4rem rgba(0,0,0,.4));
+          background-clip: content-box;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: cover;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

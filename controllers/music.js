@@ -1,34 +1,34 @@
 'use strict';
 
 var config = require('../config');
-
 var music = require('../services/music');
+var url = require('url');
 
 exports.all = function (req, res, next) {
-    music.findAll(function (err, musicList) {
-        if (err) {
-            next(err);
-            return;
-        }
+  music.findAll(function (err, musicList) {
+    if (err) {
+      next(err);
+      return;
+    }
 
-        if (config.musicPathPre) {
-            musicList = musicList.map(function (music) {
-                return {
-                    name: music.name,
-                    src: config.musicPathPre + music.src,
-                    lrcUrl: music.lrcUrl ? config.musicPathPre + music.lrcUrl : undefined,
-                    bgSrc: music.bgSrc ? config.musicPathPre + music.bgSrc : undefined
-                };
-            });
-        }
+    if (config.musicPathPre) {
+      musicList = musicList.map(function (music) {
+        return {
+          name: music.name,
+          src: url.resolve(config.musicPathPre, music.src),
+          lrcUrl: music.lrcUrl ? url.resolve(config.musicPathPre, music.lrcUrl) : undefined,
+          bgSrc: music.bgSrc ? url.resolve(config.musicPathPre, music.bgSrc) : undefined
+        };
+      });
+    }
 
-        res.send(musicList);
-    });
+    res.send(musicList);
+  });
 };
 
 // exports.all = function (req, res, next) {
 //     var musicDir = 'static/music/';
-//     fs.readdir(path.join(__dirname, '../' + musicDir), function (err, files) {
+//     fs.readdir(url.resolve(__dirname, '../' + musicDir), function (err, files) {
 //         if (err) {
 //             return next(err);
 //         }
@@ -50,7 +50,7 @@ exports.all = function (req, res, next) {
 //             var existBg = files.some(function (file) {
 //                 return file === bgFile;
 //             });
-            
+      
 //             return {
 //                 name: path.basename(mp3File, '.mp3'),
 //                 src: src,

@@ -1,0 +1,9 @@
+<div class="title"><span class="text" ng-bind="currentMusic.name"></span></div>
+<ul class="lrc-list">
+  <li ng-repeat="lrc in lrcList" ng-show="lrc.time === currentLrc.time">{{lrc.content}}</li>
+</ul>
+<div class="controls">
+  <span class="btn-pre iconfont icon-kuaitui hoverable activable" k-tap="pre()"></span><!--
+  --><span class="btn-play-pause iconfont hoverable activable" ng-class="{'icon-bofang1': paused, 'icon-zanting': !paused}" k-tap="paused ? play() : pause()"></span><!--
+  --><span class="btn-next iconfont icon-kuaijin hoverable activable" k-tap="next()"></span>
+</div>

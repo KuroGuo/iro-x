@@ -16,14 +16,14 @@ var setupsocket = require('./setupsocket');
 var MongoStore = require('connect-mongo')(session);
 var view = require('./middlewares/view');
 
-mongoose.connect(config.db);
-
 mongoose.connection.on('error', function (err) {
-    console.error(err)
+  console.error(err)
 });
 mongoose.connection.once('open', function () {
-    console.log('Open mongoDB success!');
+  console.log('Open mongoDB success!');
 });
+
+mongoose.connect(config.db);
 
 app.use(compression());
 
@@ -34,10 +34,10 @@ app.use('/api', bodyParser.json());
 app.use('/api', bodyParser.json({ type: 'application/vnd.api+json' }));
 
 app.use('/api', session({
-    secret: 'kuroguo',
-    resave: true,
-    saveUninitialized: true,
-    store: new MongoStore({ db: mongoose.connection.db })
+  secret: 'kuroguo',
+  resave: true,
+  saveUninitialized: true,
+  store: new MongoStore({ db: mongoose.connection.db })
 }));
 
 // app.use(function (req, res, next) {
@@ -55,5 +55,5 @@ app.use(errorhandler);
 setupsocket(io);
 
 server.listen(config.port, function () {
-    console.log('Listenning port ' + config.port + '.');
+  console.log('Listenning port ' + config.port + '.');
 });
