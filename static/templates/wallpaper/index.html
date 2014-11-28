@@ -1,7 +1,7 @@
 <div id="wallpaper">
   <div class="wallpaper-list k-scroller-wrapper hoverable">
     <ul class="k-scroller">
-      <li ng-repeat="wallpaper in wallpapers"><div class="thumb" ng-style="{'background-image': wallpaper.src ? 'url(\'{{wallpaper.src}}!small\')' : 'none'}"></div></li>
+      <li ng-repeat="wallpaper in wallpapers"><a k-tap="openWindow(wallpaper.src)" class="thumb" ng-style="{'background-image': 'url(\'{{wallpaper.src}}!small\')'}"></a></li>
     </ul>
   </div>
 </div>
