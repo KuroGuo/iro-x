@@ -38,13 +38,13 @@
 
               var newVx = (pageXY.x - lastMovePageXY.x) / Math.max(1, currentTime - lastMoveTime) || vy || 0;
               var newVy = (pageXY.y - lastMovePageXY.y) / Math.max(1, currentTime - lastMoveTime) || vy || 0;
-              if (vx) {
-                vx = (vx + newVx) / 2;
+              if (Math.abs(newVx) < Math.abs(vx)) {
+                vx = vx * 0.618 + newVx * 0.382;
               } else {
                 vx = newVx;
               }
-              if (vy) {
-                vy = (vy + newVy) / 2;
+              if (Math.abs(newVy) < Math.abs(vy)) {
+                vy = vy * 0.618 + newVy * 0.382;
               } else {
                 vy = newVy;
               }
