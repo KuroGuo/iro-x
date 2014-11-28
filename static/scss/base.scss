@@ -166,6 +166,7 @@ $nav-bar-width: 3.3rem;
 #nav_bar {
   position: absolute;
   background-color: $nav-bar-background-color;
+  @include transition(background-color .6s);
   @include user-select(none);
   z-index: 1;
 

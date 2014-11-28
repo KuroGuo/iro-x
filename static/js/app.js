@@ -9,7 +9,8 @@
     'iro.home',
     'iro.video',
     'iro.music',
-    'iro.wallpaper'
+    'iro.wallpaper',
+    'iro.services.navbar'
   ]).config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('home', {
@@ -55,8 +56,8 @@
       .otherwise('/');
 
     $locationProvider.html5Mode(true).hashPrefix('!');
-  }]).controller('MainCtrl', ['$scope' ,'$state', 'musicPlayer', '$window',
-  function ($scope ,$state, musicPlayer, $window) {
+  }]).controller('MainCtrl', ['$scope' ,'$state', 'musicPlayer', '$window', 'navbar',
+  function ($scope ,$state, musicPlayer, $window, navbar) {
     $scope.setUser = function (user) {
       if ($scope.$$phase) {
         $scope.user = user; 
@@ -86,6 +87,12 @@
         return musicPlayer.currentMusic.bgSrc;
       }
     };
+
+    Object.defineProperty($scope, 'navbarCustomBackgroundColor', {
+      get: function () {
+        return navbar.customBackgroundColor;
+      }
+    });
   }]).directive('html', ['$window', '$document', '$state', '$timeout', function ($window, $document, $state, $timeout) {
     var document = $document[0];
 
