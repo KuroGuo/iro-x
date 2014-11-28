@@ -63,7 +63,7 @@
                 pageY = touch.pageY;
               }
 
-              if (Math.abs(pageX - startPageX) > 5 || Math.abs(pageY - startPageY) > 5)
+              if (Math.abs(pageX - startPageX) > 3 || Math.abs(pageY - startPageY) > 3)
                 state = 0;
             })
             .on('mouseup touchend touchcancel', function (e) {
