@@ -130,8 +130,9 @@
               $scrollerBar.removeClass('dragging');
             });
 
-          $.Velocity.hook($scrollerBar, "translateZ", 0);
-          $.Velocity.hook($scroller, "translateZ", 0);
+          // 强制开启硬件加速
+          $.Velocity.hook($scrollerBar, "translateZ", '1px');
+          $.Velocity.hook($scroller, "translateZ", '1px');
           scrollTo(scope.model.currentScrollTop, false, false);
 
           function slide(time) {
@@ -208,8 +209,7 @@
             var style = {
               top: (scrollPercent * 100) + '%',
               height: (scrollerBarHeightPercent * 100) + '%',
-              translateY: (-scrollPercent * 100) + '%',
-              translateZ: 0
+              translateY: (-scrollPercent * 100) + '%'
             }, key;
 
             if (doAnimation) {
@@ -228,8 +228,7 @@
 
             if (doAnimation) {
               $scroller.velocity('stop').velocity({
-                translateY: (-scope.model.currentScrollTop) + 'rem',
-                translateZ: 0
+                translateY: (-scope.model.currentScrollTop) + 'rem'
               }, angular.extend(animationOption, {
                 begin: function () {
                   $wrapper.addClass('scrolling');
@@ -239,7 +238,6 @@
                 }
               }));  
             } else {
-              $.Velocity.hook($scroller, "translateZ", 0);
               $.Velocity.hook($scroller, "translateY", -scope.model.currentScrollTop + 'rem');
             }
           

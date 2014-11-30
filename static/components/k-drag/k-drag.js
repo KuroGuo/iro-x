@@ -11,11 +11,16 @@
           var vx, vy;
           var target; // 拖动的目标element，非常重要！！！
           var adsorb;
+          var touchIdentifier;
 
           var animationFrameRequested = false;
 
           $document
             .on('mousedown touchstart', function (e) {
+              if (state > 0)
+                return;
+              if (e.type === 'touchstart')
+                touchIdentifier = e.originalEvent.changedTouches[0].identifier;
               lastFramePageXY = pageXY = pointerdownPageXY = getEventPageXY(e);
               lastMoveTime = e.timeStamp;
               target = e.target;
@@ -30,6 +35,9 @@
               if (state < 1) {
                 return;
               }
+
+              if (e.type === 'touchmove' && e.originalEvent.changedTouches[0].identifier !== touchIdentifier)
+                return;
 
               lastMovePageXY = pageXY;
               pageXY = getEventPageXY(e);
@@ -97,6 +105,9 @@
             }
 
             function _do() {
+              if (e.type === 'touchend' && e.originalEvent.changedTouches[0].identifier !== touchIdentifier)
+                return;
+
               var _event;
               if (state === 2) {
                 if (e.timeStamp - lastMoveTime > 100) {
@@ -115,7 +126,7 @@
             var touch, pageX, pageY;
 
             if (e.type.indexOf("touch") > -1) {
-              touch = e.originalEvent.changedTouches[0];
+              touch = e.originalEvent.changedTouches[0];  
               pageX = touch.pageX;
               pageY = touch.pageY;
             } else {

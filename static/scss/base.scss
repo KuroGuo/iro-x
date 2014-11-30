@@ -112,6 +112,7 @@ $nav-bar-width: 3.3rem;
   background-color: white;
   z-index: 100;
   text-align: center;
+  @include transform(translateZ(0));
 
   &.ng-hide {
     @include animation(fade-out 1s forwards cubic-bezier(1,0,.618,1));
@@ -169,6 +170,7 @@ $nav-bar-width: 3.3rem;
   @include transition(background-color .6s);
   @include user-select(none);
   z-index: 1;
+  @include transform(translateZ(0));
 
   li {
     display: block;
@@ -222,6 +224,7 @@ $nav-bar-width: 3.3rem;
 
 .container {
   position: absolute;
+  @include transform(translateZ(0));
 
   &.ng-enter {
     @include animation(scale-enter .6s cubic-bezier(1,0,.618,1));
