@@ -12,7 +12,7 @@
 
         navbar.customBackgroundColor = 'rgba(51,51,51,1)';
         $scope.$on('$destroy', function () {
-          $window.removeEventListener('resize', onResize);
+          $window.removeEventListener('resize', rewidth);
           navbar.customBackgroundColor = null;
         });
 
