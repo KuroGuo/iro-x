@@ -5,7 +5,7 @@
   width: .25rem !important;
   height: 20%;
   min-height: 3rem;
-  background-color: rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, .3);
   background-clip: content-box;
   z-index: 100;
   border-left: .5rem solid transparent;
