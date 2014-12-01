@@ -42,7 +42,6 @@
       right: $padding;
       height: $lrc-font-size;
       cursor: default;
-      @include transform(translateZ(0));
 
       .wide-screen & {
         bottom: $padding;
@@ -59,6 +58,7 @@
         text-align: right;
         color: white;
         font-size: $lrc-font-size;
+        @include transform(translateZ(0));
 
         &.ng-hide {
           @include animation(fade-out-top .4s forwards);
