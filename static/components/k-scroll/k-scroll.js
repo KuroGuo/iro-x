@@ -48,6 +48,8 @@
                 scrollerBarHeightPercent = 0;
             })
             .on('mousewheel DOMMouseScroll', function (e) {
+              if (e.ctrlKey)
+                return;
               var delta = computeMouseWheelDelta(e.originalEvent);
               var destScrollTop = scope.model.currentScrollTop - delta * scope.model.speed;
               if (destScrollTop > maxScroll)
