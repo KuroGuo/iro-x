@@ -77,6 +77,9 @@
               $wrapper.addClass('dragging');
             })
             .on('kdrag', function (e) {
+              if ($(e.target).hasClass('scroll-bar'))
+                return;
+
               var $wrapper = $(e.currentTarget);
 
               if (!$wrapper.hasClass('dragging')) {
@@ -103,6 +106,9 @@
               }
             })
             .on('kdragend', function (e) {
+              if ($(e.target).hasClass('scroll-bar'))
+                return;
+              
               var $wrapper = $(e.currentTarget);
 
               $wrapper.removeClass('dragging');
