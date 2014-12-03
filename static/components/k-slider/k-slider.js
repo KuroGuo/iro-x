@@ -64,17 +64,41 @@
               });
 
               slideToSection(scope.model.currentSection);
+            })
+            .on('mousewheel DOMMouseScroll', function (e) {
+              if (e.ctrlKey)
+                return;
+              e.preventDefault();
+              var delta = computeMouseWheelDelta(e.originalEvent);
+
+              scope.$apply(function () {
+                if (delta > 0) {
+                  scope.model.currentSection -= 1;
+                } else if (delta < 0) {
+                  scope.model.currentSection += 1;
+                }
+              });
+
+              slideToSection(scope.model.currentSection);
             });
+
+          function computeMouseWheelDelta(eventArg) {
+            if (eventArg.type == 'DOMMouseScroll' || eventArg.type == 'mousewheel') {
+              return (eventArg.wheelDelta) ? eventArg.wheelDelta / 120 : -(eventArg.detail || 0) / 3;
+            }
+          };
 
           function slideToSection(section) {
             kSliderWrapperWidth = $kSliderWrapper.width();
             
-            $kSlider.velocity({
-              translateX: -((section || scope.model.currentSection) * kSliderWrapperWidth)
-            }, {
-              easing: 'ease-out',
-              duration: 200
-            });
+            $kSlider
+              .velocity('stop')
+              .velocity({
+                translateX: -((section || scope.model.currentSection) * kSliderWrapperWidth)
+              }, {
+                easing: 'ease-out',
+                duration: 200
+              });
           }
 
           function roundSection(translateX) {
