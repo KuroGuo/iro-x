@@ -34,7 +34,6 @@
             $($window).on('blur', dragend);
 
             function drag(e) {
-              console.log('drag');
               if (e.which && e.which !== 1) {
                 return;
               }
