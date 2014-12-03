@@ -1,5 +1,5 @@
 ;(function (angular) { 'use strict';
-  angular.module('iro.music', ['iro.services.music', 'cfp.loadingBar'])
+  angular.module('iro.music', ['iro.services.music', 'cfp.loadingBar', 'kScroll'])
     .factory('musicPlayer', ['music', 'cfpLoadingBar', '$http', '$window', function (music, cfpLoadingBar, $http, $window) {
       var audio = document.createElement('audio');
       var currentMusic = null;

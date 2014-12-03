@@ -1,9 +1,14 @@
+@import "compass/css3";
+
 #home {
   position: absolute;
   width: 100%;
   height: 100%;
 
   $padding: 2%;
+  $menu-list-inner-width: 14rem;
+  $menu-list-inner-height: 16rem;
+
 
   .menu-list {
     background-color: rgba(0, 0, 0, 0.2);
@@ -12,31 +17,67 @@
     top: $padding;
     left: $padding;
 
-    a {
-      display: inline-block;
-      padding: 1rem 1.6rem;
-      color: white;
+    .k-slider-wrapper {
+      width: $menu-list-inner-width;
+      height: $menu-list-inner-height;
+
+      .row {
+        $a-width: $menu-list-inner-width / 2;
+        $a-height: $menu-list-inner-height / 2;
+
+        height: $a-height;
+
+        a {
+          display: inline-block;
+          width: $a-width;
+          height: $a-height;
+          color: white;
+          text-align: center;
+          position: relative;
+          cursor: pointer;
+          @include transition(all .2s);
+          @include transform(translateZ(0)scale(1));
+
+          &.active {
+            @include transform(translateZ(0)scale(.95));
+          }
+
+          .icon,
+          .text {
+            position: absolute;
+            left: 0;
+            right: 0;
+          }
+
+          .icon {
+            top: 15%;
+            font-size: 4rem;
+          }
+
+          .text {
+            bottom: 15%;
+            font-size: 1.1rem;
+          }
+        }
+      }
+    }
+
+    .slider-nav {
+      height: 16px;
       text-align: center;
 
-      &.hover {
-        background-color: rgba(0, 0, 0, .1);
-      }
-      &.active {
-        background-color: rgba(0, 0, 0, .2);
-      }
+      .circle {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 100%;
+        background-color: rgba(255,255,255,.5);
+        margin: 0 3px;
+        @include transform(translateZ(0));
 
-      .icon,
-      .text {
-        display: block;
-      }
-
-      .icon {
-        font-size: 4rem;
-        margin-bottom: .8rem;
-      }
-
-      .text {
-        font-size: 1.1rem;
+        &.active {
+          background-color: white;
+        }
       }
     }
   }

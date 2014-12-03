@@ -1,7 +1,12 @@
 ;(function (angular) { 'use strict';
-  angular.module('iro.home', [])
+  angular.module('iro.home', ['kSlider'])
     .controller('HomeCtrl', ['$scope', '$interval', function ($scope, $interval) {
       var clock = $interval(setDateTime, 1000);
+
+      $scope.menuSlider = {
+        sectionCount: 2
+      };
+      $scope.menuSections = [0, 1];
 
       $scope.$on('$destroy', function () {
         $interval.cancel(clock);

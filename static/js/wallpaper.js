@@ -1,5 +1,5 @@
 ;(function (angular) { 'use strict';
-  angular.module('iro.wallpaper', ['iro.services.wallpaper', 'iro.services.navbar'])
+  angular.module('iro.wallpaper', ['iro.services.wallpaper', 'iro.services.navbar', 'kScroll'])
     .controller('WallpaperCtrl', ['$scope', 'wallpaper', 'navbar', '$window', '$document',
       function ($scope, wallpaper, navbar, $window, $document) {
         $scope.wallpapers = wallpaper.query();

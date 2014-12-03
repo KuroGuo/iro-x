@@ -339,6 +339,8 @@ $nav-bar-width: 3.3rem;
 
 .icon-kuaitui:before { content: "\e60c"; }
 
+.icon-gongsixinwen:before { content: "\e60e"; }
+
 @include keyframes(slide-fade-in-left) {
   from {
     @include transform(translateX(-100%) translateZ(0));

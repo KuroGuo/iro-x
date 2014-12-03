@@ -1,8 +1,6 @@
 ;(function (angular) { 'use strict';
   angular.module('iro', [
     'kTap',
-    'kDrag',
-    'kScroll',
     'ngAnimate',
     'angular-loading-bar',
     'ui.router',
@@ -32,6 +30,10 @@
         url: '/:name',
         templateUrl: '/static/templates/music/play.html',
         controller: 'MusicPlayCtrl'
+      })
+      .state('news', {
+        url: '/news',
+        template: 'news'
       })
       .state('article', {
         url: '/article',
