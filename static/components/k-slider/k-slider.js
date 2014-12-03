@@ -27,13 +27,11 @@
               }
               this._currentSection = value;
             },
-            gotoSection: function (section) {
+            gotoSection: function (section, noAnimation) {
               this.currentSection = section;
-              slideToSection(section);
+              slideToSection(section, noAnimation);
             }
           }, scope.model);
-
-          $.Velocity.hook($kSlider, "translateZ", '1px');
 
           $kSliderWrapper
             .on('touchstart mousedown', function () {
@@ -82,26 +80,33 @@
               slideToSection(scope.model.currentSection);
             });
 
+          $.Velocity.hook($kSlider, "translateZ", '1px');
+          scope.model.gotoSection(scope.model.currentSection);
+
           function computeMouseWheelDelta(eventArg) {
             if (eventArg.type == 'DOMMouseScroll' || eventArg.type == 'mousewheel') {
               return (eventArg.wheelDelta) ? eventArg.wheelDelta / 120 : -(eventArg.detail || 0) / 3;
             }
           };
 
-          function slideToSection(section) {
+          function slideToSection(section, noAnimation) {
             kSliderWrapperWidth = $kSliderWrapper.width();
             if (typeof section !== 'number') {
               section = scope.model.currentSection;
             }
             
-            $kSlider
-              .velocity('stop')
-              .velocity({
-                translateX: -(section * kSliderWrapperWidth)
-              }, {
-                easing: 'ease-out',
-                duration: 200
-              });
+            $kSlider.velocity('stop');
+
+            if (noAnimation) {
+              $.Velocity.hook($kSlider, 'translateX', -(section * kSliderWrapperWidth));
+            } else {
+              $kSlider.velocity({
+                  translateX: -(section * kSliderWrapperWidth)
+                }, {
+                  easing: 'ease-out',
+                  duration: 200
+                });
+            }
           }
 
           function roundSection(translateX) {
