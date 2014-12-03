@@ -93,11 +93,17 @@
               scope.model.currentScrollTop -= e.stepY / parseFloat(htmlFontSize);
               scrollTo(scope.model.currentScrollTop, false, false);
             })
+            .on('mouseup touchend touchcancel', function (e) {
+              var $wrapper = $(e.currentTarget);
+
+              if (!$wrapper.hasClass('dragging')) {
+                lastFrameTime = null;
+                $wrapper.addClass('sliding');
+                slide();
+              }
+            })
             .on('kdragend', function (e) {
               var $wrapper = $(e.currentTarget);
-        
-              if (!$wrapper.hasClass('dragging'))
-                return;
 
               $wrapper.removeClass('dragging');
               
