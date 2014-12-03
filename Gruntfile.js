@@ -14,6 +14,7 @@ module.exports = function(grunt) {
     'static/components/k-tap/k-tap.js',
     'static/components/k-drag/k-drag.js',
     'static/components/k-scroll/k-scroll.js',
+    'static/components/k-slider/k-slider.js',
     'static/components/k-player/k-player.js',
     'static/js/**/*.js'
   ];

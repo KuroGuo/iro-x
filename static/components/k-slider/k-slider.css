@@ -1,0 +1,12 @@
+.k-slider-wrapper {
+  position: relative;
+}
+
+.k-slider {
+  width: 10000rem;
+}
+
+.k-slider-section {
+  display: inline-block;
+  vertical-align: top;
+}
