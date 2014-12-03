@@ -3,14 +3,14 @@
     .controller('HomeCtrl', ['$scope', '$interval', function ($scope, $interval) {
       var clock = $interval(setDateTime, 1000);
 
+      $scope.$on('$destroy', function () {
+        $interval.cancel(clock);
+      });
+
       $scope.menuSlider = {
         sectionCount: 2
       };
       $scope.menuSections = [0, 1];
-
-      $scope.$on('$destroy', function () {
-        $interval.cancel(clock);
-      });
 
       setDateTime();
 
