@@ -90,11 +90,14 @@
 
           function slideToSection(section) {
             kSliderWrapperWidth = $kSliderWrapper.width();
+            if (typeof section !== 'number') {
+              section = scope.model.currentSection;
+            }
             
             $kSlider
               .velocity('stop')
               .velocity({
-                translateX: -((section || scope.model.currentSection) * kSliderWrapperWidth)
+                translateX: -(section * kSliderWrapperWidth)
               }, {
                 easing: 'ease-out',
                 duration: 200
