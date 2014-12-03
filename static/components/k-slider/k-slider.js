@@ -40,7 +40,23 @@
               scope.model.sectionCount = $kSlider.find('.k-slider-section').length;
               minTranslateX = -kSliderWrapperWidth * (scope.model.sectionCount - 1);
             })
+            .on('kdragstart', function (e) {
+              var $kSliderWrapper = $(e.currentTarget);
+
+              if ($kSliderWrapper.hasClass('dragging')) {
+                e.prevent();
+                return;
+              }
+
+              $kSliderWrapper.addClass('dragging');
+            })
             .on('kdrag', function (e) {
+              var $kSliderWrapper = $(e.currentTarget);
+
+              if (!$kSliderWrapper.hasClass('dragging')) {
+                $kSliderWrapper.addClass('dragging');
+              }
+
               var translateX = parseFloat($.Velocity.hook($kSlider, "translateX"));
 
               if (translateX < minTranslateX)
@@ -51,6 +67,10 @@
               $.Velocity.hook($kSlider, "translateX", (translateX + e.stepX) + 'px');
             })
             .on('kdragend', function (e) {
+              var $kSliderWrapper = $(e.currentTarget);
+
+              $kSliderWrapper.removeClass('dragging');
+
               scope.$apply(function () {
                 if (e.vx > 0.1) {
                   scope.model.currentSection -= 1;
@@ -62,6 +82,13 @@
               });
 
               slideToSection(scope.model.currentSection);
+            })
+            .on('mouseup touchend touchcancel', function (e) {
+              var $kSliderWrapper = $(e.currentTarget);
+
+              if (!$kSliderWrapper.hasClass('dragging')) {
+                slideToSection(scope.model.currentSection);
+              }
             })
             .on('mousewheel DOMMouseScroll', function (e) {
               if (e.ctrlKey)
