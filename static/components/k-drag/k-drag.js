@@ -29,7 +29,7 @@
 
             $document
               .on('mousemove touchmove', drag)
-              .on('mouseup touchend', dragend);
+              .on('mouseup touchend touchcancel', dragend);
 
             $($window).on('blur', dragend);
 
