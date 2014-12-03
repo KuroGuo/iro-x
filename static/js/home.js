@@ -1,16 +1,22 @@
 ;(function (angular) { 'use strict';
   angular.module('iro.home', ['kSlider'])
-    .controller('HomeCtrl', ['$scope', '$interval', function ($scope, $interval) {
+    .controller('HomeCtrl', ['$scope', '$interval', '$window', function ($scope, $interval, $window) {
       var clock = $interval(setDateTime, 1000);
+
+      $scope.menuSlider = {
+        sectionCount: 2,
+        _currentSection: $window.sessionStorage['home.menuCurrentSection'] || 0
+      };
+
+      $scope.menuSections = [0, 1];
+
+      $scope.$watch('menuSlider.currentSection', function (newValue) {
+        $window.sessionStorage['home.menuCurrentSection'] = newValue;
+      });
 
       $scope.$on('$destroy', function () {
         $interval.cancel(clock);
       });
-
-      $scope.menuSlider = {
-        sectionCount: 2
-      };
-      $scope.menuSections = [0, 1];
 
       setDateTime();
 

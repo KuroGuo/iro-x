@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="slider-nav">
-      <span class="circle" ng-repeat="section in menuSections" ng-class="{active: menuSlider.currentSection === section}" k-tap="menuSlider.gotoSection(section)"></span>
+      <span class="circle" ng-repeat="section in menuSections" ng-class="{active: menuSlider.currentSection == section}" k-tap="menuSlider.gotoSection(section)"></span>
     </div>
   </div>
 </div>
