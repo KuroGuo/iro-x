@@ -64,20 +64,24 @@
               resetscrollerBarStyle();
             })
             .on('kdragstart', function (e) {
-              if ($(e.target).hasClass('scroll-bar'))
+              if ($(e.target).hasClass('scroll-bar')) // 如果拖拽的是滚动条就返回
                 return;
 
               var $wrapper = $(e.currentTarget);
               
-              if (!$wrapper.hasClass('dragging')) {
-                $wrapper.addClass('dragging');
+              if ($wrapper.hasClass('dragging')) {
+                e.prevent();
+                return;
               }
+
+              $wrapper.addClass('dragging');
             })
             .on('kdrag', function (e) {
               var $wrapper = $(e.currentTarget);
 
-              if (!$wrapper.hasClass('dragging'))
-                return;
+              if (!$wrapper.hasClass('dragging')) {
+                $wrapper.addClass('dragging');
+              }
 
               if (scope.model.currentScrollTop > maxScroll) {
                 e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - maxScroll);
