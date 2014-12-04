@@ -1,6 +1,6 @@
 ;(function (angular) { 'use strict';
   angular.module('kSlider', ['kDrag'])
-    .directive('kSliderWrapper', [function () {
+    .directive('kSliderWrapper', ['$document', function ($document) {
       return {
         restrict: 'C',
         scope: {
@@ -10,6 +10,7 @@
           var $kSliderWrapper = element;
           var $kSlider = $kSliderWrapper.find('.k-slider');
           var kSliderWrapperWidth;
+          var rootFontSize;
           var minTranslateX;
           var maxTranslateX = 0;
 
@@ -37,8 +38,9 @@
             .on('touchstart mousedown', function () {
               $kSlider.velocity('stop');
               kSliderWrapperWidth = $kSliderWrapper.width();
+              rootFontSize = parseFloat($document.find('html').css('font-size'));
               scope.model.sectionCount = $kSlider.find('.k-slider-section').length;
-              minTranslateX = -kSliderWrapperWidth * (scope.model.sectionCount - 1);
+              minTranslateX = (-kSliderWrapperWidth * (scope.model.sectionCount - 1)) / rootFontSize;
             })
             .on('kdragstart', function (e) {
               var $kSliderWrapper = $(e.currentTarget);
@@ -60,11 +62,18 @@
               var translateX = parseFloat($.Velocity.hook($kSlider, "translateX"));
 
               if (translateX < minTranslateX)
-                e.stepX /= 1 + Math.abs(translateX - minTranslateX) / 3;
+                e.stepX /= 1 + Math.abs(translateX - minTranslateX) * 6;
               else if (translateX > maxTranslateX)
-                e.stepX /= 1 + Math.abs(translateX - maxTranslateX) / 3;
+                e.stepX /= 1 + Math.abs(translateX - maxTranslateX) * 6;
 
-              $.Velocity.hook($kSlider, "translateX", (translateX + e.stepX) + 'px');
+              $.Velocity.hook($kSlider, "translateX", (translateX + e.stepX / rootFontSize) + 'rem');
+            })
+            .on('mouseup touchend touchcancel', function (e) {
+              var $kSliderWrapper = $(e.currentTarget);
+
+              if (!$kSliderWrapper.hasClass('dragging')) {
+                slideToSection(scope.model.currentSection);
+              }
             })
             .on('kdragend', function (e) {
               var $kSliderWrapper = $(e.currentTarget);
@@ -82,13 +91,6 @@
               });
 
               slideToSection(scope.model.currentSection);
-            })
-            .on('mouseup touchend touchcancel', function (e) {
-              var $kSliderWrapper = $(e.currentTarget);
-
-              if (!$kSliderWrapper.hasClass('dragging')) {
-                slideToSection(scope.model.currentSection);
-              }
             })
             .on('mousewheel DOMMouseScroll', function (e) {
               if (e.ctrlKey)
@@ -118,26 +120,30 @@
 
           function slideToSection(section, noAnimation) {
             kSliderWrapperWidth = $kSliderWrapper.width();
+            rootFontSize = parseFloat($document.find('html').css('font-size'));
+
             if (typeof section !== 'number') {
               section = scope.model.currentSection;
             }
             
             $kSlider.velocity('stop');
 
+            var destTranslateX = -(section * kSliderWrapperWidth) / rootFontSize + 'rem';
+
             if (noAnimation) {
-              $.Velocity.hook($kSlider, 'translateX', -(section * kSliderWrapperWidth));
+              $.Velocity.hook($kSlider, 'translateX', destTranslateX);
             } else {
               $kSlider.velocity({
-                  translateX: -(section * kSliderWrapperWidth)
-                }, {
-                  easing: 'ease-out',
-                  duration: 200
-                });
+                translateX: destTranslateX
+              }, {
+                easing: 'ease-out',
+                duration: 250
+              });
             }
           }
 
           function roundSection(translateX) {
-            return Math.round((translateX || parseFloat($.Velocity.hook($kSlider, "translateX"))) / kSliderWrapperWidth);
+            return Math.round((translateX || parseFloat($.Velocity.hook($kSlider, "translateX"))) / (kSliderWrapperWidth / rootFontSize));
           }
         }
       };
