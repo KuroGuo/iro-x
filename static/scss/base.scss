@@ -64,6 +64,7 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    opacity: 1;
     @include transform(translateZ(0));
 
     &.ng-enter {

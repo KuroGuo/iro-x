@@ -141,7 +141,6 @@
       white-space:nowrap; 
       border-left: 0 solid $base-color;
       color: white;
-      @include transform(translateZ(0));
       @include transition(border-left .2s);
 
       // &:nth-child(odd) {
