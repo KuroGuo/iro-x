@@ -20,30 +20,30 @@ async.eachSeries(pages, function (pageNum, next) {
 });
 
 function onListComplete(err, res, body) {
-    var $ = cheerio.load(body, {
-      decodeEntities: false
-    });
-    var list = $('.module_list li a').toArray().map(function (a) {
-      var $a = $(a);
-      return {
-        title: $a.html(),
-        href: url.resolve('http://m.cnbeta.com', $a.attr('href'))
-      };
-    });
+  var $ = cheerio.load(body, {
+    decodeEntities: false
+  });
+  var list = $('.module_list li a').toArray().map(function (a) {
+    var $a = $(a);
+    return {
+      title: $a.html(),
+      href: url.resolve('http://m.cnbeta.com', $a.attr('href'))
+    };
+  });
 
-    async.eachSeries(list, function (a, next) {
-      request(a.href, function (err, res, body) {
-        if (err) {
-          next(err);
-          return;
-        }
-        var thumbSrc = $(body).find('img').first().attr('src');
-        console.log(a.title, thumbSrc, body.length);
-        next();
-      });
-    }, function (err) {
+  async.eachSeries(list, function (a, next) {
+    request(a.href, function (err, res, body) {
       if (err) {
-        console.error(err);
+        next(err);
+        return;
       }
+      var thumbSrc = $(body).find('img').first().attr('src');
+      console.log(a.title, thumbSrc, body.length);
+      next();
     });
-  }
+  }, function (err) {
+    if (err) {
+      console.error(err);
+    }
+  });
+}
