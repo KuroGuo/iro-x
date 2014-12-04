@@ -6,58 +6,53 @@
   height: 100%;
 
   $padding: 2%;
-  $menu-list-inner-width: 14rem;
-  $menu-list-inner-height: 16rem;
+  $menu-list-inner-width: 26rem;
+  $menu-list-inner-height: 7rem;
 
 
   .menu-list {
     background-color: rgba(0, 0, 0, 0.2);
     overflow: hidden;
     position: absolute;
-    top: $padding;
+    bottom: $padding;
     left: $padding;
+    right: $padding;
+    margin: auto;
+    width: $menu-list-inner-width;
 
     .k-slider-wrapper {
-      width: $menu-list-inner-width;
       height: $menu-list-inner-height;
 
-      .row {
-        $a-width: $menu-list-inner-width / 2;
-        $a-height: $menu-list-inner-height / 2;
+      a {
+        display: inline-block;
+        width: $menu-list-inner-width / 4;
+        height: $menu-list-inner-height;
+        color: white;
+        text-align: center;
+        position: relative;
+        cursor: pointer;
+        @include transition(all .2s);
+        @include transform(translateZ(0)scale(1));
 
-        height: $a-height;
+        &.active {
+          @include transform(translateZ(0)scale(.95));
+        }
 
-        a {
-          display: inline-block;
-          width: $a-width;
-          height: $a-height;
-          color: white;
-          text-align: center;
-          position: relative;
-          cursor: pointer;
-          @include transition(all .2s);
-          @include transform(translateZ(0)scale(1));
+        .icon,
+        .text {
+          position: absolute;
+          left: 0;
+          right: 0;
+        }
 
-          &.active {
-            @include transform(translateZ(0)scale(.95));
-          }
+        .icon {
+          top: 15%;
+          font-size: 3.5rem;
+        }
 
-          .icon,
-          .text {
-            position: absolute;
-            left: 0;
-            right: 0;
-          }
-
-          .icon {
-            top: 15%;
-            font-size: 4rem;
-          }
-
-          .text {
-            bottom: 15%;
-            font-size: 1.1rem;
-          }
+        .text {
+          bottom: 15%;
+          font-size: 1rem;
         }
       }
     }
@@ -88,7 +83,7 @@
     position: absolute;
     background-color: rgba(0, 0, 0, .2);
     right: $padding;
-    bottom: $padding;
+    top: $padding;
     text-align: right;
     padding: 1rem;
 
