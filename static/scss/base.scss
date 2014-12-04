@@ -113,6 +113,7 @@ $nav-bar-width: 3.3rem;
   background-color: white;
   z-index: 100;
   text-align: center;
+  opacity: 1;
   @include transform(translateZ(0));
 
   &.ng-hide {
@@ -225,7 +226,7 @@ $nav-bar-width: 3.3rem;
 
 .container {
   position: absolute;
-  @include transform(translateZ(0));
+  @include transform(translateZ(0)scale(1));
 
   &.ng-enter {
     @include animation(scale-enter .6s);
