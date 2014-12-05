@@ -81,9 +81,9 @@
               $kSliderWrapper.removeClass('dragging');
 
               scope.$apply(function () {
-                if (e.vx > 0.4) {
+                if (e.vx > 0.3) {
                   scope.model.currentSection -= 1;
-                } else if (e.vx < -0.4) {
+                } else if (e.vx < -0.3) {
                   scope.model.currentSection += 1;
                 } else {
                   scope.model.currentSection = -roundSection(parseFloat($.Velocity.hook($kSlider, "translateX")));
