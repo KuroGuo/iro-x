@@ -11,7 +11,7 @@
             var state = 0; // 0: 初始状态, 1: 按下, 2: dragging
             var pointerdownPageXY; // 按下时的PageXY
             var pageXY; // 拖动时和拖动结束时的PageXY
-            var lastFramePageXY, lastMovePageXY, lastMoveTime, currentTime;
+            var lastFramePageXY, lastMovePageXY, lastMoveTime, currentTime, stepTakesTime;
             var vx, vy;
             var target; // 拖动的目标element，非常重要！！！
             var adsorb;
@@ -51,17 +51,28 @@
               lastMoveTime = currentTime;
               currentTime = e.timeStamp;
 
-              var newVx = (pageXY.x - lastMovePageXY.x) / Math.max(1, currentTime - lastMoveTime) || vy || 0;
-              var newVy = (pageXY.y - lastMovePageXY.y) / Math.max(1, currentTime - lastMoveTime) || vy || 0;
-              if (Math.abs(newVx) < Math.abs(vx)) {
+              if (!stepTakesTime) {
+                stepTakesTime = currentTime - lastMoveTime;
+              } else {
+                stepTakesTime = (stepTakesTime + (currentTime - lastMoveTime)) / 2;
+              }
+
+              var newVx = (pageXY.x - lastMovePageXY.x) / Math.max(1, stepTakesTime) || vy || 0;
+              var newVy = (pageXY.y - lastMovePageXY.y) / Math.max(1, stepTakesTime) || vy || 0;
+              
+              if (!vx) {
+                vx = newVx;
+              } else if (Math.abs(newVx) < Math.abs(vx)) {
                 vx = vx * 0.618 + newVx * 0.382;
               } else {
-                vx = newVx;
+                vx = vx * 0.382 + newVx * 0.618;
               }
-              if (Math.abs(newVy) < Math.abs(vy)) {
+              if (!vy) {
+                vy = newVy;
+              } else if (Math.abs(newVy) < Math.abs(vy)) {
                 vy = vy * 0.618 + newVy * 0.382;
               } else {
-                vy = newVy;
+                vy = vy * 0.382 + newVy * 0.618;
               }
 
               if (vx > 6)
@@ -114,7 +125,7 @@
 
                 var _event;
                 if (state === 2) {
-                  if (e.timeStamp - lastMoveTime > 100) {
+                  if (e.timeStamp - lastMoveTime > stepTakesTime * 3) {
                     vx = 0;
                     vy = 0;
                   }
