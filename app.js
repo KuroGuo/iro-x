@@ -15,6 +15,7 @@ var webRouter = require('./web_router');
 var setupsocket = require('./setupsocket');
 var MongoStore = require('connect-mongo')(session);
 var view = require('./middlewares/view');
+var scraper = require('./scraper');
 
 mongoose.connection.on('error', function (err) {
   console.error(err)
@@ -57,3 +58,18 @@ setupsocket(io);
 server.listen(config.port, function () {
   console.log('Listenning port ' + config.port + '.');
 });
+
+scrap();
+
+// 爬虫十分钟采集一次
+function scrap() {
+  setTimeout(scraper, config.scrapRate, function (err) {
+    if (err) {
+      console.error(err);
+      return scrap();
+    }
+    console.log('采集完成');
+    scrap();
+  });
+}
+
