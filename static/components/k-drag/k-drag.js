@@ -120,7 +120,7 @@
 
                 var _event;
                 if (state === 2) {
-                  if (e.timeStamp - lastMoveTime > stepTakesTime * 3) {
+                  if (e.timeStamp - lastMoveTime > stepTakesTime * 4) {
                     vx = 0;
                     vy = 0;
                   }
