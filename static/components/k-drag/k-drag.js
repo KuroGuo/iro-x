@@ -11,7 +11,7 @@
             var state = 0; // 0: 初始状态, 1: 按下, 2: dragging
             var pointerdownPageXY; // 按下时的PageXY
             var pageXY; // 拖动时和拖动结束时的PageXY
-            var lastFramePageXY, lastMovePageXY, lastMoveTime, currentTime, stepTakesTime;
+            var lastFramePageXY, lastMovePageXY, stepMovedPageXY, lastMoveTime, currentTime, stepTakesTime;
             var vx, vy;
             var target; // 拖动的目标element，非常重要！！！
             var adsorb;
@@ -51,29 +51,24 @@
               lastMoveTime = currentTime;
               currentTime = e.timeStamp;
 
+              if (!stepMovedPageXY) {
+                stepMovedPageXY = {
+                  x: pageXY.x - lastMovePageXY.x,
+                  y: pageXY.y - lastMovePageXY.y
+                };
+              } else {
+                stepMovedPageXY.x = (stepMovedPageXY.x + pageXY.x - lastMovePageXY.x) / 2;
+                stepMovedPageXY.y = (stepMovedPageXY.y + pageXY.y - lastMovePageXY.y) / 2;
+              }
+
               if (!stepTakesTime) {
                 stepTakesTime = currentTime - lastMoveTime;
               } else {
-                stepTakesTime = (stepTakesTime + (currentTime - lastMoveTime)) / 2;
+                stepTakesTime = (stepTakesTime + currentTime - lastMoveTime) / 2;
               }
 
-              var newVx = (pageXY.x - lastMovePageXY.x) / Math.max(1, stepTakesTime) || vy || 0;
-              var newVy = (pageXY.y - lastMovePageXY.y) / Math.max(1, stepTakesTime) || vy || 0;
-              
-              if (!vx) {
-                vx = newVx;
-              } else if (Math.abs(newVx) < Math.abs(vx)) {
-                vx = vx * 0.618 + newVx * 0.382;
-              } else {
-                vx = vx * 0.382 + newVx * 0.618;
-              }
-              if (!vy) {
-                vy = newVy;
-              } else if (Math.abs(newVy) < Math.abs(vy)) {
-                vy = vy * 0.618 + newVy * 0.382;
-              } else {
-                vy = vy * 0.382 + newVy * 0.618;
-              }
+              vx = (stepMovedPageXY.x) / Math.max(1, stepTakesTime) || vy || 0;
+              vy = (stepMovedPageXY.y) / Math.max(1, stepTakesTime) || vy || 0;
 
               if (vx > 6)
                 vx = 6;
