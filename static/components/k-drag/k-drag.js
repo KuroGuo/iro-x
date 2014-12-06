@@ -11,7 +11,7 @@
             var state = 0; // 0: 初始状态, 1: 按下, 2: dragging
             var pointerdownPageXY; // 按下时的PageXY
             var pageXY; // 拖动时和拖动结束时的PageXY
-            var lastFramePageXY, lastMovePageXY, stepMovedPageXY, lastMoveTime, currentTime, stepTakesTime;
+            var lastFramePageXY, lastMovePageXY, lastFrameTime, frameTakesTime, stepMovedPageXY, lastMoveTime, currentTime, stepTakesTime;
             var vx, vy;
             var target; // 拖动的目标element，非常重要！！！
             var adsorb;
@@ -97,7 +97,7 @@
                 vy = -6;
 
               $window.cancelAnimationFrame(requestedFrameToken);
-              requestedFrameToken = $window.requestAnimationFrame(function () {
+              requestedFrameToken = $window.requestAnimationFrame(function (time) {
                 var _event;
 
                 if (state === 1) {
@@ -115,6 +115,14 @@
                 }
 
                 lastFramePageXY = pageXY;
+                if (lastFrameTime) {
+                  if (!frameTakesTime) {
+                    frameTakesTime = time - lastFrameTime;  
+                  } else {
+                    frameTakesTime = (frameTakesTime + time - lastFrameTime) / 2;
+                  }
+                }
+                lastFrameTime = time;
               });
             }
 
@@ -126,7 +134,7 @@
 
               var _event;
               if (state === 2) {
-                if (e.timeStamp - lastMoveTime > stepTakesTime * 4) {
+                if (e.timeStamp - lastMoveTime > (frameTakesTime * 3 || 100)) {
                   vx = 0;
                   vy = 0;
                 }
