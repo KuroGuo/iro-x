@@ -1,7 +1,7 @@
-# packaged angular
+# packaged angular-sanitize
 
 This repo is for distribution on `npm` and `bower`. The source for this module is in the
-[main AngularJS repo](https://github.com/angular/angular.js).
+[main AngularJS repo](https://github.com/angular/angular.js/tree/master/src/ngSanitize).
 Please file issues and pull requests against that repo.
 
 ## Install
@@ -11,36 +11,46 @@ You can install this package either with `npm` or with `bower`.
 ### npm
 
 ```shell
-npm install angular
+npm install angular-sanitize
 ```
 
-Then add a `<script>` to your `index.html`:
+Add a `<script>` to your `index.html`:
 
 ```html
-<script src="/node_modules/angular/angular.js"></script>
+<script src="/node_modules/angular-sanitize/angular-sanitize.js"></script>
 ```
 
-Note that this package is not in CommonJS format, so doing `require('angular')` will return `undefined`.
-If you're using [Browserify](https://github.com/substack/node-browserify), you can use
-[exposify](https://github.com/thlorenz/exposify) to have `require('angular')` return the `angular`
-global.
+Then add `ngSanitize` as a dependency for your app:
+
+```javascript
+angular.module('myApp', ['ngSanitize']);
+```
+
+Note that this package is not in CommonJS format, so doing `require('angular-sanitize')` will
+return `undefined`.
 
 ### bower
 
 ```shell
-bower install angular
+bower install angular-sanitize
 ```
 
-Then add a `<script>` to your `index.html`:
+Add a `<script>` to your `index.html`:
 
 ```html
-<script src="/bower_components/angular/angular.js"></script>
+<script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+```
+
+Then add `ngSanitize` as a dependency for your app:
+
+```javascript
+angular.module('myApp', ['ngSanitize']);
 ```
 
 ## Documentation
 
 Documentation is available on the
-[AngularJS docs site](http://docs.angularjs.org/).
+[AngularJS docs site](http://docs.angularjs.org/api/ngSanitize).
 
 ## License
 
