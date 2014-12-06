@@ -57,18 +57,34 @@
                   y: pageXY.y - lastMovePageXY.y
                 };
               } else {
-                stepMovedPageXY.x = (stepMovedPageXY.x + pageXY.x - lastMovePageXY.x) / 2;
-                stepMovedPageXY.y = (stepMovedPageXY.y + pageXY.y - lastMovePageXY.y) / 2;
+                if (pageXY.x - lastMovePageXY.x >= stepMovedPageXY.x) {
+                  stepMovedPageXY.x = stepMovedPageXY.x * 0.382 + (pageXY.x - lastMovePageXY.x) * 0.618;
+                } else {
+                  stepMovedPageXY.x = stepMovedPageXY.x * 0.618 + (pageXY.x - lastMovePageXY.x) * 0.382;
+                }
+                if (pageXY.y - lastMovePageXY.y >= stepMovedPageXY.y) {
+                  stepMovedPageXY.y = stepMovedPageXY.y * 0.382 + (pageXY.y - lastMovePageXY.y) * 0.618;
+                } else {
+                  stepMovedPageXY.y = stepMovedPageXY.y * 0.618 + (pageXY.y - lastMovePageXY.y) * 0.382;
+                }
               }
 
               if (!stepTakesTime) {
                 stepTakesTime = currentTime - lastMoveTime;
               } else {
-                stepTakesTime = (stepTakesTime + currentTime - lastMoveTime) / 2;
+                if (currentTime - lastMoveTime >= stepTakesTime) {
+                  stepTakesTime = stepTakesTime * 0.618 + (currentTime - lastMoveTime) * 0.382;
+                } else {
+                  stepTakesTime = stepTakesTime * 0.382 + (currentTime - lastMoveTime) * 0.618;
+                }
+                
               }
 
-              vx = (stepMovedPageXY.x) / Math.max(1, stepTakesTime) || vy || 0;
-              vy = (stepMovedPageXY.y) / Math.max(1, stepTakesTime) || vy || 0;
+              vx = (stepMovedPageXY.x) / Math.max(1, stepTakesTime) || 0;
+              vy = (stepMovedPageXY.y) / Math.max(1, stepTakesTime) || 0;
+
+              vx *= 1 + Math.abs(vx) / 3;
+              vy *= 1 + Math.abs(vy) / 3;
 
               if (vx > 6)
                 vx = 6;
