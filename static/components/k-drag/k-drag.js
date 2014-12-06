@@ -17,10 +17,10 @@
             var adsorb;
             var touchIdentifier;
 
-            var animationFrameRequested = false;
+            var requestedFrameToken;
             
-            if (e.type === 'touchstart')
-              touchIdentifier = e.originalEvent.changedTouches[0].identifier;
+            // if (e.type === 'touchstart')
+            //   touchIdentifier = e.originalEvent.changedTouches[0].identifier;
             lastFramePageXY = pageXY = pointerdownPageXY = getEventPageXY(e);
             lastMoveTime = e.timeStamp;
             target = e.target;
@@ -42,7 +42,7 @@
                 return;
               }
 
-              if (e.type === 'touchmove' && e.originalEvent.changedTouches[0].identifier !== touchIdentifier) {
+              if (e.type === 'touchmove' && e.originalEvent.targetTouches[0].target !== target) {
                 return;
               }
 
@@ -80,61 +80,50 @@
               else if (vy < -6)
                 vy = -6;
 
+              $window.cancelAnimationFrame(requestedFrameToken);
+              requestedFrameToken = $window.requestAnimationFrame(function () {
+                var _event;
 
-              if (!animationFrameRequested) {
-                $window.requestAnimationFrame(function () {
-                  var _event;
-
-                  if (state === 1) {
-                    if (Math.abs(pageXY.x - pointerdownPageXY.x) >= adsorb
-                    || Math.abs(pageXY.y - pointerdownPageXY.y) >= adsorb) {
-                      _event = newEvent('kdragstart', e);
-                      state = 2;
-                      $(target).trigger(_event);
-                    }
-                  }
-
-                  if (state === 2) {
-                    _event = newEvent('kdrag', e);
+                if (state === 1) {
+                  if (Math.abs(pageXY.x - pointerdownPageXY.x) >= adsorb
+                  || Math.abs(pageXY.y - pointerdownPageXY.y) >= adsorb) {
+                    _event = newEvent('kdragstart', e);
+                    state = 2;
                     $(target).trigger(_event);
                   }
+                }
 
-                  lastFramePageXY = pageXY;
+                if (state === 2) {
+                  _event = newEvent('kdrag', e);
+                  $(target).trigger(_event);
+                }
 
-                  animationFrameRequested = false;
-                });
-                animationFrameRequested = true;
-              }
+                lastFramePageXY = pageXY;
+              });
             }
 
             function dragend(e) {
-              if (animationFrameRequested) {
-                $window.requestAnimationFrame(_do);
-              } else {
-                _do();
-              }
+              $window.cancelAnimationFrame(requestedFrameToken);
 
-              function _do() {
-                if (e.type === 'touchend' && e.originalEvent.changedTouches[0].identifier !== touchIdentifier)
-                  return;
+              if (e.type === 'touchend' && e.originalEvent.changedTouches[0].target !== target)
+                return;
 
-                var _event;
-                if (state === 2) {
-                  if (e.timeStamp - lastMoveTime > stepTakesTime * 4) {
-                    vx = 0;
-                    vy = 0;
-                  }
-
-                  _event = newEvent('kdragend', e);
-                  $(target).trigger(_event);
+              var _event;
+              if (state === 2) {
+                if (e.timeStamp - lastMoveTime > stepTakesTime * 4) {
+                  vx = 0;
+                  vy = 0;
                 }
-                state = 0;
 
-                $document
-                  .off('mousemove touchmove', drag)
-                  .off('mouseup touchend', dragend);
-                $($window).off('blur', dragend);
+                _event = newEvent('kdragend', e);
+                $(target).trigger(_event);
               }
+              state = 0;
+
+              $document
+                .off('mousemove touchmove', drag)
+                .off('mouseup touchend', dragend);
+              $($window).off('blur', dragend);
             }
 
             function newEvent(name, e) {
@@ -174,7 +163,11 @@
             var touch, pageX, pageY;
 
             if (e.type.indexOf("touch") > -1) {
-              touch = e.originalEvent.changedTouches[0];  
+              if (e.type === 'touchmove') {
+                touch = e.originalEvent.targetTouches[0];
+              } else {
+                touch = e.originalEvent.changedTouches[0];  
+              }
               pageX = touch.pageX;
               pageY = touch.pageY;
             } else {

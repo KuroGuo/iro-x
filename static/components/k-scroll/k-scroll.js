@@ -13,11 +13,11 @@
           model: '=?kModel'
         },
         link: function (scope, element, attrs, controller) {
-          var $wrapper = $(element),
+          var $wrapper = element,
             $scroller = $wrapper.children('.k-scroller'),
             $scrollerBar = $($document[0].createElement('span')).addClass('scroll-bar hoverable activable').appendTo($wrapper),
             animationOption = {
-              duration: 200,
+              duration: 300,
               easing: [0, 0, 0.58, 1]
             },
             minScroll = 0,
@@ -32,7 +32,7 @@
             dragEndvScrollTop;
 
           scope.model = angular.extend({
-            speed: 8,
+            speed: 6,
             currentScrollTop: 0,
             vScrollTop: 0
           }, scope.model);
