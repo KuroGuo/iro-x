@@ -1,5 +1,5 @@
 <div id="news">
-  <div class="news-list k-scroller-wrapper hoverable">
+  <div class="news-list k-scroller-wrapper hoverable" ng-hide="stateIsDetail">
     <ul class="news-list-inner k-scroller">
       <li ng-repeat="news in newsList" ng-style="{width: liWidth, height: liHeight}">
         <a ng-class="{current: stateIsDetail && currentNewsId === '{{news._id}}', visited: isVisited('{{news._id}}'), 'no-thumb': {{!news.thumbSrc}}}" k-tap="openNews('{{news._id}}')">
