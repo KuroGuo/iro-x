@@ -18,8 +18,11 @@
     z-index: 0;
     overflow: hidden;
 
+    &.ng-hide-remove {
+      @include animation(fade-in .4s);
+    }
     &.ng-hide {
-      @include animation(fade-out .1s .4s forwards);
+      @include animation(fade-out .4s forwards);
     }
 
     .news-list-inner {

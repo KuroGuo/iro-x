@@ -345,6 +345,16 @@ $nav-bar-width: 3.3rem;
     opacity: 1;
   }
 }
+@include keyframes(slide-fade-out-left) {
+  from {
+    @include transform(translateX(0) translateZ(0));
+    opacity: 1;
+  }
+  to {
+    @include transform(translateX(-100%) translateZ(0));
+    opacity: 0;
+  }
+}
 @include keyframes(slide-fade-in-right) {
   from {
     @include transform(translateX(100%) translateZ(0));
