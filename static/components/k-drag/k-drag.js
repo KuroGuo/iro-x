@@ -57,44 +57,31 @@
                   y: pageXY.y - lastMovePageXY.y
                 };
               } else {
-                if (pageXY.x - lastMovePageXY.x >= stepMovedPageXY.x) {
-                  stepMovedPageXY.x = stepMovedPageXY.x * 0.382 + (pageXY.x - lastMovePageXY.x) * 0.618;
-                } else {
-                  stepMovedPageXY.x = stepMovedPageXY.x * 0.618 + (pageXY.x - lastMovePageXY.x) * 0.382;
-                }
-                if (pageXY.y - lastMovePageXY.y >= stepMovedPageXY.y) {
-                  stepMovedPageXY.y = stepMovedPageXY.y * 0.382 + (pageXY.y - lastMovePageXY.y) * 0.618;
-                } else {
-                  stepMovedPageXY.y = stepMovedPageXY.y * 0.618 + (pageXY.y - lastMovePageXY.y) * 0.382;
-                }
+                stepMovedPageXY.x = (stepMovedPageXY.x + pageXY.x - lastMovePageXY.x) / 2;
+                stepMovedPageXY.y = (stepMovedPageXY.y + pageXY.y - lastMovePageXY.y) / 2;
               }
 
               if (!stepTakesTime) {
                 stepTakesTime = currentTime - lastMoveTime;
               } else {
-                if (currentTime - lastMoveTime >= stepTakesTime) {
-                  stepTakesTime = stepTakesTime * 0.618 + (currentTime - lastMoveTime) * 0.382;
-                } else {
-                  stepTakesTime = stepTakesTime * 0.382 + (currentTime - lastMoveTime) * 0.618;
-                }
-                
+                stepTakesTime = (stepTakesTime + currentTime - lastMoveTime) / 2;
               }
 
               vx = (stepMovedPageXY.x) / Math.max(1, stepTakesTime) || 0;
               vy = (stepMovedPageXY.y) / Math.max(1, stepTakesTime) || 0;
 
-              vx *= 1 + Math.abs(vx) / 3;
-              vy *= 1 + Math.abs(vy) / 3;
+              // vx *= 1 + Math.abs(vx) / 2;
+              // vy *= 1 + Math.abs(vy) / 2;
 
-              if (vx > 6)
-                vx = 6;
-              else if (vx < -6)
-                vx = -6
+              if (vx > 5)
+                vx = 5;
+              else if (vx < -5)
+                vx = -5
 
-              if (vy > 6)
-                vy = 6;
-              else if (vy < -6)
-                vy = -6;
+              if (vy > 5)
+                vy = 5;
+              else if (vy < -5)
+                vy = -5;
 
               $window.cancelAnimationFrame(requestedFrameToken);
               requestedFrameToken = $window.requestAnimationFrame(function (time) {
