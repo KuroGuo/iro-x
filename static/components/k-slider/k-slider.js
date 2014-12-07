@@ -110,7 +110,7 @@
             });
 
           $.Velocity.hook($kSlider, "translateZ", '1px');
-          scope.model.gotoSection(scope.model.currentSection);
+          scope.model.gotoSection(scope.model.currentSection, true);
 
           function computeMouseWheelDelta(eventArg) {
             if (eventArg.type == 'DOMMouseScroll' || eventArg.type == 'mousewheel') {
