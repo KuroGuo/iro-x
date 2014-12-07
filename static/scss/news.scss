@@ -44,10 +44,6 @@
           display: block;
           padding: 1rem 1.2rem;
           cursor: pointer;
-          @include transition(border-right-width .4s);
-          border-right-width: 0;
-          border-right-style: solid;
-          border-right-color: $base-color;
           background-color: white;
 
           &.visited {
