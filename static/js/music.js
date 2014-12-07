@@ -1,6 +1,6 @@
 ;(function (angular) { 'use strict';
   angular.module('iro.music', ['iro.services.music', 'cfp.loadingBar', 'kScroll'])
-    .factory('musicPlayer', ['music', 'cfpLoadingBar', '$http', '$window', function (music, cfpLoadingBar, $http, $window) {
+    .factory('musicPlayer', ['Music', 'cfpLoadingBar', '$http', '$window', function (Music, cfpLoadingBar, $http, $window) {
       var audio = document.createElement('audio');
       var currentMusic = null;
 
@@ -130,7 +130,7 @@
 
       musicPlayer.loadAllToList = function (callback) {
         var _this = this;
-        _this.list = music.query(function (list) {
+        _this.list = Music.query(function (list) {
           var i, j, temp;
 
           for (i = 0; i < list.length; i++) {
