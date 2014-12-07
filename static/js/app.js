@@ -8,6 +8,7 @@
     'iro.video',
     'iro.music',
     'iro.wallpaper',
+    'iro.news',
     'iro.services.navbar'
   ]).config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
@@ -33,7 +34,13 @@
       })
       .state('news', {
         url: '/news',
-        template: 'news'
+        templateUrl: '/static/templates/news/index.html',
+        controller: 'NewsCtrl'
+      })
+      .state('news.detail', {
+        url: '/:id',
+        templateUrl: 'static/templates/news/detail.html',
+        controller: 'NewsDetailCtrl'
       })
       .state('article', {
         url: '/article',
@@ -70,8 +77,12 @@
       }
     };
 
-    $scope.stateGo = function (sref) {
-      $state.go(sref);
+    $scope.stateGo = function (to, params, options) {
+      $state.go(to, params, options);
+    };
+
+    $scope.backHistory = function () {
+      $window.history.back();
     };
 
     $scope.openWindow = function (href) {
