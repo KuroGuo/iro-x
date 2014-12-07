@@ -59,17 +59,11 @@ server.listen(config.port, function () {
   console.log('Listenning port ' + config.port + '.');
 });
 
-scraper(function (err) {
-  if (err) {
-    console.error(err);
-    return scrap();
-  }
-  scrap();
-});
+scrap(1);
 
 // 爬虫十分钟采集一次
-function scrap() {
-  setTimeout(scraper, config.scrapRate, function (err) {
+function scrap(timeout) {
+  setTimeout(scraper, timeout || config.scrapRate, function (err) {
     if (err) {
       console.error(err);
       return scrap();
