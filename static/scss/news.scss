@@ -142,6 +142,10 @@
       padding-right: 1.2rem;
       padding-bottom: 6rem;
 
+      &.ng-hide-remove {
+        @include animation(fade-in .4s);
+      }
+
       .wide-screen & {
         @include box-shadow(0 .1rem .8rem rgba(0,0,0,.4));
         margin-top: 2rem;
