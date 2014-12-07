@@ -59,7 +59,13 @@ server.listen(config.port, function () {
   console.log('Listenning port ' + config.port + '.');
 });
 
-scrap();
+scraper(function (err) {
+  if (err) {
+    console.error(err);
+    return scrap();
+  }
+  scrap();
+});
 
 // 爬虫十分钟采集一次
 function scrap() {
