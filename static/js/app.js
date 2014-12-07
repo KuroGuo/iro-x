@@ -98,7 +98,8 @@
           return null;
         }
         return musicPlayer.currentMusic.bgSrc;
-      }
+      },
+      title: null
     };
 
     Object.defineProperty($scope, 'navbarCustomBackgroundColor', {

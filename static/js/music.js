@@ -208,7 +208,9 @@
       return musicPlayer;
     }])
     .controller('MusicCtrl', ['$scope', 'musicPlayer', '$state',
-      function ($scope, musicPlayer, $state) {
+    function ($scope, musicPlayer, $state) {
+      $scope.global.title = '音乐';
+
       Object.defineProperty($scope, 'musics', {
         get: function () {
           return musicPlayer.list;
@@ -300,7 +302,9 @@
         $state.go('music.play', {name: musicPlayer.currentMusic.name}, {location: 'replace'});
       }
     }])
-    .controller('MusicPlayCtrl', ['$stateParams', 'musicPlayer', function ($stateParams, musicPlayer) {
+    .controller('MusicPlayCtrl', ['$stateParams', 'musicPlayer', '$scope', function ($stateParams, musicPlayer, $scope) {
+      $scope.global.title = $stateParams.name + ' - 音乐';
+
       if (!musicPlayer.list) {
         musicPlayer.loadAllToList(function (list) {
           play();

@@ -18,6 +18,8 @@
         $interval.cancel(clock);
       });
 
+      $scope.global.title = null;
+
       setDateTime();
 
       function setDateTime() {

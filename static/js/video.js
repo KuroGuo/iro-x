@@ -1,6 +1,7 @@
 ;(function (angular) { 'use strict';
   angular.module('iro.video', ['iro.services.memory', 'k-player'])
-    .controller('VideoCtrl', [function () {
+    .controller('VideoCtrl', ['$scope', function ($scope) {
+      $scope.global.title = '视频';
     }])
     .directive('iroVideo', ['$window', 'memory', function ($window, memory) {
       return {

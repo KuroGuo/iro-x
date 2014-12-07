@@ -72,6 +72,8 @@
         }
       });
 
+      $scope.global.title = '资讯';
+
       $scope.liHeight = '16rem';
       $window.addEventListener('resize', applyRewidth);
       rewidth.call($window);
@@ -94,7 +96,13 @@
       }
     }])
     .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', 'news', function ($scope, News, $stateParams, news) {
-      $scope.news = News.get({id: $stateParams.id});
+      var oldTitle = $scope.global.title;
+      $scope.news = News.get({id: $stateParams.id}, function (news) {
+        $scope.global.title = news.title + ' - 资讯';
+      });
+      $scope.$on('$destroy', function () {
+        $scope.global.title = oldTitle;
+      });
       news.currentNewsId = $stateParams.id;
     }]);
 })(angular);

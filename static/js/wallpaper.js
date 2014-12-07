@@ -14,6 +14,8 @@
           navbar.customBackgroundColor = null;
         });
 
+        $scope.global.title = '壁纸';
+
         function applyRewidth() {
           $scope.$apply(rewidth);
         }
