@@ -26,6 +26,7 @@
     </div>
     <div id="nav_bar" ng-show="loaded" ng-style="{'background-color': navbarCustomBackgroundColor}">
       <ul>
+        <li class="back"><a class="hoverable activable" k-tap="backHistory()"><span class="text iconfont icon-houtui"></span></a></li>
         <li class="home"><a class="hoverable activable" k-tap="stateGo('home')"><span class="text iconfont icon-wangzhandaohang"></span></a></li>
         <li class="github"><a class="hoverable activable" k-tap="openWindow('https://github.com/kuroguo/iro')"><span class="text iconfont icon-github"></span></a></li>
       </ul>
