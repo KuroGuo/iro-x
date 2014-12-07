@@ -40,7 +40,7 @@ function processList(body, callback) {
       title: $a.html(),
       href: url.resolve('http://m.cnbeta.com', $a.attr('href'))
     };
-  });
+  }).reverse();
 
   async.eachSeries(list, function (a, next) {
     request(a.href, function (err, res, body) {
