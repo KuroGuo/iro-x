@@ -8,7 +8,7 @@ var async = require('async');
 var url = require('url');
 var news = require('./services/news');
 
-var count = 10;
+var count = 3;
 
 var pages = (function (count) {
   var arr = [];
