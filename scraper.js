@@ -25,9 +25,7 @@ module.exports = function (callback) {
       if (err) {
         return next(err);
       }
-      processList(body, function (err) {
-        next(err);
-      });
+      processList(body, next);
     });
   }, callback);
 };
@@ -51,9 +49,7 @@ function processList(body, callback) {
       }
       var thumbSrc = $(body).find('img').first().attr('src');
       var content = $(body).find('.articleCont').html();
-      news.addOrUpdateOne(a.title, content, 'cnbeta', a.href, function (err) {
-        next(err);
-      });
+      news.createOrUpdateOne(a.title, content, 'cnbeta', a.href, thumbSrc, next);
     });
   }, callback);
 }
