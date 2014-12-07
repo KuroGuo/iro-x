@@ -63,13 +63,11 @@ scrap();
 
 // 爬虫十分钟采集一次
 function scrap() {
-  console.log('开始采集');
   setTimeout(scraper, config.scrapRate, function (err) {
     if (err) {
       console.error(err);
       return scrap();
     }
-    console.log('采集完成');
     scrap();
   });
 }
