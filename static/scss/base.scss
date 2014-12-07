@@ -1,12 +1,6 @@
 @import "compass/css3/animation";
 @import "compass/css3";
-
-$font-stack: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
-$base-color: #6bf;
-$base-color-light: #7cf;
-$base-color-rich: #5af;
-$base-color-big-rich: #03c;
-$text-color: #33333d;
+@import "common.scss";
 
 html {
   font-family: $font-stack;
@@ -182,6 +176,11 @@ $nav-bar-width: 3.3rem;
     line-height: $nav-bar-width;
     margin: auto;
 
+    &.back {
+      left: 0;
+      top: 0;
+    }
+
     &.home {
       left: 0;
       right: 0;
@@ -189,18 +188,9 @@ $nav-bar-width: 3.3rem;
       bottom: 0;
     }
 
-     &.github {
-      .wide-screen & {
-        bottom: 0;
-        left: 0;
-        right: 0;
-      }
-
-      .high-screen & {
-        right: 0;
-        top: 0;
-        bottom: 0;
-      }
+    &.github {
+      right: 0;
+      bottom: 0;
     }
 
     a {
@@ -329,6 +319,8 @@ $nav-bar-width: 3.3rem;
 
 .icon-wangzhandaohang:before { content: "\e600"; }
 
+.icon-houtui:before { content: "\e60d"; }
+
 .icon-bofang1:before { content: "\e605"; }
 
 .icon-zanting:before { content: "\e606"; }
@@ -351,6 +343,26 @@ $nav-bar-width: 3.3rem;
   to {
     @include transform(translateX(0) translateZ(0));
     opacity: 1;
+  }
+}
+@include keyframes(slide-fade-in-right) {
+  from {
+    @include transform(translateX(100%) translateZ(0));
+    opacity: 0;
+  }
+  to {
+    @include transform(translateX(0) translateZ(0));
+    opacity: 1;
+  }
+}
+@include keyframes(slide-fade-out-right) {
+  from {
+    @include transform(translateX(0) translateZ(0));
+    opacity: 1;
+  }
+  to {
+    @include transform(translateX(100%) translateZ(0));
+    opacity: 0;
   }
 }
 @include keyframes(slide-fade-in-bottom) {
