@@ -7,6 +7,7 @@ var newsSchema = mongoose.Schema({
   content: String,
   from: String,
   fromURL: String,
+  thumbSrc: String,
   updateTime: Date
 });
 
