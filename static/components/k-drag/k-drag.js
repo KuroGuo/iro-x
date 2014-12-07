@@ -19,6 +19,10 @@
 
             var requestedFrameToken;
             
+            if (e.which && e.which !== 1) {
+              return;
+            }
+            
             // if (e.type === 'touchstart')
             //   touchIdentifier = e.originalEvent.changedTouches[0].identifier;
             lastFramePageXY = pageXY = pointerdownPageXY = getEventPageXY(e);
@@ -33,11 +37,7 @@
 
             $($window).on('blur', dragend);
 
-            function drag(e) {
-              if (e.which && e.which !== 1) {
-                return;
-              }
-              
+            function drag(e) {          
               if (state < 1) {
                 return;
               }
