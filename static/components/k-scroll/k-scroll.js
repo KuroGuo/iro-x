@@ -38,18 +38,11 @@
           }, scope.model);
 
           $wrapper
-            .on('mouseenter mousedown touchstart', function () {
-              htmlFontSize = parseFloat($('html').css('font-size'));
-              wrapperHeightRem = $wrapper.innerHeight() / htmlFontSize;
-              scrollerHeightRem = $scroller.outerHeight(true) / htmlFontSize;
-              maxScroll = Math.max(0, scrollerHeightRem - wrapperHeightRem);
-              scrollerBarHeightPercent = wrapperHeightRem / scrollerHeightRem;
-              if (scrollerBarHeightPercent > 1)
-                scrollerBarHeightPercent = 0;
-            })
+            .on('mouseenter mousedown touchstart', refreshContext)
             .on('mousewheel DOMMouseScroll', function (e) {
               if (e.ctrlKey)
                 return;
+              refreshContext();
               e.preventDefault();
               var delta = computeMouseWheelDelta(e.originalEvent);
               var destScrollTop = scope.model.currentScrollTop - delta * scope.model.speed;
@@ -153,6 +146,17 @@
           $.Velocity.hook($scrollerBar, "translateZ", '1px');
           $.Velocity.hook($scroller, "translateZ", '1px');
           scrollTo(scope.model.currentScrollTop, false, false);
+
+          function refreshContext() {
+            htmlFontSize = parseFloat($('html').css('font-size'));
+            wrapperHeightRem = $wrapper.innerHeight() / htmlFontSize;
+            scrollerHeightRem = $scroller.outerHeight(true) / htmlFontSize;
+            maxScroll = Math.max(0, scrollerHeightRem - wrapperHeightRem);
+            scrollerBarHeightPercent = wrapperHeightRem / scrollerHeightRem;
+            if (scrollerBarHeightPercent > 1) {
+              scrollerBarHeightPercent = 0;
+            }
+          }
 
           function slide(time) {
             var timeSpan, destScrollTop;
