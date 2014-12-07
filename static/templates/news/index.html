@@ -2,7 +2,7 @@
   <div class="news-list k-scroller-wrapper hoverable">
     <ul class="news-list-inner k-scroller">
       <li ng-repeat="news in newsList" ng-style="{width: liWidth, height: liHeight}">
-        <a ng-class="{current: stateIsDetail && currentNewsId === '{{news._id}}', visited: isVisited('{{news._id}}')}" k-tap="openNews('{{news._id}}')">
+        <a ng-class="{current: stateIsDetail && currentNewsId === '{{news._id}}', visited: isVisited('{{news._id}}'), 'no-thumb': {{!news.thumbSrc}}}" k-tap="openNews('{{news._id}}')">
           <span class="thumb" ng-style="{'background-image': 'url(\'{{news.thumbSrc ? news.thumbSrc : 'none'}}\')'}"></span>
           <span class="title">{{news.title}}</span>
         </a>

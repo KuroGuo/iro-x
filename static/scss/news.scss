@@ -7,7 +7,6 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: white;
 
   .news-list {
     position: absolute;
@@ -16,6 +15,7 @@
     top: 0;
     bottom: 0;
     z-index: 0;
+    background-color: #eee;
     overflow: hidden;
 
     .news-list-inner {
@@ -41,9 +41,10 @@
           border-right-width: 0;
           border-right-style: solid;
           border-right-color: $base-color;
+          background-color: white;
 
           &.visited {
-            opacity: .5;
+            opacity: .6;
           }
 
           $title-height: 2.4rem;
@@ -57,11 +58,9 @@
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
-            background-color: #ccc;
           }
 
           .title {
-            background-color: white;
             position: absolute;
             left: 0;
             right: 0;
@@ -69,9 +68,28 @@
             height: $title-height;
             padding: 0 1rem;
             line-height: $title-height;
-            text-overflow:ellipsis; 
-            overflow:hidden;
-            white-space:nowrap;
+            text-overflow: ellipsis; 
+            overflow: hidden;
+            white-space: nowrap;
+          }
+
+          &.no-thumb {
+            .thumb {
+              display: none;
+            }
+
+            .title {
+              font-size: 3rem;
+              line-height: 1.33em;
+              top: .3em;
+              bottom: .3em;
+              left: .5em;
+              right: .5em;
+              padding: 0;
+              height: auto;
+              position: absolute;
+              white-space: normal;
+            }
           }
         }
       }
@@ -105,24 +123,35 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: white;
     overflow: hidden;
-    @include box-shadow(0 0 .8rem rgba(0,0,0,.4));
+    background-color: #eee;
+    @include box-shadow(0 .1rem .8rem rgba(0,0,0,.4));
 
     .news-detail-inner {
       max-width: 60rem;
-      margin: 0 auto;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: white;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
       padding-bottom: 6rem;
+
+      .wide-screen & {
+        @include box-shadow(0 .1rem .8rem rgba(0,0,0,.4));
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+        padding-left: 3rem;
+        padding-right: 3rem;
+      }
 
       .title {
         text-align: center;
         font-size: 1.9rem;
-        margin: 1.2em 1.2rem;
+        padding: 1.2em 0;
       }
 
       .content {
         font-size: 1.2rem;
-        padding: 0 1.2rem;
         line-height: 1.5em;
 
         p {
