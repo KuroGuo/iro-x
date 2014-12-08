@@ -61,7 +61,6 @@ server.listen(config.port, function () {
 
 scrap(1);
 
-// 爬虫十分钟采集一次
 function scrap(timeout) {
   setTimeout(scraper, timeout || config.scrapRate, function (err) {
     console.log('scraper callback', new Date().toLocaleTimeString());
