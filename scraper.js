@@ -21,12 +21,7 @@ var pages = (function (count) {
 
 module.exports = function (callback) {
   async.eachSeries(pages, function (pageNum, next) {
-    request({
-      url: 'http://m.cnbeta.com/list_latest_' + pageNum +'.htm',
-      qs: {
-        _: new Date().getTime()
-      }
-    }, function (err, res, body) {
+    request('http://m.cnbeta.com/list_latest_' + pageNum +'.htm', function (err, res, body) {
       if (err) {
         return next(err);
       }
@@ -48,12 +43,7 @@ function processList(body, callback) {
   }).reverse();
 
   async.eachSeries(list, function (a, next) {
-    request({
-      url: a.href,
-      qs: {
-        _: new Date().getTime()
-      }
-    }, function (err, res, body) {
+    request(a.href, function (err, res, body) {
       if (err) {
         return next(err);
       }
