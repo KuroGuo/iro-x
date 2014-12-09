@@ -15,7 +15,7 @@ var webRouter = require('./web_router');
 var setupsocket = require('./setupsocket');
 var MongoStore = require('connect-mongo')(session);
 var view = require('./middlewares/view');
-var scraper = require('./scraper');
+var child_process = require('child_process');
 
 mongoose.connection.on('error', function (err) {
   console.error(err)
@@ -59,16 +59,14 @@ server.listen(config.port, function () {
   console.log('Listenning port ' + config.port + '.');
 });
 
-scrap(1);
+var scrap_child_process;
 
-function scrap(timeout) {
-  setTimeout(scraper, timeout || config.scrapRate, function (err) {
-    console.log('scraper callback', new Date().toLocaleTimeString());
-    if (err) {
-      console.error(err);
-      return scrap();
-    }
-    scrap();
-  });
+setInterval(scrap, config.scrapRate);
+
+function scrap() {
+  if (scrap_child_process) {
+    scrap_child_process.kill();
+  }
+  scrap_child_process = child_process.fork('scraper.js')
 }
 

@@ -19,16 +19,23 @@ var pages = (function (count) {
   return arr;
 })(count);
 
-module.exports = function (callback) {
-  async.eachSeries(pages, function (pageNum, next) {
-    request('http://m.cnbeta.com/list_latest_' + pageNum +'.htm', function (err, res, body) {
-      if (err) {
-        return next(err);
-      }
-      processList(body, next);
-    });
-  }, callback);
-};
+mongoose.connect(config.db);
+
+async.eachSeries(pages, function (pageNum, next) {
+  request('http://m.cnbeta.com/list_latest_' + pageNum +'.htm', function (err, res, body) {
+    if (err) {
+      return next(err);
+    }
+    processList(body, next);
+  });
+}, function (err) {
+  console.log('wanle');
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+  process.exit(0);
+});
 
 function processList(body, callback) {
   var $ = cheerio.load(body, {
