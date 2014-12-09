@@ -17,7 +17,7 @@
             $scroller = $wrapper.children('.k-scroller'),
             $scrollerBar = $($document[0].createElement('span')).addClass('scroll-bar hoverable activable').appendTo($wrapper),
             animationOption = {
-              duration: 300,
+              duration: 200,
               easing: [0, 0, 0.58, 1]
             },
             minScroll = 0,
@@ -32,7 +32,7 @@
             dragEndvScrollTop;
 
           scope.model = angular.extend({
-            speed: 6,
+            speed: 7,
             currentScrollTop: 0,
             vScrollTop: 0
           }, scope.model);
