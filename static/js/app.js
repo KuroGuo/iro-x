@@ -190,7 +190,7 @@
             //   // }
             // })
             .on('mousedown mouseup click touchstart touchend', function (e) {
-              if ($(e.target).css('user-select') !== 'none') {
+              if ($(e.target).css('user-select') !== 'none' && $(e.target).parents('.event-default').length) {
                 return;
               }
               e.preventDefault();
