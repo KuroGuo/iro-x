@@ -190,7 +190,7 @@
               }
             })
             .on('touchstart touchend', function (e) {
-              if ($(e.target).hasClass('not-prevent-touch-default')) {
+              if ($(e.target).css('user-select') !== 'none') {
                 return;
               }
               e.preventDefault();

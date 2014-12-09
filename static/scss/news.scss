@@ -137,6 +137,7 @@
       padding-left: 1.2rem;
       padding-right: 1.2rem;
       padding-bottom: 6rem;
+      @include user-select(text);
 
       &.ng-hide-remove {
         @include animation(fade-in .4s);
