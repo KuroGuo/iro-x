@@ -103,6 +103,11 @@
       $scope.$on('$destroy', function () {
         $scope.global.title = oldTitle;
       });
+
+      $scope.scroller = {
+        mouseDrag: false
+      };
+
       news.currentNewsId = $stateParams.id;
     }]);
 })(angular);
