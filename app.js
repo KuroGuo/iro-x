@@ -60,13 +60,12 @@ server.listen(config.port, function () {
 });
 
 var scrap_child_process;
-
-setInterval(scrap, config.scrapRate);
-
-function scrap() {
+setInterval(function () {
   if (scrap_child_process) {
     scrap_child_process.kill();
   }
   scrap_child_process = child_process.fork('scraper.js')
-}
+}, config.scrapRate);
+
+
 

@@ -34,7 +34,8 @@
           scope.model = angular.extend({
             speed: 7,
             currentScrollTop: 0,
-            vScrollTop: 0
+            vScrollTop: 0,
+            mouseDrag: true
           }, scope.model);
 
           $wrapper
@@ -57,6 +58,11 @@
               resetscrollerBarStyle();
             })
             .on('kdragstart', function (e) {
+              if (!scope.model.mouseDrag && e.pointerType === 'mouse') {
+                e.prevent();
+                return;
+              }
+
               if ($(e.target).hasClass('scroll-bar')) // 如果拖拽的是滚动条就返回
                 return;
 
