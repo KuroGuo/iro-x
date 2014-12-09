@@ -184,12 +184,12 @@
             // .on('touchstart touchend touchmove click tap mousedown mouseup', function (e) {
             //     $('.container').append(e.type + '<br />');
             // })
-            .on('ktap', 'a', function (e) {
-              if (e.pointerType === 'touch' && $(e.currentTarget).attr('href')) {
-                $(e.currentTarget).trigger('click');
-              }
-            })
-            .on('touchstart touchend', function (e) {
+            // .on('ktap', 'a', function (e) {
+            //   // if (e.pointerType === 'touch' && $(e.currentTarget).attr('href')) {
+            //     $(e.currentTarget).trigger('click');
+            //   // }
+            // })
+            .on('mousedown mouseup click touchstart touchend', function (e) {
               if ($(e.target).css('user-select') !== 'none') {
                 return;
               }
