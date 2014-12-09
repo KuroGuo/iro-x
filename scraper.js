@@ -29,7 +29,6 @@ async.eachSeries(pages, function (pageNum, next) {
     processList(body, next);
   });
 }, function (err) {
-  console.log('wanle');
   if (err) {
     console.error(err);
     process.exit(1);
