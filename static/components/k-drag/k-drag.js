@@ -116,7 +116,7 @@
             function dragend(e) {
               $window.cancelAnimationFrame(requestedFrameToken);
 
-              if (e.type === 'touchend' && e.originalEvent.changedTouches[0].target !== target)
+              if (e && e.type === 'touchend' && e.originalEvent.changedTouches[0].target !== target)
                 return;
 
               var _event;
