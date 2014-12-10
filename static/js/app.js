@@ -195,9 +195,10 @@
               }
 
               var $target = $(e.target);
-              if ($target.css('user-select') !== 'none' && $target.parents('.event-default').length) {
+              if ($target.css('user-select') !== 'none' && $target.is('.event-default, .event-default *')) {
                 return;
               }
+
               e.preventDefault();
             });
         }

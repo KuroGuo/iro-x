@@ -129,13 +129,13 @@
                   e.preventDefault();
                 }
               })
-              .on('ktap', '.textbox-comment', function (e) {
-                if (e.pointerType === 'touch') {
-                  $textboxComment.trigger('focus');
-                }
-              })
+              // .on('ktap', '.textbox-comment', function (e) {
+              //   if (e.pointerType === 'touch') {
+              //     $textboxComment.trigger('focus');
+              //   }
+              // })
               .on('ktap', function (e) {
-                if (e.pointerType === 'touch' && !$(e.target).is('.textbox-comment')) {
+                if (!$(e.target).is('.textbox-comment, .textbox-comment *')) {
                   $textboxComment.trigger('blur');
                 }
               })
