@@ -10,6 +10,7 @@ input, textarea, button, [contenteditable="true"] {
   font: inherit;
   outline: none;
   border: none;
+  @include user-select(text);
 
   &::-moz-focus-inner {
     border: none;
