@@ -28,15 +28,24 @@
             scrollerBarHeightPercent,
             htmlFontSize,
             lastFrameTime,
-            requestId,
-            dragEndvScrollTop;
+            frameToken,
+            dragEndvScrollTop,
+            touchId;
 
           scope.model = angular.extend({
-            speed: 7,
-            currentScrollTop: 0,
-            vScrollTop: 0,
-            mouseDrag: true
+            mousewheelSpeed: 7, // 鼠标滚轮滚动速度
+            currentScrollTop: 0, // 当前纵向滚动值
+            vScrollTop: 0, // 纵向滚动速度
+            mouseDrag: true // 是否允许鼠标拖动
           }, scope.model);
+
+          scope.model.scrollTo = scrollTo;
+
+          scope.model.stopAnimation = function () {
+            $window.cancelAnimationFrame(frameToken);
+            frameToken = null;
+            $scroller.velocity('stop');
+          };
 
           $wrapper
             .on('mouseenter mousedown touchstart', refreshContext)
@@ -46,7 +55,7 @@
               refreshContext();
               e.preventDefault();
               var delta = computeMouseWheelDelta(e.originalEvent);
-              var destScrollTop = scope.model.currentScrollTop - delta * scope.model.speed;
+              var destScrollTop = scope.model.currentScrollTop - delta * scope.model.mousewheelSpeed;
               if (destScrollTop > maxScroll)
                 destScrollTop = maxScroll;
               else if (destScrollTop < minScroll)
@@ -65,17 +74,19 @@
                 return;
               }
 
+              touchId = e.touchId;
+
               var $wrapper = $(e.currentTarget);
-              
-              if ($wrapper.hasClass('dragging')) {
-                e.prevent();
-                return;
-              }
 
               $wrapper.addClass('dragging');
+
+              scope.$emit('kScrollerDragstart');
             })
             .on('kdrag', function (e) {
               if ($(e.target).hasClass('scroll-bar'))
+                return;
+
+              if (e.touchId !== touchId)
                 return;
 
               var $wrapper = $(e.currentTarget);
@@ -93,6 +104,8 @@
               scope.model.vScrollTop = -e.vy / parseFloat(htmlFontSize);
               scope.model.currentScrollTop -= e.stepY / parseFloat(htmlFontSize);
               scrollTo(scope.model.currentScrollTop, false, false);
+
+              scope.$emit('kScrollerDrag');
             })
             .on('mouseup touchend touchcancel', function (e) {
               var $wrapper = $(e.currentTarget);
@@ -101,12 +114,17 @@
                 lastFrameTime = null;
                 $wrapper.addClass('sliding');
                 slide();
+                
+                scope.$emit('kScrollerDragend');
               }
             })
             .on('kdragend', function (e) {
               if ($(e.target).hasClass('scroll-bar'))
                 return;
-              
+
+              if (e.touchId !== touchId)
+                return;
+
               var $wrapper = $(e.currentTarget);
 
               $wrapper.removeClass('dragging');
@@ -116,11 +134,12 @@
               lastFrameTime = null;
               $wrapper.addClass('sliding');
               slide();
+
+              scope.$emit('kScrollerDragend');
             })
             .on('mousedown touchstart', function (e) {
-              if (requestId) {
-                window.cancelAnimationFrame(requestId);
-                requestId = null;
+              if (frameToken) {
+                scope.model.stopAnimation();
                 $document.data('kTapPrevented', true);
               }
               scope.model.vScrollTop = 0;
@@ -217,15 +236,15 @@
             && (Math.abs(scope.model.vScrollTop) > 0.002
             || scope.model.currentScrollTop > maxScroll
             || scope.model.currentScrollTop < minScroll)) {
-              requestId = window.requestAnimationFrame(slide);
+              frameToken = window.requestAnimationFrame(slide);
             } else {
               scope.model.vScrollTop = 0;
               $wrapper.removeClass('sliding');
-              requestId = null;
+              frameToken = null;
             }
           }
 
-          function resetscrollerBarStyle (currentScrollTop, doAnimation) {
+          function resetscrollerBarStyle(currentScrollTop, doAnimation) {
             var scrollPercent = (currentScrollTop || scope.model.currentScrollTop) / (scrollerHeightRem - wrapperHeightRem);
 
             if (scrollerBarHeightPercent <= 0) {
@@ -240,10 +259,10 @@
               translateY: (-scrollPercent * 100) + '%'
             }, key;
 
+            $scrollerBar.velocity('stop');
+
             if (doAnimation) {
-              $scrollerBar
-                .velocity('stop')
-                .velocity(style, animationOption);
+              $scrollerBar.velocity(style, animationOption);
             } else {
               for (key in style) {
                 $.Velocity.hook($scrollerBar, key, style[key]);
@@ -251,11 +270,13 @@
             }
           }
 
-          function scrollTo (destScrollTop, doAnimation, scrollerBarDoAnimation) {
+          function scrollTo(destScrollTop, doAnimation, scrollerBarDoAnimation, duration) {
             scope.model.currentScrollTop = destScrollTop;
 
+            $scroller.velocity('stop');
+
             if (doAnimation) {
-              $scroller.velocity('stop').velocity({
+              $scroller.velocity({
                 translateY: (-scope.model.currentScrollTop) + 'rem'
               }, angular.extend(animationOption, {
                 begin: function () {
@@ -263,14 +284,15 @@
                 },
                 complete: function () {
                   $wrapper.removeClass('scrolling');
-                }
+                },
+                duration: duration || animationOption.duration
               }));  
             } else {
               $.Velocity.hook($scroller, "translateY", -scope.model.currentScrollTop + 'rem');
             }
           
             resetscrollerBarStyle(null, scrollerBarDoAnimation);                        
-          };
+          }
         }
       };
     }]);
