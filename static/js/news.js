@@ -91,7 +91,7 @@
       $scope.refreshStateText = '下拉刷新';
       $scope.$on('kScrollerDrag', function () {
         var currentScrollTop = $scope.newsListScroller.currentScrollTop;
-        if (currentScrollTop < -4 && !$scope.refreshState) {
+        if (currentScrollTop < -4 && (!$scope.refreshState || $scope.refreshState === 4)) {
           $scope.refreshState = 1;
           $scope.$digest();
         }
