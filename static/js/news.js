@@ -88,14 +88,10 @@
         navbar.customBackgroundColor = null;
       });
 
-      // $scope.$on('kScrollerDragstart', function () {
-      //     $scope.refreshState = null;
-      //     $scope.$digest();
-      //     $scope.newsListScroller.scrollTo($scope.newsListScroller.currentScrollTop - 4);
-      // });
+      $scope.refreshStateText = '下拉刷新';
       $scope.$on('kScrollerDrag', function () {
         var currentScrollTop = $scope.newsListScroller.currentScrollTop;
-        if (currentScrollTop < -4 && (!$scope.refreshState || $scope.refreshState === 4)) {
+        if (currentScrollTop < -4 && !$scope.refreshState) {
           $scope.refreshState = 1;
           $scope.$digest();
         }
