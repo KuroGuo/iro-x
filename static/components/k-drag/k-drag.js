@@ -15,7 +15,6 @@
             var vx, vy;
             var target; // 拖动的目标element，非常重要！！！
             var adsorb;
-            var touchIdentifier;
 
             var requestedFrameToken;
             
@@ -23,8 +22,6 @@
               return;
             }
             
-            // if (e.type === 'touchstart')
-            //   touchIdentifier = e.originalEvent.changedTouches[0].identifier;
             lastFramePageXY = pageXY = pointerdownPageXY = getEventPageXY(e);
             lastMoveTime = e.timeStamp;
             target = e.target;
@@ -69,6 +66,17 @@
 
               vx = (stepMovedPageXY.x) / Math.max(1, stepTakesTime) || 0;
               vy = (stepMovedPageXY.y) / Math.max(1, stepTakesTime) || 0;
+
+              // if (vx > 1) {
+              //   vx += 1;
+              // } else if (vx < -1) {
+              //   vx -= 1;
+              // }
+              // if (vy > 1) {
+              //   vy += 1;
+              // } else if (vy < -1) {
+              //   vy -= 1;
+              // }
 
               // vx *= 1 + Math.abs(vx) / 2;
               // vy *= 1 + Math.abs(vy) / 2;
@@ -155,6 +163,7 @@
                 _event.pointerType = 'mouse';
               } else if (e.type.indexOf('touch') > -1) {
                 _event.pointerType = 'touch';
+                _event.touchId = e.originalEvent.changedTouches[0].identifier;
               } else {
                 _event.pointerType = e.type;
               }
