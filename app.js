@@ -66,6 +66,3 @@ setInterval(function () {
   }
   scrap_child_process = child_process.fork('scraper.js')
 }, config.scrapRate);
-
-
-
