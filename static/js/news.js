@@ -98,7 +98,7 @@
       });
       $scope.$on('kScrollerDragend', function () {
         var currentScrollTop = $scope.newsListScroller.currentScrollTop;
-        if (currentScrollTop < -4 && $scope.refreshState === 1) {
+        if (currentScrollTop < -4 && $scope.refreshState <= 2) {
           $scope.refreshState = 2;
           $scope.$digest();
           $scope.newsListScroller.stopAnimation();
@@ -109,7 +109,7 @@
               $timeout(function () {
                 $scope.refreshState = 4;
                 $scope.newsListScroller.stopAnimation();
-                $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
+                $scope.newsListScroller.scrollTo($scope.newsListScroller.currentScrollTop + 4, true, true, 250, function () {
                   $scope.refreshState = 0;
                   $scope.$digest();
                 });
