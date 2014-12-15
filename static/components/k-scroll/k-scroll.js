@@ -29,8 +29,7 @@
             htmlFontSize,
             lastFrameTime,
             frameToken,
-            dragEndvScrollTop,
-            touchId;
+            dragEndvScrollTop;
 
           scope.model = angular.extend({
             mousewheelSpeed: 7, // 鼠标滚轮滚动速度
@@ -41,11 +40,7 @@
 
           scope.model.scrollTo = scrollTo;
 
-          scope.model.stopAnimation = function () {
-            $window.cancelAnimationFrame(frameToken);
-            frameToken = null;
-            $scroller.velocity('stop');
-          };
+          scope.model.stopAnimation = stopAnimation;
 
           $wrapper
             .on('mouseenter mousedown touchstart', refreshContext)
@@ -74,8 +69,6 @@
                 return;
               }
 
-              touchId = e.touchId;
-
               var $wrapper = $(e.currentTarget);
 
               $wrapper.addClass('dragging');
@@ -86,14 +79,7 @@
               if ($(e.target).hasClass('scroll-bar'))
                 return;
 
-              if (e.touchId !== touchId)
-                return;
-
               var $wrapper = $(e.currentTarget);
-
-              if (!$wrapper.hasClass('dragging')) {
-                $wrapper.addClass('dragging');
-              }
 
               if (scope.model.currentScrollTop > maxScroll) {
                 e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - maxScroll);
@@ -122,9 +108,6 @@
               if ($(e.target).hasClass('scroll-bar'))
                 return;
 
-              if (e.touchId !== touchId)
-                return;
-
               var $wrapper = $(e.currentTarget);
 
               $wrapper.removeClass('dragging');
@@ -139,7 +122,7 @@
             })
             .on('mousedown touchstart', function (e) {
               if (frameToken) {
-                scope.model.stopAnimation();
+                stopAnimation();
                 $document.data('kTapPrevented', true);
               }
               scope.model.vScrollTop = 0;
@@ -273,7 +256,7 @@
           function scrollTo(destScrollTop, doAnimation, scrollerBarDoAnimation, duration, callback) {
             scope.model.currentScrollTop = destScrollTop;
 
-            $scroller.velocity('stop');
+            stopAnimation();
 
             if (doAnimation) {
               $scroller.velocity({
@@ -296,6 +279,12 @@
             }
           
             resetscrollerBarStyle(null, scrollerBarDoAnimation);                        
+          }
+
+          function stopAnimation() {
+            $window.cancelAnimationFrame(frameToken);
+            frameToken = null;
+            $scroller.velocity('stop');
           }
         }
       };
