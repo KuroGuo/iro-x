@@ -115,7 +115,7 @@
                 $scope.newsListScroller.stopAnimation();
                 $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
                   $scope.refreshState = 0;
-                  $scope.digest();
+                  $scope.$digest();
                 });
               }, 1000);
             });
