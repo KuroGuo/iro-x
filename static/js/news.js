@@ -113,7 +113,10 @@
               $timeout(function () {
                 $scope.refreshState = 4;
                 $scope.newsListScroller.stopAnimation();
-                $scope.newsListScroller.scrollTo(0, true, true, 250);
+                $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
+                  $scope.refreshState = 0;
+                  $scope.digest();
+                });
               }, 1000);
             });
           }, 250);
