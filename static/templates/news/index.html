@@ -1,6 +1,6 @@
 <div id="news">
   <div class="news-list k-scroller-wrapper hoverable" k-model="newsListScroller" ng-hide="stateIsDetail">
-    <ul class="news-list-inner k-scroller" ng-class="{'refresh-state1': refreshState === 1, 'refresh-state2': refreshState === 2, 'refresh-state3': refreshState === 3, 'refresh-state4': refreshState === 4}">
+    <ul class="news-list-inner k-scroller" ng-class="{'refresh-state0': !refreshState, 'refresh-state1': refreshState === 1, 'refresh-state2': refreshState === 2, 'refresh-state3': refreshState === 3, 'refresh-state4': refreshState === 4}">
       <div class="refresh-hint">
         <span class="content"><span class="text"></span></span>
       </div>

@@ -46,7 +46,7 @@
         }
       }
 
-      & {
+      &.refresh-state0 {
         .text:before {
           content: '下拉刷新';
         }
