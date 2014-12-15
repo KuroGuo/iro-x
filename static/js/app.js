@@ -51,6 +51,10 @@
         templateUrl: '/static/templates/wallpaper/index.html',
         controller: 'WallpaperCtrl'
       })
+      .state('vpn', {
+        url: '/vpn',
+        templateUrl: '/static/templates/vpn.html'
+      })
       .state('admin.login', {
         url: '/admin/login',
         template: '<k-login id="login"></k-login>',

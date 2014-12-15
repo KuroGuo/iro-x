@@ -1,0 +1,37 @@
+@import "compass/css3";
+
+#vpn {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	.main-area {
+		position: absolute;
+		max-width: 30rem;
+		max-height: 7rem;
+		padding: 2rem;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+		background-color: rgba(0,0,0,.6);
+		border: .1rem solid rgba(255,255,255,.6);
+		border-radius: .4rem;
+		color: white;
+
+		.title {
+			font-size: 2rem;
+			margin-bottom: 1rem;
+		}
+
+		.account {
+			font-family: Monaco, Consolas, "Lucida Console", monospace;
+			font-size: 1.3rem;
+			line-height: 1.2em;
+			@include user-select(text);
+		}
+	}
+}
