@@ -270,7 +270,7 @@
             }
           }
 
-          function scrollTo(destScrollTop, doAnimation, scrollerBarDoAnimation, duration) {
+          function scrollTo(destScrollTop, doAnimation, scrollerBarDoAnimation, duration, callback) {
             scope.model.currentScrollTop = destScrollTop;
 
             $scroller.velocity('stop');
@@ -284,11 +284,15 @@
                 },
                 complete: function () {
                   $wrapper.removeClass('scrolling');
+                  if (typeof callback === 'function')
+                    callback.call(this);
                 },
                 duration: duration || animationOption.duration
               }));  
             } else {
               $.Velocity.hook($scroller, "translateY", -scope.model.currentScrollTop + 'rem');
+              if (typeof callback === 'function')
+                callback.call(this);
             }
           
             resetscrollerBarStyle(null, scrollerBarDoAnimation);                        
