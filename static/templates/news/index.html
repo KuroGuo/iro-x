@@ -1,6 +1,9 @@
 <div id="news">
-  <div class="news-list k-scroller-wrapper hoverable" ng-hide="stateIsDetail">
-    <ul class="news-list-inner k-scroller">
+  <div class="news-list k-scroller-wrapper hoverable" k-model="newsListScroller" ng-hide="stateIsDetail">
+    <ul class="news-list-inner k-scroller" ng-class="{'refresh-state1': refreshState === 1, 'refresh-state2': refreshState === 2, 'refresh-state3': refreshState === 3, 'refresh-state4': refreshState === 4}">
+      <div class="refresh-hint">
+        <span class="content"><span class="text"></span></span>
+      </div>
       <li ng-repeat="news in newsList" ng-style="{width: liWidth, height: liHeight}">
         <a ng-class="{current: stateIsDetail && currentNewsId === '{{news._id}}', visited: isVisited('{{news._id}}'), 'no-thumb': {{!news.thumbSrc}}}" k-tap="openNews('{{news._id}}')">
           <span class="thumb" ng-style="{'background-image': 'url(\'{{news.thumbSrc ? news.thumbSrc : 'none'}}\')'}"></span>

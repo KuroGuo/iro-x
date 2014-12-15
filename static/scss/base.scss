@@ -336,6 +336,8 @@ $nav-bar-width: 3.3rem;
 
 .icon-gongsixinwen:before { content: "\e60e"; }
 
+.icon-vpn:before { content: "\e608"; }
+
 @include keyframes(slide-fade-in-left) {
   from {
     @include transform(translateX(-100%) translateZ(0));

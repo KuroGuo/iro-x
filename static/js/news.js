@@ -42,10 +42,14 @@
 
       return news;
     }])
-    .controller('NewsCtrl', ['$scope', 'News', 'navbar', 'news', '$state', '$document', '$window',
-    function ($scope, News, navbar, news, $state, $document, $window) {
-      $scope.loadData = function (page) {
-        $scope.newsList = News.pageQuery(null, {page: page});
+    .controller('NewsCtrl', ['$scope', 'News', 'navbar', 'news', '$state', '$document', '$window', '$timeout',
+    function ($scope, News, navbar, news, $state, $document, $window, $timeout) {
+      $scope.loadData = function (page, callback) {
+        News.pageQuery(null, {page: page}, function (newsList) {
+           $scope.newsList = newsList;
+           if (typeof callback === 'function')
+            callback.call(this, newsList);
+        });
       };
 
       $scope.openNews = function (id) {
@@ -84,10 +88,43 @@
         navbar.customBackgroundColor = null;
       });
 
+      // $scope.$on('kScrollerDragstart', function () {
+      //     $scope.refreshState = null;
+      //     $scope.$digest();
+      //     $scope.newsListScroller.scrollTo($scope.newsListScroller.currentScrollTop - 4);
+      // });
+      $scope.$on('kScrollerDrag', function () {
+        var currentScrollTop = $scope.newsListScroller.currentScrollTop;
+        if (currentScrollTop < -4 && (!$scope.refreshState || $scope.refreshState === 4)) {
+          $scope.refreshState = 1;
+          $scope.$digest();
+        }
+      });
+      $scope.$on('kScrollerDragend', function () {
+        var currentScrollTop = $scope.newsListScroller.currentScrollTop;
+        if (currentScrollTop < -4 && $scope.refreshState === 1) {
+          $scope.refreshState = 2;
+          $scope.$digest();
+          $scope.newsListScroller.stopAnimation();
+          $scope.newsListScroller.scrollTo(-4, true, true, 250);
+          $timeout(function () {
+            $scope.loadData(1, function () {
+              $scope.refreshState = 3;
+              $timeout(function () {
+                $scope.refreshState = 4;
+                $scope.newsListScroller.stopAnimation();
+                $scope.newsListScroller.scrollTo(0, true, true, 250);
+              }, 1000);
+            });
+          }, 250);
+        }
+      });
+
       $scope.loadData();
 
       function applyRewidth() {
-        $scope.$apply(rewidth);
+        rewidth();
+        $scope.$digest();
       }
 
       function rewidth() {
