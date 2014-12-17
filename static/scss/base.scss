@@ -271,6 +271,18 @@ $nav-bar-width: 3.3rem;
     &.ng-hide-remove {
       @include animation(slide-fade-in-bottom 1s);    
     }
+
+    li {
+      &.back {
+        left: 50%;
+        margin-left: -8.5rem;
+      }
+
+      &.github {
+        right: 50%;
+        margin-right: -8.5rem;
+      }
+    }
   }
 
   .container {
