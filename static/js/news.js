@@ -134,7 +134,7 @@
       }
 
       function loadData(callback) {
-        News.pageQuery({_: new Date().getTime()}, function (newsList) {
+        News.pageQuery(function (newsList) {
            $scope.newsList = newsList;
            if (typeof callback === 'function')
             callback.call(this, newsList);
