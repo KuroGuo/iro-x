@@ -115,8 +115,9 @@
           $scope.$digest();
           $scope.newsListScroller.stopAnimation();
           $scope.newsListScroller.scrollTo(maxScroll + 4, true, true, 250, function () {
-            appendData(function () {
+            loadNextPageData(function () {
               $scope.toNextPageState = 0;
+              $scope.newsListScroller.scrollTo(0);
             });
           });
         }
@@ -134,7 +135,7 @@
         $scope.liWidth = 100 / Math.round($window.innerWidth / rootFontSize / (parseFloat($scope.liHeight) * 16 / 9)) + '%';  
       }
 
-      function loadData (callback) {
+      function loadData(callback) {
         News.pageQuery(function (newsList) {
            $scope.newsList = newsList;
            if (typeof callback === 'function')
@@ -142,9 +143,9 @@
         });
       }
 
-      function appendData(callback) {
-        News.pageQuery({lastNewsId: $scope.newsList[$scope.newsList.length - 1]._id}, function (newsList) {
-          $scope.newsList = $scope.newsList.concat(newsList);
+      function loadNextPageData(callback) {
+        News.pageQuery({startId: $scope.newsList[$scope.newsList.length - 1]._id}, function (newsList) {
+          $scope.newsList = newsList;
           if (typeof callback === 'function')
             callback.call(this, newsList);
         });

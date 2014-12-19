@@ -94,14 +94,14 @@
       &.tonextpage-state0 {
         .tonextpage-hint {
           .text:before {
-            content: '上拉加载更多';
+            content: '上拉加载下一页';
           }
         }
       }
       &.tonextpage-state1 {
         .tonextpage-hint {
           .text:before {
-            content: '松开加载更多';
+            content: '松开加载下一页';
           }
         }
       }

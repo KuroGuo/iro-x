@@ -14,10 +14,10 @@ exports.get = function (req, res, next) {
 };
 
 exports.query = function (req, res, next) {
-  var lastNewsId = req.query.lastNewsId;
+  var startId = req.query.startId;
   var count = req.query.count || 50;
 
-  news.query(lastNewsId, count, function (err, newsList) {
+  news.query(startId, count, function (err, newsList) {
     if (err) {
       return next(err);
     }
