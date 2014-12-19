@@ -106,7 +106,7 @@
                   $scope.refreshState = 0;
                   $scope.$digest();
                 });
-              }, 1000);
+              }, 1500);
             });
           });
         } else if (currentScrollTop > $scope.newsListScroller.maxScroll + 4 && $scope.toNextPageState < 2) {
