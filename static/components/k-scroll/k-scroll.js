@@ -42,6 +42,15 @@
 
           scope.model.stopAnimation = stopAnimation;
 
+          Object.defineProperty(scope.model, 'maxScroll', {
+            get: function () {
+              return maxScroll;
+            }
+          });
+
+          scope.model.refreshContext = refreshContext;
+          scope.model.resetscrollerBarStyle = resetscrollerBarStyle;
+
           $wrapper
             .on('mouseenter mousedown touchstart', refreshContext)
             .on('mousewheel DOMMouseScroll', function (e) {

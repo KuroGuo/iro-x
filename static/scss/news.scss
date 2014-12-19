@@ -28,16 +28,15 @@
     .news-list-inner {
       padding: 1rem;
 
-      .refresh-hint {
+      .refresh-hint,
+      .tonextpage-hint {
         height: 30rem;
-        line-height: 56rem;
         text-align: center;
-        background-color: #333;
+        background-color: #222;
         position: absolute;
-        bottom: 100%;
+        color: white;
         left: 0;
         right: 0;
-        color: white;
 
         .content {
           position: relative;
@@ -46,29 +45,65 @@
         }
       }
 
+      .refresh-hint {
+        line-height: 56rem;
+        bottom: 100%;
+      }
+      .tonextpage-hint {
+        line-height: 4rem;
+        top: 100%;
+      }
+
       &.refresh-state0 {
-        .text:before {
-          content: '下拉刷新';
+        .refresh-hint {
+          .text:before {
+            content: '下拉刷新';
+          }
         }
       }
-
       &.refresh-state1 {
-        .text:before {
-          content: '释放立即刷新';
+        .refresh-hint {
+          .text:before {
+            content: '松开立即刷新';
+          }
         }
       }
-
       &.refresh-state2,
       &.refresh-state3 {
-        .text:before {
-          content: '正在刷新...';
+        .refresh-hint {
+          .text:before {
+            content: '正在刷新...';
+          }
+        }
+      }
+      &.refresh-state3,
+      &.refresh-state4 {
+        .refresh-hint {
+          .text:before {
+            content: '刷新完成';
+          }
         }
       }
 
-      &.refresh-state3,
-      &.refresh-state4 {
-        .text:before {
-          content: '刷新完成';
+      &.tonextpage-state0 {
+        .tonextpage-hint {
+          .text:before {
+            content: '上拉加载更多';
+          }
+        }
+      }
+      &.tonextpage-state1 {
+        .tonextpage-hint {
+          .text:before {
+            content: '松开加载更多';
+          }
+        }
+      }
+      &.tonextpage-state2 {
+        .tonextpage-hint {
+          .text:before {
+            content: '正在加载...';
+          }
         }
       }
 
