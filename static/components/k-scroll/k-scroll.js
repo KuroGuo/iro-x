@@ -268,13 +268,16 @@
             stopAnimation();
 
             if (doAnimation) {
+              console.log('doAnimation');
               $scroller.velocity({
                 translateY: (-scope.model.currentScrollTop) + 'rem'
-              }, angular.extend(animationOption, {
+              }, angular.extend(JSON.parse(JSON.stringify(animationOption)), {
                 begin: function () {
+                  console.log('begin');
                   $wrapper.addClass('scrolling');
                 },
                 complete: function () {
+                  console.log('complete');
                   $wrapper.removeClass('scrolling');
                   if (typeof callback === 'function')
                     callback.call(this);

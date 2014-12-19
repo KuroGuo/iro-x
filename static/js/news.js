@@ -95,7 +95,6 @@
         if (currentScrollTop < -4 && $scope.refreshState < 2) {
           $scope.refreshState = 2;
           $scope.$digest();
-          $scope.newsListScroller.stopAnimation();
           $scope.newsListScroller.scrollTo(-4, true, true, 250, function () {
             loadData(function () {
               $scope.refreshState = 3;
@@ -113,7 +112,6 @@
           var maxScroll = $scope.newsListScroller.maxScroll;
           $scope.toNextPageState = 2;
           $scope.$digest();
-          $scope.newsListScroller.stopAnimation();
           $scope.newsListScroller.scrollTo(maxScroll + 4, true, true, 250, function () {
             loadNextPageData(function () {
               $scope.toNextPageState = 0;
@@ -136,7 +134,7 @@
       }
 
       function loadData(callback) {
-        News.pageQuery(function (newsList) {
+        News.pageQuery({_: new Date().getTime()}, function (newsList) {
            $scope.newsList = newsList;
            if (typeof callback === 'function')
             callback.call(this, newsList);
