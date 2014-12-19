@@ -82,13 +82,15 @@
 
       $scope.$on('kScrollerDrag', function () {
         var currentScrollTop = $scope.newsListScroller.currentScrollTop;
-        if (currentScrollTop < -4 && (!$scope.refreshState || $scope.refreshState === 4)) {
+        if (currentScrollTop < -4 && (!$scope.refreshState || $scope.refreshState === 1 || $scope.refreshState === 4)) {
           $scope.refreshState = 1;
-          $scope.$digest();
-        } else if (currentScrollTop > $scope.newsListScroller.maxScroll + 4 && (!$scope.toNextPageState || $scope.toNextPageState === 4)) {
+        } else if (currentScrollTop > $scope.newsListScroller.maxScroll + 4 && (!$scope.toNextPageState || $scope.toNextPageState === 1 || $scope.toNextPageState === 4)) {
           $scope.toNextPageState = 1;
-          $scope.$digest();
+        } else {
+          $scope.refreshState = 0;
+          $scope.toNextPageState = 0;
         }
+        $scope.$digest();
       });
       $scope.$on('kScrollerDragend', function () {
         var currentScrollTop = $scope.newsListScroller.currentScrollTop;
