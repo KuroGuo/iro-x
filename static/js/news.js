@@ -44,14 +44,6 @@
     }])
     .controller('NewsCtrl', ['$scope', 'News', 'navbar', 'news', '$state', '$document', '$window', '$timeout',
     function ($scope, News, navbar, news, $state, $document, $window, $timeout) {
-      $scope.loadData = function (page, callback) {
-        News.pageQuery(null, {page: page}, function (newsList) {
-           $scope.newsList = newsList;
-           if (typeof callback === 'function')
-            callback.call(this, newsList);
-        });
-      };
-
       $scope.openNews = function (id) {
         if ($state.is('news.detail')) {
           $scope.stateGo('news.detail', {id: id}, {location: 'replace'});
@@ -88,23 +80,24 @@
         navbar.customBackgroundColor = null;
       });
 
-      $scope.refreshStateText = '下拉刷新';
       $scope.$on('kScrollerDrag', function () {
         var currentScrollTop = $scope.newsListScroller.currentScrollTop;
         if (currentScrollTop < -4 && (!$scope.refreshState || $scope.refreshState === 4)) {
           $scope.refreshState = 1;
           $scope.$digest();
+        } else if (currentScrollTop > $scope.newsListScroller.maxScroll + 4 && (!$scope.toNextPageState || $scope.toNextPageState === 4)) {
+          $scope.toNextPageState = 1;
+          $scope.$digest();
         }
       });
       $scope.$on('kScrollerDragend', function () {
         var currentScrollTop = $scope.newsListScroller.currentScrollTop;
-        if (currentScrollTop < -4 && $scope.refreshState <= 2) {
+        if (currentScrollTop < -4 && $scope.refreshState < 2) {
           $scope.refreshState = 2;
           $scope.$digest();
           $scope.newsListScroller.stopAnimation();
-          $scope.newsListScroller.scrollTo(-4, true, true, 250);
-          $timeout(function () {
-            $scope.loadData(1, function () {
+          $scope.newsListScroller.scrollTo(-4, true, true, 250, function () {
+            loadData(function () {
               $scope.refreshState = 3;
               $timeout(function () {
                 $scope.refreshState = 4;
@@ -115,11 +108,21 @@
                 });
               }, 1000);
             });
-          }, 250);
+          });
+        } else if (currentScrollTop > $scope.newsListScroller.maxScroll + 4 && $scope.toNextPageState < 2) {
+          var maxScroll = $scope.newsListScroller.maxScroll;
+          $scope.toNextPageState = 2;
+          $scope.$digest();
+          $scope.newsListScroller.stopAnimation();
+          $scope.newsListScroller.scrollTo(maxScroll + 4, true, true, 250, function () {
+            appendData(function () {
+              $scope.toNextPageState = 0;
+            });
+          });
         }
       });
 
-      $scope.loadData();
+      loadData();
 
       function applyRewidth() {
         rewidth();
@@ -129,6 +132,22 @@
       function rewidth() {
         var rootFontSize = parseFloat($document.find('html').css('font-size'));
         $scope.liWidth = 100 / Math.round($window.innerWidth / rootFontSize / (parseFloat($scope.liHeight) * 16 / 9)) + '%';  
+      }
+
+      function loadData (callback) {
+        News.pageQuery(function (newsList) {
+           $scope.newsList = newsList;
+           if (typeof callback === 'function')
+            callback.call(this, newsList);
+        });
+      }
+
+      function appendData(callback) {
+        News.pageQuery({lastNewsId: $scope.newsList[$scope.newsList.length - 1]._id}, function (newsList) {
+          $scope.newsList = $scope.newsList.concat(newsList);
+          if (typeof callback === 'function')
+            callback.call(this, newsList);
+        });
       }
     }])
     .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', 'news', function ($scope, News, $stateParams, news) {

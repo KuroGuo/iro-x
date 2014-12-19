@@ -6,11 +6,12 @@ exports.getById = function (id, callback) {
   News.findById(id, callback);
 };
 
-exports.query = function (page, pagesize, callback) {
-  News.find()
-    .sort({updateTime: 'desc'})
-    .skip(pagesize * (page - 1))
-    .limit(pagesize)
+exports.query = function (startId, count, callback) {
+  var criteria = startId ? {_id: {$lt: startId}} : null;
+
+  News.find(criteria)
+    .sort({_id: 'desc'})
+    .limit(count)
     .exec(function (err, newsList) {
       if (err) {
         return callback.call(this, err);
