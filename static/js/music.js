@@ -272,11 +272,11 @@
         musicPlayer.next();
       };
 
-      musicPlayer.on('currentLrcChanged', apply);
+      musicPlayer.on('currentLrcChanged', digest);
       musicPlayer.on('currentMusicChanged', gotoMusicPlay);
 
       $scope.$on('$destroy', function () {
-        musicPlayer.off('currentLrcChanged', apply);
+        musicPlayer.off('currentLrcChanged', digest);
         musicPlayer.off('currentMusicChanged', gotoMusicPlay);
       });
 
@@ -294,8 +294,8 @@
         currentScrollTop: 0
       };
 
-      function apply() {
-        $scope.$apply();
+      function digest() {
+        $scope.$digest();
       }
 
       function gotoMusicPlay() {
