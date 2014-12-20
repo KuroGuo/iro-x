@@ -103,5 +103,5 @@ function processAcfunList(body, callback) {
       var content = $content.html();
       news.createOrUpdateOne(a.title, content, 'acfun', a.href, thumbSrc, next);
     });
-  });
+  }, callback);
 }
