@@ -45,6 +45,9 @@
 
       .wide-screen & {
         bottom: $padding;
+        @media screen and (max-width: 768px) {
+          bottom: $padding * 2 + $controls-btn-size + $controls-btn-border-size * 2;
+        }
       }
       .high-screen & {
         bottom: $padding * 2 + $controls-btn-size + $controls-btn-border-size * 2;
