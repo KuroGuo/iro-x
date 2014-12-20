@@ -41,6 +41,16 @@ async.parallel([
         processAcfunList(body, next);
       });
     }, callback);
+  },
+  function (callback) {
+    async.each(pages, function (pageNum, next) {
+      request('http://www.acfun.tv/v/list74/index_' + pageNum + '.htm', function (err, res, body) {
+        if (err) {
+          return next(err);
+        }
+        processAcfunList(body, next);
+      });
+    }, callback);
   }
 ], function (err) {
   if (err) {
