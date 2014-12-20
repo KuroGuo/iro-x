@@ -34,59 +34,6 @@
       min-height: 100%;
       @include box-sizing(border-box);
 
-      &.refresh-state0 {
-        .refresh-hint {
-          .text:before {
-            content: '下拉刷新';
-          }
-        }
-      }
-      &.refresh-state1 {
-        .refresh-hint {
-          .text:before {
-            content: '松开立即刷新';
-          }
-        }
-      }
-      &.refresh-state2,
-      &.refresh-state3 {
-        .refresh-hint {
-          .text:before {
-            content: '正在刷新...';
-          }
-        }
-      }
-      &.refresh-state3,
-      &.refresh-state4 {
-        .refresh-hint {
-          .text:before {
-            content: '刷新完成';
-          }
-        }
-      }
-
-      &.tonextpage-state0 {
-        .tonextpage-hint {
-          .text:before {
-            content: '上拉加载下一页';
-          }
-        }
-      }
-      &.tonextpage-state1 {
-        .tonextpage-hint {
-          .text:before {
-            content: '松开加载下一页';
-          }
-        }
-      }
-      &.tonextpage-state2 {
-        .tonextpage-hint {
-          .text:before {
-            content: '正在加载...';
-          }
-        }
-      }
-
       li {
         position: relative;
         display: inline-block;
