@@ -27,7 +27,7 @@ exports.createOrUpdateOne = function (title, content, from, fromURL, thumbSrc, c
     }
 
     if (news) {
-      if (news.title === title && news.content === content) {
+      if (news.title === title && news.thumbSrc === thumbSrc && news.content === content) {
         // 已存在内容相同文档，则返回
         return callback.call(this);
       }
