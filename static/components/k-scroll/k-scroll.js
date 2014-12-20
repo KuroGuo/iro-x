@@ -58,11 +58,13 @@
           });
 
           if (scope.model.usePullDown) {
-            $pullDownHint = $scroller.prepend('<div class="pulldown-hint"><span class="content"><span class="text"></span></span></div>');
+            $pullDownHint = $('<div class="pulldown-hint"><span class="content"><span class="text"></span></span></div>');
+            $scroller.prepend($pullDownHint);
             $pullDownHintText = $pullDownHint.find('.text');
           }
           if (scope.model.usePullUp) {
-            $pullUpHint = $scroller.append('<div class="pullup-hint"><span class="content"><span class="text"></span></span></div>');
+            $pullUpHint = $('<div class="pullup-hint"><span class="content"><span class="text"></span></span></div>');
+            $scroller.append($pullUpHint);
             $pullUpHintText = $pullUpHint.find('.text');
           }
 
