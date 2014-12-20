@@ -21,20 +21,28 @@ var pages = (function (count) {
 
 mongoose.connect(config.db);
 
-async.eachSeries(pages, function (pageNum, next) {
-  request('http://m.cnbeta.com/list_latest_' + pageNum +'.htm', function (err, res, body) {
-    if (err) {
-      return next(err);
-    }
-    processCnbetaList(body, next);
-  });
-  request('http://www.acfun.tv/v/list110/index_' + pageNum + '.htm', function (err, res, body) {
-    if (err) {
-      return next(err);
-    }
-    processAcfunList(body, next);
-  });
-}, function (err) {
+async.parallel([
+  function (callback) {
+    async.each(pages, function (pageNum, next) {
+      request('http://m.cnbeta.com/list_latest_' + pageNum +'.htm', function (err, res, body) {
+        if (err) {
+          return next(err);
+        }
+        processCnbetaList(body, next);
+      });
+    }, callback);
+  },
+  function (callback) {
+    async.each(pages, function (pageNum, next) {
+      request('http://www.acfun.tv/v/list110/index_' + pageNum + '.htm', function (err, res, body) {
+        if (err) {
+          return next(err);
+        }
+        processAcfunList(body, next);
+      });
+    }, callback);
+  }
+], function (err) {
   if (err) {
     console.error(err);
     process.exit(1);
@@ -54,7 +62,7 @@ function processCnbetaList(body, callback) {
     };
   }).reverse();
 
-  async.eachSeries(list, function (a, next) {
+  async.each(list, function (a, next) {
     request(a.href, function (err, res, body) {
       if (err) {
         return next(err);
@@ -82,7 +90,7 @@ function processAcfunList(body, callback) {
     };
   }).reverse();
 
-  async.eachSeries(list, function (a, next) {
+  async.each(list, function (a, next) {
     request(a.href, function (err, res, body) {
       if (err) {
         return next(err);
