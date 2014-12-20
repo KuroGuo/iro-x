@@ -29,18 +29,27 @@
             htmlFontSize,
             lastFrameTime,
             frameToken,
-            dragEndvScrollTop;
+            dragEndvScrollTop,
+            $pullDownHint,
+            $pullUpHint,
+            $pullDownHintText,
+            $pullUpHintText;
 
           scope.model = angular.extend({
             mousewheelSpeed: 7, // 鼠标滚轮滚动速度
             currentScrollTop: 0, // 当前纵向滚动值
             vScrollTop: 0, // 纵向滚动速度
-            mouseDrag: true // 是否允许鼠标拖动
+            mouseDrag: true, // 是否允许鼠标拖动
+            usePullDown: false,
+            usePullUp: false
           }, scope.model);
 
           scope.model.scrollTo = scrollTo;
-
           scope.model.stopAnimation = stopAnimation;
+          scope.model.refreshContext = refreshContext;
+          scope.model.resetscrollerBarStyle = resetscrollerBarStyle;
+          scope.model.setPullDownHintText = setPullDownHintText;
+          scope.model.setPullUpHintText = setPullUpHintText;
 
           Object.defineProperty(scope.model, 'maxScroll', {
             get: function () {
@@ -48,8 +57,14 @@
             }
           });
 
-          scope.model.refreshContext = refreshContext;
-          scope.model.resetscrollerBarStyle = resetscrollerBarStyle;
+          if (scope.model.usePullDown) {
+            $pullDownHint = $scroller.prepend('<div class="pulldown-hint"><span class="content"><span class="text"></span></span></div>');
+            $pullDownHintText = $pullDownHint.find('.text');
+          }
+          if (scope.model.usePullUp) {
+            $pullUpHint = $scroller.append('<div class="pullup-hint"><span class="content"><span class="text"></span></span></div>');
+            $pullUpHintText = $pullUpHint.find('.text');
+          }
 
           $wrapper
             .on('mouseenter mousedown touchstart', refreshContext)
@@ -88,12 +103,14 @@
               if ($(e.target).hasClass('scroll-bar'))
                 return;
 
-              var $wrapper = $(e.currentTarget);
-
               if (scope.model.currentScrollTop > maxScroll) {
-                e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - maxScroll);
+                if (e.stepY < 0) {
+                  e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - maxScroll);
+                }
               } else if (scope.model.currentScrollTop < minScroll) {
-                e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - minScroll);
+                if (e.stepY > 0) {
+                  e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - minScroll);
+                }
               }
 
               scope.model.vScrollTop = -e.vy / parseFloat(htmlFontSize);
@@ -156,6 +173,43 @@
             .on('kdragend', function (e) {
               var $scrollerBar = $(e.currentTarget);
               $scrollerBar.removeClass('dragging');
+            });
+
+            scope.$on('kScrollerDrag', function () {
+              var currentPullDownState = scope.model.pullDownState;
+              var currentPullUpState = scope.model.pullUpState;
+              var currentScrollTop = scope.model.currentScrollTop;
+              if (scope.model.usePullDown && currentScrollTop < -4 && (!scope.model.pullDownState || scope.model.pullDownState === 1 || scope.model.pullDownState === 4)) {
+                scope.model.pullDownState = 1;
+              } else if (scope.model.usePullUp && currentScrollTop > maxScroll + 4 && (!scope.model.pullUpState || scope.model.pullUpState === 1 || scope.model.pullUpState === 4)) {
+                scope.model.pullUpState = 1;
+              } else {
+                scope.model.pullDownState = 0;
+                scope.model.pullUpState = 0;
+              }
+              if (currentPullDownState !== scope.model.pullDownState) {
+                scope.$emit('kScrollerPullDownStateChange');
+              }
+              if (currentPullUpState !== scope.model.pullUpState) {
+                scope.$emit('kScrollerPullUpStateChange');
+              }
+            });
+            scope.$on('kScrollerDragend', function () {
+              var currentScrollTop = scope.model.currentScrollTop;
+              if (scope.model.usePullDown && currentScrollTop < -4 && scope.model.pullDownState < 2) {
+                scope.model.pullDownState = 2;
+                scope.$emit('kScrollerPullDownStateChange');
+                scrollTo(-4, true, true, 250, function () {
+                  scope.$emit('kScrollerPullDown');
+
+                });
+              } else if (scope.model.usePullUp && currentScrollTop > scope.model.maxScroll + 4 && scope.model.pullUpState < 2) {
+                scope.model.pullUpState = 2;
+                scope.$emit('kScrollerPullUpStateChange');
+                scrollTo(maxScroll + 4, true, true, 250, function () {
+                  scope.$emit('kScrollerPullUp');
+                });
+              }
             });
 
           // 强制开启硬件加速
@@ -268,16 +322,13 @@
             stopAnimation();
 
             if (doAnimation) {
-              console.log('doAnimation');
               $scroller.velocity({
                 translateY: (-scope.model.currentScrollTop) + 'rem'
               }, angular.extend(JSON.parse(JSON.stringify(animationOption)), {
                 begin: function () {
-                  console.log('begin');
                   $wrapper.addClass('scrolling');
                 },
                 complete: function () {
-                  console.log('complete');
                   $wrapper.removeClass('scrolling');
                   if (typeof callback === 'function')
                     callback.call(this);
@@ -297,6 +348,13 @@
             $window.cancelAnimationFrame(frameToken);
             frameToken = null;
             $scroller.velocity('stop');
+          }
+
+          function setPullDownHintText(text) {
+            $pullDownHintText.html(text);
+          }
+          function setPullUpHintText(text) {
+            $pullUpHintText.html(text);
           }
         }
       };

@@ -34,32 +34,6 @@
       min-height: 100%;
       @include box-sizing(border-box);
 
-      .refresh-hint,
-      .tonextpage-hint {
-        height: 30rem;
-        text-align: center;
-        background-color: #222;
-        position: absolute;
-        color: white;
-        left: 0;
-        right: 0;
-
-        .content {
-          position: relative;
-          display: inline-block;
-          width: 10rem;
-        }
-      }
-
-      .refresh-hint {
-        line-height: 56rem;
-        bottom: 100%;
-      }
-      .tonextpage-hint {
-        line-height: 4rem;
-        top: 100%;
-      }
-
       &.refresh-state0 {
         .refresh-hint {
           .text:before {

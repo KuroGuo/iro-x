@@ -41,3 +41,28 @@
 .k-scroller-wrapper > .scroll-bar.dragging {
   width: .8rem !important;
 }
+
+.k-scroller > .pulldown-hint,
+.k-scroller > .pullup-hint {
+  height: 30rem;
+  text-align: center;
+  background-color: #222;
+  position: absolute;
+  color: white;
+  left: 0;
+  right: 0;
+}
+.k-scroller > .pulldown-hint > .content,
+.k-scroller > .pullup-hint > .content {
+  position: relative;
+  display: inline-block;
+  width: 10rem;
+}
+.k-scroller > .pulldown-hint {
+  line-height: 56rem;
+  bottom: 100%;
+}
+.k-scroller > .pullup-hint {
+  line-height: 4rem;
+  top: 100%;
+}

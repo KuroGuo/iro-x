@@ -129,7 +129,7 @@
 
               var _event;
               if (state === 2) {
-                if (e.timeStamp - lastMoveTime > (frameTakesTime * 3 || 100)) {
+                if (e.timeStamp - lastMoveTime > (frameTakesTime * 4 || 100)) {
                   vx = 0;
                   vy = 0;
                 }

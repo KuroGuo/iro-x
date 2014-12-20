@@ -1,5 +1,9 @@
 ;(function (angular) { 'use strict';
-  angular.module('iro.news', ['iro.services.news', 'iro.services.navbar', 'ngSanitize'])
+  angular.module('iro.news', [
+    'iro.services.news', 
+    'iro.services.navbar',
+    'ngSanitize',
+    'kScroll'])
     .factory('news', ['$window', function ($window) {
       if (!$window.localStorage['news.visitedArr']) {
         $window.localStorage['news.visitedArr'] = '[]';
@@ -80,47 +84,62 @@
         navbar.customBackgroundColor = null;
       });
 
-      $scope.$on('kScrollerDrag', function () {
-        var currentScrollTop = $scope.newsListScroller.currentScrollTop;
-        if (currentScrollTop < -4 && (!$scope.refreshState || $scope.refreshState === 1 || $scope.refreshState === 4)) {
-          $scope.refreshState = 1;
-        } else if (currentScrollTop > $scope.newsListScroller.maxScroll + 4 && (!$scope.toNextPageState || $scope.toNextPageState === 1 || $scope.toNextPageState === 4)) {
-          $scope.toNextPageState = 1;
-        } else {
-          $scope.refreshState = 0;
-          $scope.toNextPageState = 0;
+      $scope.newsListScroller = {
+        usePullUp: true,
+        usePullDown: true
+      };
+
+      $scope.$on('kScrollerPullDownStateChange', function () {
+        switch ($scope.newsListScroller.pullDownState) {
+          case 0:
+            $scope.newsListScroller.setPullDownHintText('下拉刷新');
+            break;
+          case 1:
+            $scope.newsListScroller.setPullDownHintText('松开立即刷新');
+            break;
+          case 2:
+            $scope.newsListScroller.setPullDownHintText('正在刷新...');
+            break;
+          case 3:
+          case 4:
+            $scope.newsListScroller.setPullDownHintText('刷新完成');
+            break;
         }
-        $scope.$digest();
       });
-      $scope.$on('kScrollerDragend', function () {
-        var currentScrollTop = $scope.newsListScroller.currentScrollTop;
-        if (currentScrollTop < -4 && $scope.refreshState < 2) {
-          $scope.refreshState = 2;
-          $scope.$digest();
-          $scope.newsListScroller.scrollTo(-4, true, true, 250, function () {
-            loadData(function () {
-              $scope.refreshState = 3;
-              $timeout(function () {
-                $scope.refreshState = 4;
-                $scope.newsListScroller.stopAnimation();
-                $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
-                  $scope.refreshState = 0;
-                  $scope.$digest();
-                });
-              }, 1500);
-            });
-          });
-        } else if (currentScrollTop > $scope.newsListScroller.maxScroll + 4 && $scope.toNextPageState < 2) {
-          var maxScroll = $scope.newsListScroller.maxScroll;
-          $scope.toNextPageState = 2;
-          $scope.$digest();
-          $scope.newsListScroller.scrollTo(maxScroll + 4, true, true, 250, function () {
-            loadNextPageData(function () {
-              $scope.toNextPageState = 0;
-              $scope.newsListScroller.scrollTo(0);
-            });
-          });
+      $scope.$on('kScrollerPullUpStateChange', function () {
+        switch ($scope.newsListScroller.pullUpState) {
+          case 0:
+            $scope.newsListScroller.setPullUpHintText('上拉加载下一页');
+            break;
+          case 1:
+            $scope.newsListScroller.setPullUpHintText('松开加载下一页');
+            break;
+          case 2:
+            $scope.newsListScroller.setPullUpHintText('正在加载...');
+            break;
         }
+      });
+      $scope.$on('kScrollerPullDown', function () {
+        loadData(function () {
+          $scope.newsListScroller.pullDownState = 3;
+          $scope.$emit('kScrollerPullDownStateChange');
+          $timeout(function () {
+            $scope.newsListScroller.pullDownState = 4;
+            $scope.$emit('kScrollerPullDownStateChange');
+            $scope.newsListScroller.stopAnimation();
+            $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
+              $scope.newsListScroller.pullDownState = 0;
+              $scope.$emit('kScrollerPullDownStateChange');
+            });
+          }, 1500);
+        });
+      });
+      $scope.$on('kScrollerPullUp', function () {
+        loadNextPageData(function () {
+          $scope.newsListScroller.pullUpState = 0;
+          $scope.$emit('kScrollerPullUpStateChange');
+          $scope.newsListScroller.scrollTo(0);
+        });
       });
 
       loadData();
