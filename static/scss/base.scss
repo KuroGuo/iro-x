@@ -48,6 +48,7 @@ body {
   color: $text-color;
   -ms-touch-action: none;
   touch-action: none;
+  background-color: #222;
 
   & > .background {
     position: absolute;
