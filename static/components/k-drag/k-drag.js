@@ -174,6 +174,7 @@
                 state = 0;
                 dragend();
               };
+              _event.ctrlKey = e.ctrlKey;
 
               return _event;
             }

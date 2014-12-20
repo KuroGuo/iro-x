@@ -90,7 +90,7 @@
             .on('kdragstart', function (e) {
               if ($(e.target).hasClass('scroll-bar')) // 如果拖拽的是滚动条就返回
                 return;
-              else if (!scope.model.mouseDrag && e.pointerType === 'mouse') {
+              else if (!scope.model.mouseDrag && e.pointerType === 'mouse' && !e.ctrlKey) {
                 e.prevent();
                 return;
               }
@@ -155,6 +155,10 @@
               }
               scope.model.vScrollTop = 0;
               $wrapper.removeClass('sliding');
+
+              if (e.ctrlKey && e.type === 'mousedown') {
+                e.preventDefault();
+              }
             });
 
           $scrollerBar
