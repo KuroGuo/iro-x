@@ -26,7 +26,13 @@ async.eachSeries(pages, function (pageNum, next) {
     if (err) {
       return next(err);
     }
-    processList(body, next);
+    processCnbetaList(body, next);
+  });
+  request('http://www.acfun.tv/v/list110/index_' + pageNum + '.htm', function (err, res, body) {
+    if (err) {
+      return next(err);
+    }
+    processAcfunList(body, next);
   });
 }, function (err) {
   if (err) {
@@ -36,7 +42,7 @@ async.eachSeries(pages, function (pageNum, next) {
   process.exit(0);
 });
 
-function processList(body, callback) {
+function processCnbetaList(body, callback) {
   var $ = cheerio.load(body, {
     decodeEntities: false
   });
@@ -53,9 +59,43 @@ function processList(body, callback) {
       if (err) {
         return next(err);
       }
-      var thumbSrc = $(body).find('img').first().attr('src');
-      var content = $(body).find('.articleCont').html();
+      var $ = cheerio.load(body, {
+        decodeEntities: false
+      });
+      var $content = $('.articleCont');
+      var thumbSrc = $content.find('img').first().attr('src');
+      var content = $content.html();
+      console.log(thumbSrc, content.length);
       news.createOrUpdateOne(a.title, content, 'cnbeta', a.href, thumbSrc, next);
     });
   }, callback);
+}
+
+function processAcfunList(body, callback) {
+  var $ = cheerio.load(body, {
+    decodeEntities: false
+  });
+  var list = $('#block-content-article .item a.title').toArray().map(function (a) {
+    var $a = $(a);
+    return {
+      title: $a.html(),
+      href: url.resolve('http://www.acfun.tv', $a.attr('href'))
+    };
+  }).reverse();
+
+  async.eachSeries(list, function (a, next) {
+    request(a.href, function (err, res, body) {
+      if (err) {
+        return next(err);
+      }
+      var $ = cheerio.load(body, {
+        decodeEntities: false
+      });
+      var $content = $('#area-player');
+      var thumbSrc = $content.find('img').first().attr('src');
+      var content = $content.html();
+      console.log(thumbSrc, content.length);
+      news.createOrUpdateOne(a.title, content, 'acfun', a.href, thumbSrc, next);
+    });
+  });
 }
