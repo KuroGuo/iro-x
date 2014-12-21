@@ -46,8 +46,9 @@
 
       return news;
     }])
-    .controller('NewsCtrl', ['$scope', 'News', 'navbar', 'news', '$state', '$document', '$window', '$timeout',
-    function ($scope, News, navbar, news, $state, $document, $window, $timeout) {
+    .controller('NewsCtrl',
+    ['$scope', 'News', 'navbar', 'news', '$state', '$document', '$window', '$timeout', '$stateParams',
+    function ($scope, News, navbar, news, $state, $document, $window, $timeout, $stateParams) {
       $scope.openNews = function (id) {
         if ($state.is('news.detail')) {
           $scope.stateGo('news.detail', {id: id}, {location: 'replace'});
@@ -120,29 +121,34 @@
         }
       });
       $scope.$on('kScrollerPullDown', function () {
-        loadData(function () {
-          $scope.newsListScroller.pullDownState = 3;
-          $scope.$emit('kScrollerPullDownStateChange');
-          $timeout(function () {
-            $scope.newsListScroller.pullDownState = 4;
-            $scope.$emit('kScrollerPullDownStateChange');
-            $scope.newsListScroller.stopAnimation();
-            $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
-              $scope.newsListScroller.pullDownState = 0;
-              $scope.$emit('kScrollerPullDownStateChange');
-            });
-          }, 1500);
-        });
+        toPage();
+        // loadData(function () {
+        //   $scope.newsListScroller.pullDownState = 3;
+        //   $scope.$emit('kScrollerPullDownStateChange');
+        //   $timeout(function () {
+        //     $scope.newsListScroller.pullDownState = 4;
+        //     $scope.$emit('kScrollerPullDownStateChange');
+        //     $scope.newsListScroller.stopAnimation();
+        //     $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
+        //       $scope.newsListScroller.pullDownState = 0;
+        //       $scope.$emit('kScrollerPullDownStateChange');
+        //     });
+        //   }, 1500);
+        // });
       });
       $scope.$on('kScrollerPullUp', function () {
-        loadNextPageData(function () {
-          $scope.newsListScroller.pullUpState = 0;
-          $scope.$emit('kScrollerPullUpStateChange');
-          $scope.newsListScroller.scrollTo(0);
-        });
+        toNextPage();
       });
 
-      loadData();
+      $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
+        if (toState === fromState && (toParams.startid > fromParams.startid || !toParams.startid)) {
+          $document.find('html').addClass('state-back');
+        } else {
+          $document.find('html').removeClass('state-back');
+        }
+      });
+
+      loadData($stateParams.startid);
 
       function applyRewidth() {
         rewidth();
@@ -154,20 +160,24 @@
         $scope.liWidth = 100 / Math.round($window.innerWidth / rootFontSize / (parseFloat($scope.liHeight) * 16 / 9)) + '%';  
       }
 
-      function loadData(callback) {
-        News.pageQuery(function (newsList) {
+      function loadData(startId, callback) {
+        if (typeof startId === 'function') {
+          callback = startId;
+          startId = null;
+        }
+        News.pageQuery({startId: startId}, function (newsList) {
            $scope.newsList = newsList;
            if (typeof callback === 'function')
             callback.call(this, newsList);
         });
       }
 
-      function loadNextPageData(callback) {
-        News.pageQuery({startId: $scope.newsList[$scope.newsList.length - 1]._id}, function (newsList) {
-          $scope.newsList = newsList;
-          if (typeof callback === 'function')
-            callback.call(this, newsList);
-        });
+      function toPage(startId) {
+        $state.go($state.$current, {startid: startId}, {reload: true});
+      }
+
+      function toNextPage() {
+        toPage($scope.newsList[$scope.newsList.length - 1]._id);
       }
     }])
     .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', 'news', function ($scope, News, $stateParams, news) {

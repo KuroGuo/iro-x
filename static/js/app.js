@@ -33,7 +33,7 @@
         controller: 'MusicPlayCtrl'
       })
       .state('news', {
-        url: '/news',
+        url: '/news?startid',
         templateUrl: '/static/templates/news/index.html',
         controller: 'NewsCtrl'
       })
