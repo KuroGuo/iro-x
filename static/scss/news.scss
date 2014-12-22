@@ -145,9 +145,7 @@
       @include user-select(text);
 
       &.ng-hide-remove {
-        @include animation-name(fade-in);
-        @include animation-duration(.4s);
-        @include animation-delay(.6s);
+        @include animation(fade-in .4s);
       }
 
       .wide-screen & {
