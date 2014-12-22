@@ -144,6 +144,12 @@
       padding-bottom: 6rem;
       @include user-select(text);
 
+      &.ng-hide-remove {
+        @include animation-name(fade-in);
+        @include animation-duration(.4s);
+        @include animation-delay(.6s);
+      }
+
       .wide-screen & {
         @include box-shadow(0 .1rem .8rem rgba(0,0,0,.4));
         margin-top: 2rem;
