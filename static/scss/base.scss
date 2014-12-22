@@ -350,6 +350,15 @@ $nav-bar-width: 3.3rem;
 
 .icon-vpn:before { content: "\e608"; }
 
+@include keyframes(delay-hide) {
+  from {
+    display: block;
+  }
+  to {
+    display: none;
+  }
+}
+
 @include keyframes(slide-fade-in-left) {
   from {
     @include transform(translateX(-100%) translateZ(0));
@@ -431,6 +440,22 @@ $nav-bar-width: 3.3rem;
   }
 }
 
+@include keyframes(slide-in-right) {
+  from {
+    @include transform(translateZ(0) translateX(100%));
+  }
+  to {
+    @include transform(translateZ(0) translateX(0));
+  }
+}
+@include keyframes(slide-out-right) {
+  from {
+    @include transform(translateZ(0) translateX(0));
+  }
+  to {
+    @include transform(translateZ(0) translateX(100%));
+  }
+}
 @include keyframes(slide-in-top) {
   from {
     @include transform(translateZ(0) translateY(-100%));

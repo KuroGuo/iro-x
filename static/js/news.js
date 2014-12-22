@@ -46,28 +46,14 @@
 
       return news;
     }])
-    .controller('NewsCtrl', ['$state', '$scope', '$document', function ($state, $scope, $document) {
-      $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
-        if (toState.name === fromState.name && (toParams.startid > fromParams.startid || !toParams.startid)
-          || fromState.name === 'news.detail' && toState.name === 'news.list') {
-          $document.find('html').addClass('state-back');
-        } else {
-          $document.find('html').removeClass('state-back');
-        }
-      });
-
-      if ($state.is('news')) {
-        $state.go('news.list');
-      }
-    }])
-    .controller('NewsListCtrl',
+    .controller('NewsCtrl',
     ['$scope', 'News', 'navbar', 'news', '$state', '$document', '$window', '$timeout', '$stateParams',
     function ($scope, News, navbar, news, $state, $document, $window, $timeout, $stateParams) {
       $scope.openNews = function (id) {
         if ($state.is('news.detail')) {
-          $scope.stateGo('news.detail', {id: id}, {location: 'replace'});
+          $state.go('news.detail', {id: id}, {location: 'replace'});
         } else {
-          $scope.stateGo('news.detail', {id: id});
+          $state.go('news.detail', {id: id});
         }
       };
 
@@ -155,6 +141,14 @@
       });
       $scope.$on('kScrollerPullUp', function () {
         toNextPage();
+      });
+
+      $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
+        if (toState.name === fromState.name && (toParams.startid > fromParams.startid || !toParams.startid)) {
+          $document.find('html').addClass('state-back');
+        } else {
+          $document.find('html').removeClass('state-back');
+        }
       });
 
       loadData($stateParams.startid);

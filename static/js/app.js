@@ -33,15 +33,9 @@
         controller: 'MusicPlayCtrl'
       })
       .state('news', {
-        url: '/news',
-        abstract: true,
+        url: '/news?startid',
         templateUrl: '/static/templates/news/index.html',
         controller: 'NewsCtrl'
-      })
-      .state('news.list', {
-        url: '/list?startid',
-        templateUrl: '/static/templates/news/list.html',
-        controller: 'NewsListCtrl'
       })
       .state('news.detail', {
         url: '/:id',

@@ -7,6 +7,7 @@
   right: 0;
   top: 0;
   bottom: 0;
+  overflow: hidden;
 
   .view-container {
     position: absolute;
@@ -15,20 +16,13 @@
     top: 0;
     bottom: 0;
     overflow: hidden;
-    @include transform(translateZ(0) scale(1));
-    opacity: 1;
+    @include transform(translateZ(0) translateX(0));
 
     &.ng-enter {
-      @include animation(scale-enter .6s);
+      @include animation(slide-fade-in-right .6s);
     }
     &.ng-leave {
-      @include animation(scale-leave .6s forwards);
-    }
-    .state-back &.ng-enter {
-      @include animation(scale-back-enter .6s);
-    }
-    .state-back &.ng-leave {
-      @include animation(scale-back-leave .6s forwards);
+      @include animation(slide-fade-out-right .6s forwards);
     }
   }
 
@@ -39,6 +33,8 @@
     top: 0;
     bottom: 0;
     background-color: #eee;
+
+    @include animation(delay-hide .6s forwards);
 
     .news-list-inner {
       padding: 1rem;
