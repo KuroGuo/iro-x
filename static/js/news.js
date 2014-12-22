@@ -46,7 +46,21 @@
 
       return news;
     }])
-    .controller('NewsCtrl',
+    .controller('NewsCtrl', ['$state', '$scope', '$document', function ($state, $scope, $document) {
+      $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
+        if (toState.name === fromState.name && (toParams.startid > fromParams.startid || !toParams.startid)
+          || fromState.name === 'news.detail' && toState.name === 'news.list') {
+          $document.find('html').addClass('state-back');
+        } else {
+          $document.find('html').removeClass('state-back');
+        }
+      });
+
+      if ($state.is('news')) {
+        $state.go('news.list');
+      }
+    }])
+    .controller('NewsListCtrl',
     ['$scope', 'News', 'navbar', 'news', '$state', '$document', '$window', '$timeout', '$stateParams',
     function ($scope, News, navbar, news, $state, $document, $window, $timeout, $stateParams) {
       $scope.openNews = function (id) {
@@ -121,31 +135,26 @@
         }
       });
       $scope.$on('kScrollerPullDown', function () {
-        toPage();
-        // loadData(function () {
-        //   $scope.newsListScroller.pullDownState = 3;
-        //   $scope.$emit('kScrollerPullDownStateChange');
-        //   $timeout(function () {
-        //     $scope.newsListScroller.pullDownState = 4;
-        //     $scope.$emit('kScrollerPullDownStateChange');
-        //     $scope.newsListScroller.stopAnimation();
-        //     $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
-        //       $scope.newsListScroller.pullDownState = 0;
-        //       $scope.$emit('kScrollerPullDownStateChange');
-        //     });
-        //   }, 1500);
-        // });
+        if ($stateParams.startid) {
+          toPage();
+        } else {
+          loadData(function () {
+            $scope.newsListScroller.pullDownState = 3;
+            $scope.$emit('kScrollerPullDownStateChange');
+            $timeout(function () {
+              $scope.newsListScroller.pullDownState = 4;
+              $scope.$emit('kScrollerPullDownStateChange');
+              $scope.newsListScroller.stopAnimation();
+              $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
+                $scope.newsListScroller.pullDownState = 0;
+                $scope.$emit('kScrollerPullDownStateChange');
+              });
+            }, 1500);
+          });
+        }
       });
       $scope.$on('kScrollerPullUp', function () {
         toNextPage();
-      });
-
-      $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
-        if (toState === fromState && (toParams.startid > fromParams.startid || !toParams.startid)) {
-          $document.find('html').addClass('state-back');
-        } else {
-          $document.find('html').removeClass('state-back');
-        }
       });
 
       loadData($stateParams.startid);
@@ -173,14 +182,15 @@
       }
 
       function toPage(startId) {
-        $state.go($state.$current, {startid: startId}, {reload: true});
+        $state.go($state.$current, {startid: startId});
       }
 
       function toNextPage() {
         toPage($scope.newsList[$scope.newsList.length - 1]._id);
       }
     }])
-    .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', 'news', function ($scope, News, $stateParams, news) {
+    .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', 'news', '$document',
+    function ($scope, News, $stateParams, news, $document) {
       var oldTitle = $scope.global.title;
       $scope.news = News.get({id: $stateParams.id}, function (news) {
         $scope.global.title = news.title + ' - 资讯';

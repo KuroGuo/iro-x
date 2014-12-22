@@ -217,7 +217,7 @@ $nav-bar-width: 3.3rem;
 
 .container {
   position: absolute;
-  @include transform(translateZ(0)scale(1));
+  @include transform(translateZ(0) scale(1));
 
   &.ng-enter {
     @include animation(scale-enter .6s);
@@ -390,26 +390,89 @@ $nav-bar-width: 3.3rem;
     opacity: 0;
   }
 }
-@include keyframes(slide-fade-in-bottom) {
+@include keyframes(slide-fade-in-top) {
   from {
-    @include transform(translateY(100%) translateZ(0));
+    @include transform(translateZ(0) translateY(-100%));
     opacity: 0;
   }
   to {
-    @include transform(translateY(0) translateZ(0));
+    @include transform(translateZ(0) translateY(0));
     opacity: 1;
+  }
+}
+@include keyframes(slide-fade-out-top) {
+  from {
+    @include transform(translateZ(0) translateY(0));
+    opacity: 1;
+  }
+  to {
+    @include transform(translateZ(0) translateY(-100%));
+    opacity: 0;
+  }
+}
+@include keyframes(slide-fade-in-bottom) {
+  from {
+    @include transform(translateZ(0) translateY(100%));
+    opacity: 0;
+  }
+  to {
+    @include transform(translateZ(0) translateY(0));
+    opacity: 1;
+  }
+}
+@include keyframes(slide-fade-out-bottom) {
+  from {
+    @include transform(translateZ(0) translateY(0));
+    opacity: 1;
+  }
+  to {
+    @include transform(translateZ(0) translateY(100%));
+    opacity: 0;
+  }
+}
+
+@include keyframes(slide-in-top) {
+  from {
+    @include transform(translateZ(0) translateY(-100%));
+  }
+  to {
+    @include transform(translateZ(0) translateY(0));
+  }
+}
+@include keyframes(slide-out-top) {
+  from {
+    @include transform(translateZ(0) translateY(0));
+  }
+  to {
+    @include transform(translateZ(0) translateY(-100%));
+  }
+}
+@include keyframes(slide-in-bottom) {
+  from {
+    @include transform(translateZ(0) translateY(100%));
+  }
+  to {
+    @include transform(translateZ(0) translateY(0)); 
+  }
+}
+@include keyframes(slide-out-bottom) {
+  from {
+    @include transform(translateZ(0) translateY(0));
+  }
+  to {
+    @include transform(translateZ(0) translateY(100%));
   }
 }
 
 @include keyframes(scale-enter) {
   from {
     // @include transform(translateX(100%));
-    @include transform(scale(0) translateZ(0));
+    @include transform(translateZ(0) scale(0));
     opacity: 0;
   }
   to {
     // @include transform(translateX(0));
-    @include transform(scale(1) translateZ(0));
+    @include transform(translateZ(0) scale(1));
     opacity: 1;
   }
 }
@@ -417,12 +480,12 @@ $nav-bar-width: 3.3rem;
 @include keyframes(scale-back-enter) {
   from {
     // @include transform(translateX(-100%));
-    @include transform(scale(2) translateZ(0));
+    @include transform(translateZ(0) scale(2));
     opacity: 0;
   }
   to {
     // @include transform(translateX(0));
-    @include transform(scale(1) translateZ(0));
+    @include transform(translateZ(0) scale(1));
     opacity: 1;
   }
 }
@@ -430,12 +493,12 @@ $nav-bar-width: 3.3rem;
 @include keyframes(scale-leave) {
   from {
     // @include transform(translateX(0));
-    @include transform(scale(1) translateZ(0));
+    @include transform(translateZ(0) scale(1));
     opacity: 1;
   }
   to {
     // @include transform(translateX(-100%));
-    @include transform(scale(2) translateZ(0));
+    @include transform(translateZ(0) scale(2));
     opacity: 0;
   }
 }
@@ -443,12 +506,12 @@ $nav-bar-width: 3.3rem;
 @include keyframes(scale-back-leave) {
   from {
     // @include transform(translateX(0));
-    @include transform(scale(1) translateZ(0));
+    @include transform(translateZ(0) scale(1));
     opacity: 1;
   }
   to {
     // @include transform(translateX(100%));
-    @include transform(scale(0) translateZ(0));
+    @include transform(translateZ(0) scale(0));
     opacity: 0;
   }
 }
