@@ -93,13 +93,26 @@
       $scope.$on('kScrollerPullDownStateChange', function () {
         switch ($scope.newsListScroller.pullDownState) {
           case 0:
-            $scope.newsListScroller.setPullDownHintText('下拉刷新');
+            if ($stateParams.startid) {
+              $scope.newsListScroller.setPullDownHintText('下拉返回第一页');
+            }
+            else {
+              $scope.newsListScroller.setPullDownHintText('下拉刷新');
+            }
             break;
           case 1:
-            $scope.newsListScroller.setPullDownHintText('松开立即刷新');
+            if ($stateParams.startid) {
+              $scope.newsListScroller.setPullDownHintText('松开返回第一页');
+            } else {
+              $scope.newsListScroller.setPullDownHintText('松开立即刷新');
+            }
             break;
           case 2:
-            $scope.newsListScroller.setPullDownHintText('正在刷新...');
+            if ($stateParams.startid) {
+              $scope.newsListScroller.setPullDownHintText('正在加载第一页…');
+            } else {
+              $scope.newsListScroller.setPullDownHintText('正在刷新...');
+            }
             break;
           case 3:
           case 4:
@@ -127,15 +140,17 @@
           loadData(function () {
             $scope.newsListScroller.pullDownState = 3;
             $scope.$emit('kScrollerPullDownStateChange');
-            $timeout(function () {
-              $scope.newsListScroller.pullDownState = 4;
-              $scope.$emit('kScrollerPullDownStateChange');
-              $scope.newsListScroller.stopAnimation();
-              $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
-                $scope.newsListScroller.pullDownState = 0;
+            if (!$stateParams.startid) {
+              $timeout(function () {
+                $scope.newsListScroller.pullDownState = 4;
                 $scope.$emit('kScrollerPullDownStateChange');
-              });
-            }, 1500);
+                $scope.newsListScroller.stopAnimation();
+                $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
+                  $scope.newsListScroller.pullDownState = 0;
+                  $scope.$emit('kScrollerPullDownStateChange');
+                });
+              }, 1500);
+            }
           });
         }
       });
