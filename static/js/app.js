@@ -166,8 +166,8 @@
         xhr.send();
 
         function bindEvents() {
-          document.addEventListener('dragstart', preventDefault, true);
-          document.addEventListener('touchmove', preventDefault, true);
+          document.addEventListener('dragstart', preventDefault);
+          document.addEventListener('touchmove', preventDefault);
 
           $document
             .on('mouseenter', '.hoverable', function (e) {

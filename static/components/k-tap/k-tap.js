@@ -23,13 +23,13 @@
 
           var document = $document[0];
 
-          document.addEventListener('mousedown', onStart, true);
-          document.addEventListener('touchstart', onStart, true);
-          document.addEventListener('mousemove', onMove, true);
-          document.addEventListener('touchmove', onMove, true);
-          document.addEventListener('mouseup', onEnd, true);
-          document.addEventListener('touchend', onEnd, true);
-          document.addEventListener('touchcancel', onEnd, true);
+          document.addEventListener('mousedown', onStart);
+          document.addEventListener('touchstart', onStart);
+          document.addEventListener('mousemove', onMove);
+          document.addEventListener('touchmove', onMove);
+          document.addEventListener('mouseup', onEnd);
+          document.addEventListener('touchend', onEnd);
+          document.addEventListener('touchcancel', onEnd);
 
           function onStart(e) {
             if (e.which && e.which !== 1) {

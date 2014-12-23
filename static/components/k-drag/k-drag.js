@@ -3,8 +3,8 @@
     .factory('kDrag', ['$document', '$window', function ($document, $window) {
       return {
         bind: function (element) {
-          element[0].addEventListener('mousedown', dragStart, true);
-          element[0].addEventListener('touchstart', dragStart, true);
+          element[0].addEventListener('mousedown', dragStart);
+          element[0].addEventListener('touchstart', dragStart);
         }
       };
 
@@ -31,12 +31,12 @@
         adsorb = parseFloat($(target).attr('k-drag-adsorb')) || 0;
         state = 1;
 
-        document.addEventListener('mousemove', drag, true);
-        document.addEventListener('touchmove', drag, true);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag);
 
-        document.addEventListener('mouseup', dragend, true);
-        document.addEventListener('touchend', dragend, true);
-        document.addEventListener('touchcancel', dragend, true);
+        document.addEventListener('mouseup', dragend);
+        document.addEventListener('touchend', dragend);
+        document.addEventListener('touchcancel', dragend);
 
         $window.addEventListener('blur', dragend);
 
@@ -145,10 +145,10 @@
           }
           state = 0;
 
-          document.removeEventListener('mousemove', drag, true);
-          document.removeEventListener('touchmove', drag, true);
-          document.removeEventListener('mouseup', dragend, true);
-          document.removeEventListener('touchend', dragend, true);
+          document.removeEventListener('mousemove', drag);
+          document.removeEventListener('touchmove', drag);
+          document.removeEventListener('mouseup', dragend);
+          document.removeEventListener('touchend', dragend);
           $window.removeEventListener('blur', dragend);
         }
 
