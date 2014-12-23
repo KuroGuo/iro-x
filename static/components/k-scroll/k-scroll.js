@@ -179,10 +179,12 @@
               $scrollerBar.removeClass('dragging');
             });
 
-            function brake(e) {
+            function brake(e, preventTap) {
               if (frameToken) {
                 stopAnimation();
-                $document.data('kTapPrevented', true);
+                if (e.type !== 'blur') {
+                  $document.data('kTapPrevented', true);
+                }
               }
               scope.model.vScrollTop = 0;
               $wrapper.removeClass('sliding');
