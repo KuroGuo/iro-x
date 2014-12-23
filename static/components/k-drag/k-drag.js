@@ -3,7 +3,8 @@
     .factory('kDrag', ['$document', '$window', function ($document, $window) {
       return {
         bind: function (element) {
-          element.on('mousedown touchstart', {element: element}, dragStart);
+          element[0].addEventListener('mousedown', dragStart);
+          element[0].addEventListener('touchstart', dragStart);
         }
       };
 
@@ -15,7 +16,8 @@
         var vx, vy;
         var target; // 拖动的目标element，非常重要！！！
         var adsorb;
-        var element = e.data.element;
+        var element = angular.element(e.currentTarget);
+        var document = $document[0];
 
         var requestedFrameToken;
         
@@ -29,18 +31,21 @@
         adsorb = parseFloat($(target).attr('k-drag-adsorb')) || 0;
         state = 1;
 
-        $document
-          .on('mousemove touchmove', drag)
-          .on('mouseup touchend touchcancel', dragend);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag);
 
-        $($window).on('blur', dragend);
+        document.addEventListener('mouseup', dragend);
+        document.addEventListener('touchend', dragend);
+        document.addEventListener('touchcancel', dragend);
+
+        $window.addEventListener('blur', dragend);
 
         function drag(e) {          
           if (state < 1) {
             return;
           }
 
-          if (e.type === 'touchmove' && e.originalEvent.targetTouches[0].target !== target) {
+          if (e.type === 'touchmove' && e.targetTouches[0].target !== target) {
             return;
           }
 
@@ -125,7 +130,7 @@
         function dragend(e) {
           $window.cancelAnimationFrame(requestedFrameToken);
 
-          if (e && e.type === 'touchend' && e.originalEvent.changedTouches[0].target !== target)
+          if (e && e.type === 'touchend' && e.changedTouches[0].target !== target)
             return;
 
           var _event;
@@ -140,10 +145,11 @@
           }
           state = 0;
 
-          $document
-            .off('mousemove touchmove', drag)
-            .off('mouseup touchend', dragend);
-          $($window).off('blur', dragend);
+          document.removeEventListener('mousemove', drag);
+          document.removeEventListener('touchmove', drag);
+          document.removeEventListener('mouseup', dragend);
+          document.removeEventListener('touchend', dragend);
+          $window.removeEventListener('blur', dragend);
         }
 
         function newEvent(name, e) {
@@ -164,7 +170,7 @@
             _event.pointerType = 'mouse';
           } else if (e.type.indexOf('touch') > -1) {
             _event.pointerType = 'touch';
-            _event.touchId = e.originalEvent.changedTouches[0].identifier;
+            _event.touchId = e.changedTouches[0].identifier;
           } else {
             _event.pointerType = e.type;
           }
@@ -187,9 +193,9 @@
 
         if (e.type.indexOf("touch") > -1) {
           if (e.type === 'touchmove') {
-            touch = e.originalEvent.targetTouches[0];
+            touch = e.targetTouches[0];
           } else {
-            touch = e.originalEvent.changedTouches[0];  
+            touch = e.changedTouches[0];  
           }
           pageX = touch.pageX;
           pageY = touch.pageY;
