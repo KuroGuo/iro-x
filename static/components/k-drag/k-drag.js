@@ -147,8 +147,11 @@
 
           document.removeEventListener('mousemove', drag);
           document.removeEventListener('touchmove', drag);
+
           document.removeEventListener('mouseup', dragend);
           document.removeEventListener('touchend', dragend);
+          document.removeEventListener('touchcancel', dragend);
+          
           $window.removeEventListener('blur', dragend);
         }
 
