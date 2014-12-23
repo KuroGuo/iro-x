@@ -166,13 +166,10 @@
         xhr.send();
 
         function bindEvents() {
+          document.addEventListener('dragstart', preventDefault, true);
+          document.addEventListener('touchmove', preventDefault, true);
+
           $document
-            .on('dragstart', function (e) {
-              e.preventDefault();
-            })
-            .on('touchmove', function (e) {
-              e.preventDefault();
-            })
             .on('mouseenter', '.hoverable', function (e) {
               $(e.currentTarget).addClass('hover');
             })
@@ -205,6 +202,10 @@
 
               e.preventDefault();
             });
+
+          function preventDefault(e) {
+            e.preventDefault();
+          }
         }
       }
     };
