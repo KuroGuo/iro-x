@@ -9,6 +9,7 @@
         },
         link: function (scope, element, attrs, controller) {
           var $wrapper = element,
+            wrapper = $wrapper[0],
             $scroller = $wrapper.children('.k-scroller'),
             $scrollerBar = $($document[0].createElement('span')).addClass('scroll-bar hoverable activable').appendTo($wrapper),
             animationOption = {
@@ -66,8 +67,20 @@
           kDrag.bind($wrapper);
           kDrag.bind($scrollerBar);
 
+          wrapper.addEventListener('mouseenter', refreshContext);
+          wrapper.addEventListener('mousedown', refreshContext);
+          wrapper.addEventListener('touchstart', refreshContext);
+
+          wrapper.addEventListener('mouseenter', function () {
+            resetscrollerBarStyle();
+          });
+
+          wrapper.addEventListener('mousedown', brake);
+          wrapper.addEventListener('touchstart', brake);
+
+          $window.addEventListener('blur', brake);
+
           $wrapper
-            .on('mouseenter mousedown touchstart', refreshContext)
             .on('mousewheel DOMMouseScroll', function (e) {
               if (e.ctrlKey)
                 return;
@@ -81,9 +94,6 @@
                 destScrollTop = minScroll;
               scope.model.vScrollTop = 0;
               scrollTo(destScrollTop, true, true);
-            })
-            .on('mouseenter', function () {
-              resetscrollerBarStyle();
             })
             .on('kdragstart', function (e) {
               if ($(e.target).hasClass('scroll-bar')) // 如果拖拽的是滚动条就返回
@@ -147,18 +157,6 @@
               slide();
 
               checkTriggerPull();
-            })
-            .on('mousedown touchstart', function (e) {
-              if (frameToken) {
-                stopAnimation();
-                $document.data('kTapPrevented', true);
-              }
-              scope.model.vScrollTop = 0;
-              $wrapper.removeClass('sliding');
-
-              if (e.ctrlKey && e.type === 'mousedown') {
-                e.preventDefault();
-              }
             });
 
           $scrollerBar
@@ -180,6 +178,19 @@
               var $scrollerBar = $(e.currentTarget);
               $scrollerBar.removeClass('dragging');
             });
+
+            function brake(e) {
+              if (frameToken) {
+                stopAnimation();
+                $document.data('kTapPrevented', true);
+              }
+              scope.model.vScrollTop = 0;
+              $wrapper.removeClass('sliding');
+
+              if (e.ctrlKey && e.type === 'mousedown') {
+                e.preventDefault();
+              }
+            }
 
             function checkPullStateChange() {
               var currentPullDownState = scope.model.pullDownState;
