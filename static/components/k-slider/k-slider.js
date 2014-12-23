@@ -1,6 +1,6 @@
 ;(function (angular) { 'use strict';
   angular.module('kSlider', ['kDrag'])
-    .directive('kSliderWrapper', ['$document', function ($document) {
+    .directive('kSliderWrapper', ['$document', 'kDrag', function ($document, kDrag) {
       return {
         restrict: 'C',
         scope: {
@@ -33,6 +33,8 @@
               slideToSection(section, noAnimation);
             }
           }, scope.model);
+
+          kDrag.bind(element);
 
           $kSliderWrapper
             .on('touchstart mousedown', function () {

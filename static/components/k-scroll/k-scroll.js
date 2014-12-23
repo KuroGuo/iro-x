@@ -1,6 +1,7 @@
 ;(function (angular) { 'use strict';
   angular.module('kScroll', ['kTap', 'kDrag']).
-    directive('kScrollerWrapper', ['$window', '$document', '$timeout', function ($window, $document, $timeout) {
+    directive('kScrollerWrapper', ['$window', '$document', '$timeout', 'kDrag',
+    function ($window, $document, $timeout, kDrag) {
       var computeMouseWheelDelta = function (eventArg) {
         if (eventArg.type == 'DOMMouseScroll' || eventArg.type == 'mousewheel') {
           return (eventArg.wheelDelta) ? eventArg.wheelDelta / 120 : -(eventArg.detail || 0) / 3;
@@ -68,6 +69,9 @@
             $pullUpHintText = $pullUpHint.find('.text');
           }
 
+          kDrag.bind($wrapper);
+          kDrag.bind($scrollerBar);
+
           $wrapper
             .on('mouseenter mousedown touchstart', refreshContext)
             .on('mousewheel DOMMouseScroll', function (e) {
@@ -99,7 +103,9 @@
 
               $wrapper.addClass('dragging');
 
-              scope.$emit('kScrollerDragstart');
+              if (scope.model.emitDragstart) {
+                scope.$emit('kScrollerDragstart');
+              }
             })
             .on('kdrag', function (e) {
               if ($(e.target).hasClass('scroll-bar'))
@@ -119,7 +125,7 @@
               scope.model.currentScrollTop -= e.stepY / parseFloat(htmlFontSize);
               scrollTo(scope.model.currentScrollTop, false, false);
 
-              scope.$emit('kScrollerDrag');
+              checkPullStateChange();
             })
             .on('mouseup touchend touchcancel', function (e) {
               var $wrapper = $(e.currentTarget);
@@ -129,7 +135,7 @@
                 $wrapper.addClass('sliding');
                 slide();
                 
-                scope.$emit('kScrollerDragend');
+                checkTriggerPull();
               }
             })
             .on('kdragend', function (e) {
@@ -146,7 +152,7 @@
               $wrapper.addClass('sliding');
               slide();
 
-              scope.$emit('kScrollerDragend');
+              checkTriggerPull();
             })
             .on('mousedown touchstart', function (e) {
               if (frameToken) {
@@ -181,7 +187,7 @@
               $scrollerBar.removeClass('dragging');
             });
 
-            scope.$on('kScrollerDrag', function () {
+            function checkPullStateChange() {
               var currentPullDownState = scope.model.pullDownState;
               var currentPullUpState = scope.model.pullUpState;
               var currentScrollTop = scope.model.currentScrollTop;
@@ -199,8 +205,9 @@
               if (currentPullUpState !== scope.model.pullUpState) {
                 scope.$emit('kScrollerPullUpStateChange');
               }
-            });
-            scope.$on('kScrollerDragend', function () {
+            }
+
+            function checkTriggerPull() {
               var currentScrollTop = scope.model.currentScrollTop;
               if (scope.model.usePullDown && currentScrollTop < -4 && scope.model.pullDownState < 2) {
                 scope.model.pullDownState = 2;
@@ -216,7 +223,7 @@
                   scope.$emit('kScrollerPullUp');
                 });
               }
-            });
+            }
 
           // 强制开启硬件加速
           $.Velocity.hook($scrollerBar, "translateZ", '1px');
