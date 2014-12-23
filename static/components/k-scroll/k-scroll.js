@@ -2,12 +2,6 @@
   angular.module('kScroll', ['kTap', 'kDrag']).
     directive('kScrollerWrapper', ['$window', '$document', '$timeout', 'kDrag',
     function ($window, $document, $timeout, kDrag) {
-      var computeMouseWheelDelta = function (eventArg) {
-        if (eventArg.type == 'DOMMouseScroll' || eventArg.type == 'mousewheel') {
-          return (eventArg.wheelDelta) ? eventArg.wheelDelta / 120 : -(eventArg.detail || 0) / 3;
-        }
-      };
-
       return {
         restrict: 'C',
         scope: {
@@ -369,6 +363,12 @@
           function setPullUpHintText(text) {
             $pullUpHintText.html(text);
           }
+        }
+      };
+
+      function computeMouseWheelDelta(eventArg) {
+        if (eventArg.type == 'DOMMouseScroll' || eventArg.type == 'mousewheel') {
+          return (eventArg.wheelDelta) ? eventArg.wheelDelta / 120 : -(eventArg.detail || 0) / 3;
         }
       };
     }]);

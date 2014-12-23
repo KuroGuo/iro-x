@@ -21,85 +21,94 @@
           var startPageX, startPageY;
           var state = 0; //0: 初始状态, 1: 按下
 
-          $document
-            .on('mousedown touchstart', function (e) {
-              var $document = $(e.currentTarget);
+          var document = $document[0];
 
-              if (e.which && e.which !== 1) {
-                return;
-              }
+          document.addEventListener('mousedown', onStart, true);
+          document.addEventListener('touchstart', onStart, true);
+          document.addEventListener('mousemove', onMove, true);
+          document.addEventListener('touchmove', onMove, true);
+          document.addEventListener('mouseup', onEnd, true);
+          document.addEventListener('touchend', onEnd, true);
+          document.addEventListener('touchcancel', onEnd, true);
 
-              if ($document.data('kTapPrevented')) {
-                $document.data('kTapPrevented', false);
-                return;
-              }
-              
-              var touch;
+          function onStart(e) {
+            if (e.which && e.which !== 1) {
+              return;
+            }
 
-              if (e.type === 'mousedown') {
-                startPageX = e.pageX;
-                startPageY = e.pageY;
-              } else if (e.type === 'touchstart') {
-                touch = e.originalEvent.changedTouches[0];
-                startPageX = touch.pageX;
-                startPageY = touch.pageY;
-              }
+            if ($document.data('kTapPrevented')) {
+              $document.data('kTapPrevented', false);
+              return;
+            }
+            
+            var touch;
 
-              state = 1;
-            })
-            .on('mousemove touchmove', function (e) {
-              if (state < 1)
-                return;
+            if (e.type === 'mousedown') {
+              startPageX = e.pageX;
+              startPageY = e.pageY;
+            } else if (e.type === 'touchstart') {
+              touch = e.changedTouches[0];
+              startPageX = touch.pageX;
+              startPageY = touch.pageY;
+            }
 
-              var touch;
-              var pageX, pageY;
+            state = 1;
+          }
 
-              if (e.type === 'mousemove') {
-                pageX = e.pageX;
-                pageY = e.pageY;
-              } else if (e.type === 'touchmove') {
-                touch = e.originalEvent.changedTouches[0];
-                pageX = touch.pageX;
-                pageY = touch.pageY;
-              }
+          function onMove(e) {
+            if (state < 1)
+              return;
 
-              if (Math.abs(pageX - startPageX) > 3 || Math.abs(pageY - startPageY) > 3)
-                state = 0;
-            })
-            .on('mouseup touchend touchcancel', function (e) {
-              if (state < 1)
-                return;
-              
-              var touch;
-              var _event;
-              var pageX, pageY;
+            var touch;
+            var pageX, pageY;
 
-              if (e.type === 'mouseup') {
-                pageX = e.pageX;
-                pageY = e.pageY;
-              } else if (e.type === 'touchend') {
-                touch = e.originalEvent.changedTouches[0];
-                pageX = touch.pageX;
-                pageY = touch.pageY;
-              }
+            if (e.type === 'mousemove') {
+              pageX = e.pageX;
+              pageY = e.pageY;
+            } else if (e.type === 'touchmove') {
+              touch = e.changedTouches[0];
+              pageX = touch.pageX;
+              pageY = touch.pageY;
+            }
 
-              _event = $.Event('ktap');
-
-              _event.pageX = pageX;
-              _event.pageY = pageY;
-
-              if (e.type === 'mouseup') {
-                _event.pointerType = 'mouse';
-              } else if (e.type === 'touchend') {
-                _event.pointerType = 'touch';
-              }
-              _event.preventDefault = function () {
-                e.preventDefault();
-              };
-
+            if (Math.abs(pageX - startPageX) > 3 || Math.abs(pageY - startPageY) > 3)
               state = 0;
-              $(e.target).trigger(_event);
-            });
+          }
+
+          function onEnd(e) {
+            if (state < 1)
+              return;
+            
+            var touch;
+            var _event;
+            var pageX, pageY;
+
+            if (e.type === 'mouseup') {
+              pageX = e.pageX;
+              pageY = e.pageY;
+            } else if (e.type === 'touchend') {
+              touch = e.changedTouches[0];
+              pageX = touch.pageX;
+              pageY = touch.pageY;
+            }
+
+            _event = $.Event('ktap');
+
+            _event.pageX = pageX;
+            _event.pageY = pageY;
+
+            if (e.type === 'mouseup') {
+              _event.pointerType = 'mouse';
+            } else if (e.type === 'touchend') {
+              _event.pointerType = 'touch';
+            }
+            _event.preventDefault = function () {
+              e.preventDefault();
+            };
+
+            state = 0;
+            $(e.target).trigger(_event);
+          }
         }
       };
     }]);
