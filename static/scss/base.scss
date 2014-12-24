@@ -440,6 +440,22 @@ $nav-bar-width: 3.3rem;
   }
 }
 
+@include keyframes(slide-in-left) {
+  from {
+    @include transform(translateZ(0) translateX(-100%));
+  }
+  to {
+    @include transform(translateZ(0) translateX(0));
+  }
+}
+@include keyframes(slide-out-left) {
+  from {
+    @include transform(translateZ(0) translateX(0));
+  }
+  to {
+    @include transform(translateZ(0) translateX(-100%));
+  }
+}
 @include keyframes(slide-in-right) {
   from {
     @include transform(translateZ(0) translateX(100%));

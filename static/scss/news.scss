@@ -8,6 +8,7 @@
   top: 0;
   bottom: 0;
   overflow: hidden;
+  background-color: #eee;
 
   .view-container {
     position: absolute;
@@ -16,14 +17,6 @@
     top: 0;
     bottom: 0;
     overflow: hidden;
-    @include transform(translateZ(0) translateX(0));
-
-    &.ng-enter {
-      @include animation(slide-fade-in-right .6s);
-    }
-    &.ng-leave {
-      @include animation(slide-fade-out-right .6s forwards);
-    }
   }
 
   .news-list {
@@ -32,11 +25,8 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: #eee;
 
-    &.ng-hide {
-      @include animation(delay-hide .6s forwards);  
-    }
+    @include animation(delay-hide .6s forwards);
 
     .news-list-inner {
       padding: 1rem;
@@ -143,6 +133,7 @@
       padding-right: 1.2rem;
       padding-bottom: 6rem;
       @include user-select(text);
+      opacity: 1;
 
       &.ng-hide-remove {
         @include animation(fade-in .4s);
