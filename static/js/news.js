@@ -200,7 +200,9 @@
     function ($scope, News, $stateParams, news, $document) {
       var oldTitle = $scope.global.title;
 
-      if ($scope.newsList) {
+      if ($scope.newsList && $scope.newsList.some(function () {
+        return news._id === $stateParams.id;
+      })) {
         $scope.news = $scope.newsList.filter(function (news) {
           return news._id === $stateParams.id;
         })[0];
