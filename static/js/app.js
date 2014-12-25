@@ -211,5 +211,115 @@
     };
   }]).config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
-  }]);;
+  }])
+  .animation('.slide-animation-right', function () {
+    return {
+      enter: animateIn,
+      leave: animateOut,
+      addClass: function (element, className, done) {
+        switch (className) {
+          case 'ng-hide': {
+            animateIn(element, done);
+            break;
+          }
+        }
+      },
+      removeClass: function (element, className, done) {
+        switch (className) {
+          case 'ng-hide': {
+            animateOut(element, done);
+            break;
+          }
+        }
+      }
+    };
+
+    function animateIn(element, done) {
+      element.velocity('stop');
+
+      var isStateBack = angular.element('html').hasClass('state-back');
+
+      $.Velocity.hook(element, 'translateZ', '1px');
+
+      $.Velocity.hook(element, 'translateX', isStateBack ? '-100%' : '100%');
+
+      element.velocity({
+        translateX: 0
+      }, {
+        duration: 400,
+        complete: done
+      });
+    }
+
+    function animateOut(element, done) {
+      element.velocity('stop');
+
+      var isStateBack = angular.element('html').hasClass('state-back');
+
+      $.Velocity.hook(element, 'translateZ', '1px');
+
+      $.Velocity.hook(element, 'translateX', 0);
+
+      element.velocity({
+        translateX: isStateBack ? '100%' : '-100%'
+      }, {
+        duration: 400,
+        complete: done
+      });
+    }
+  })
+  .animation('.slide-animation-left', function () {
+    return {
+      enter: animateIn,
+      leave: animateOut,
+      addClass: function (element, className, done) {
+        switch (className) {
+          case 'ng-hide': {
+            animateIn(element, done);
+            break;
+          }
+        }
+      },
+      removeClass: function (element, className, done) {
+        switch (className) {
+          case 'ng-hide': {
+            animateOut(element, done);
+            break;
+          }
+        }
+      }
+    };
+
+    function animateIn(element, done) {
+      element.velocity('stop');
+
+      var isStateBack = angular.element('html').hasClass('state-back');
+
+      $.Velocity.hook(element, 'translateZ', '1px');
+      $.Velocity.hook(element, 'translateX', isStateBack ? '100%' : '-100%');
+
+      element.velocity({
+        translateX: 0
+      }, {
+        duration: 400,
+        complete: done
+      });
+    }
+
+    function animateOut(element, done) {
+      element.velocity('stop');
+
+      var isStateBack = angular.element('html').hasClass('state-back');
+
+      $.Velocity.hook(element, 'translateZ', '1px');
+      $.Velocity.hook(element, 'translateX', 0);
+
+      element.velocity({
+        translateX: isStateBack ? '100%' : '-100%'
+      }, {
+        duration: 400,
+        complete: done
+      });
+    }
+  });
 })(angular);
