@@ -21,10 +21,10 @@
     opacity: 1;
 
     &.ng-enter {
-      @include animation(slide-fade-in-right .6s);
+      @include animation(slide-fade-in-right .4s);
     }
     &.ng-leave {
-      @include animation(slide-fade-out-right .6s forwards);
+      @include animation(slide-fade-out-right .4s forwards);
     }
   }
 
@@ -39,10 +39,10 @@
     opacity: 1;
 
     &.ng-hide-remove {
-      @include animation(fade-in .6s);
+      @include animation(fade-in .4s);
     }
     &.ng-hide {
-      @include animation(fade-out .6s forwards);
+      @include animation(fade-out .4s forwards);
     }
 
     .news-list-inner {
