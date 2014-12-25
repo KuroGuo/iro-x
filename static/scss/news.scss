@@ -18,13 +18,12 @@
     bottom: 0;
     overflow: hidden;
     @include transform(translateZ(0) translateX(0));
-    opacity: 1;
 
     &.ng-enter {
-      @include animation(slide-fade-in-right .4s);
+      @include animation(slide-in-right .4s);
     }
     &.ng-leave {
-      @include animation(slide-fade-out-right .4s forwards);
+      @include animation(slide-out-right .4s forwards);
     }
   }
 
@@ -35,13 +34,15 @@
     top: 0;
     bottom: 0;
     overflow: hidden;
+    background-color: #eee;
+    @include transform(translateZ(0));
     opacity: 1;
 
     &.ng-hide-remove {
       @include animation(fade-in .4s);
     }
     &.ng-hide {
-      @include animation(fade-out .4s forwards);
+      @include animation(fade-out .4s);
     }
 
     .news-list-inner {
@@ -131,6 +132,7 @@
     top: 0;
     bottom: 0;
     overflow: hidden;
+    background-color: #eee;
     // @include transform(translateZ(0));
 
     // &.ng-enter {

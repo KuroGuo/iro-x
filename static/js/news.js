@@ -67,12 +67,6 @@
         return news.isVisited(newsId);
       };
 
-      Object.defineProperty($scope, 'stateIsDetail', {
-        get: function () {
-          return $state.is('news.detail');
-        }
-      });
-
       $scope.global.title = '资讯';
 
       $scope.liHeight = '16rem';
@@ -161,6 +155,11 @@
       $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
         if (toState.name === fromState.name && (toParams.startid > fromParams.startid || !toParams.startid)) {
           $document.find('html').addClass('state-back');
+        }
+        if (toState.name === 'news.detail') {
+          $scope.stateIsDetail = true;
+        } else {
+          $scope.stateIsDetail = false;
         }
       });
 
