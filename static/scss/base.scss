@@ -557,6 +557,27 @@ $nav-bar-width: 3.3rem;
   }
 }
 
+@include keyframes(enter) {
+  from {
+    @include transform(perspective(111rem) translateZ(-11rem) rotateY(5deg) rotateX(5deg));
+    opacity: 0;
+  }
+  to {
+    @include transform(perspective(111rem) translateZ(0) rotateY(0) rotateX(0)); 
+    opacity: 1;
+  }
+}
+@include keyframes(leave) {
+  from {
+    @include transform(perspective(111rem) translateZ(0) rotateY(0) rotateX(0)); 
+    opacity: 1;
+  }
+  to {
+    @include transform(perspective(111rem) translateZ(-11rem) rotateY(5deg) rotateX(5deg));
+    opacity: 0;
+  }
+}
+
 @include keyframes(fade-in-top) {
   from {
     @include transform(translateY(-0.3rem) translateZ(0));

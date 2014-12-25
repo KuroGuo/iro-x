@@ -211,35 +211,5 @@
     };
   }]).config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
-  }])
-  .animation('.slide-right-animation', function () {
-    return {
-      enter: function (element, done) {
-        element.velocity('stop');
-
-        $.Velocity.hook(element, "translateZ", '1px');
-        $.Velocity.hook(element, "translateX", '100%');
-
-        element.velocity({
-          translateX: '0'
-        }, {
-          duration: 400,
-          complete: done
-        });
-      },
-      leave: function (element, done) {
-        element.velocity('stop');
-
-        $.Velocity.hook(element, "translateZ", '1px');
-        $.Velocity.hook(element, "translateX", '0');
-
-        element.velocity({
-          translateX: '100%'
-        }, {
-          duration: 400,
-          complete: done
-        });
-      }
-    };
-  });
+  }]);;
 })(angular);
