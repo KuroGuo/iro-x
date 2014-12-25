@@ -206,7 +206,7 @@
         $scope.news = $scope.newsList.filter(function (news) {
           return news._id === $stateParams.id;
         })[0];
-        $scope.global.title = news.title + ' - 资讯';
+        $scope.global.title = $scope.news.title + ' - 资讯';
       } else {
         News.get({id: $stateParams.id}, function (news) {
           $scope.news = news;
