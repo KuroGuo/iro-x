@@ -71,7 +71,7 @@
               pageY = touch.pageY;
             }
 
-            if (Math.abs(pageX - startPageX) > 3 || Math.abs(pageY - startPageY) > 3)
+            if (Math.abs(pageX - startPageX) > 6 || Math.abs(pageY - startPageY) > 6)
               state = 0;
           }
 
