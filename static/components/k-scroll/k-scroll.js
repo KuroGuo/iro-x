@@ -306,6 +306,7 @@
             } else {
               scope.model.vScrollTop = 0;
               $wrapper.removeClass('sliding');
+              window.cancelAnimationFrame(frameToken);
               frameToken = null;
             }
           }

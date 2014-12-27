@@ -8,7 +8,7 @@
   top: 0;
   bottom: 0;
   overflow: hidden;
-  background-color: #eee;
+  background-color: white;
 
   .view-container {
     position: absolute;
@@ -34,7 +34,7 @@
     top: 0;
     bottom: 0;
     overflow: hidden;
-    background-color: #eee;
+    background-color: white;
     @include transform(translateZ(0));
     opacity: 1;
 
@@ -66,11 +66,10 @@
           bottom: 1rem;
           left: 1rem;
           right: 1rem;
-          @include box-shadow(0 .1rem .4rem rgba(0,0,0,.4));
+          // @include box-shadow(0 .1rem .4rem rgba(0,0,0,.4));
           display: block;
           padding: 1rem 1.2rem;
           cursor: pointer;
-          background-color: white;
 
           &.visited {
             opacity: .5;
@@ -95,7 +94,6 @@
             right: 0;
             bottom: 0;
             height: $title-height;
-            padding: 0 1rem;
             line-height: $title-height;
             text-overflow: ellipsis; 
             overflow: hidden;
@@ -108,13 +106,12 @@
             }
 
             .title {
-              font-size: 3rem;
+              font-size: 3.4rem;
               line-height: 1.33em;
-              top: .3em;
-              bottom: .3em;
-              left: .5em;
-              right: .5em;
-              padding: 0;
+              top: .0;
+              bottom: 0;
+              left: 0;
+              right: 0;
               height: auto;
               position: absolute;
               white-space: normal;
@@ -132,7 +129,7 @@
     top: 0;
     bottom: 0;
     overflow: hidden;
-    background-color: #eee;
+    background-color: white;
     // @include transform(translateZ(0));
 
     // &.ng-enter {
@@ -158,7 +155,6 @@
       }
 
       .wide-screen & {
-        @include box-shadow(0 .1rem .8rem rgba(0,0,0,.4));
         margin-top: 2rem;
         margin-bottom: 3rem;
         padding-left: 3rem;

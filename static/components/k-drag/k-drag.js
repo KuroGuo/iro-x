@@ -12,7 +12,7 @@
         var state = 0; // 0: 初始状态, 1: 按下, 2: dragging
         var pointerdownPageXY; // 按下时的PageXY
         var pageXY; // 拖动时和拖动结束时的PageXY
-        var lastFramePageXY, lastMovePageXY, lastFrameTime, frameTakesTime, stepMovedPageXY, lastMoveTime, currentTime, stepTakesTime;
+        var lastFramePageXY, lastFrameTime, frameTakesTime, lastMoveTime, currentTime;
         var vx, vy;
         var target; // 拖动的目标element，非常重要！！！
         var adsorb;
@@ -49,82 +49,57 @@
             return;
           }
 
-          lastMovePageXY = pageXY;
           pageXY = getEventPageXY(e);
           lastMoveTime = currentTime;
           currentTime = e.timeStamp;
 
-          if (!stepMovedPageXY) {
-            stepMovedPageXY = {
-              x: pageXY.x - lastMovePageXY.x,
-              y: pageXY.y - lastMovePageXY.y
-            };
-          } else {
-            stepMovedPageXY.x = (stepMovedPageXY.x + pageXY.x - lastMovePageXY.x) / 2;
-            stepMovedPageXY.y = (stepMovedPageXY.y + pageXY.y - lastMovePageXY.y) / 2;
-          }
+          // $window.cancelAnimationFrame(requestedFrameToken);
+          if (!requestedFrameToken) {
+            requestedFrameToken = $window.requestAnimationFrame(function (time) {
+              var _event;
 
-          if (!stepTakesTime) {
-            stepTakesTime = currentTime - lastMoveTime;
-          } else {
-            stepTakesTime = (stepTakesTime + currentTime - lastMoveTime) / 2;
-          }
+              if (state === 1) {
+                if (Math.abs(pageXY.x - pointerdownPageXY.x) >= adsorb
+                || Math.abs(pageXY.y - pointerdownPageXY.y) >= adsorb) {
+                  _event = newEvent('kdragstart', e);
+                  state = 2;
+                  element.triggerHandler(_event);
+                }
+              }
 
-          vx = (stepMovedPageXY.x) / Math.max(1, stepTakesTime) || 0;
-          vy = (stepMovedPageXY.y) / Math.max(1, stepTakesTime) || 0;
-
-          // if (vx > 1) {
-          //   vx += 1;
-          // } else if (vx < -1) {
-          //   vx -= 1;
-          // }
-          // if (vy > 1) {
-          //   vy += 1;
-          // } else if (vy < -1) {
-          //   vy -= 1;
-          // }
-
-          // vx *= 1 + Math.abs(vx) / 2;
-          // vy *= 1 + Math.abs(vy) / 2;
-
-          if (vx > 5)
-            vx = 5;
-          else if (vx < -5)
-            vx = -5
-
-          if (vy > 5)
-            vy = 5;
-          else if (vy < -5)
-            vy = -5;
-
-          $window.cancelAnimationFrame(requestedFrameToken);
-          requestedFrameToken = $window.requestAnimationFrame(function (time) {
-            var _event;
-
-            if (state === 1) {
-              if (Math.abs(pageXY.x - pointerdownPageXY.x) >= adsorb
-              || Math.abs(pageXY.y - pointerdownPageXY.y) >= adsorb) {
-                _event = newEvent('kdragstart', e);
-                state = 2;
+              if (state === 2) {
+                _event = newEvent('kdrag', e);
                 element.triggerHandler(_event);
               }
-            }
 
-            if (state === 2) {
-              _event = newEvent('kdrag', e);
-              element.triggerHandler(_event);
-            }
+              var newVx, newVy;
 
-            lastFramePageXY = pageXY;
-            if (lastFrameTime) {
-              if (!frameTakesTime) {
-                frameTakesTime = time - lastFrameTime;  
-              } else {
-                frameTakesTime = (frameTakesTime + time - lastFrameTime) / 2;
+              if (lastFramePageXY) {
+                newVx = (pageXY.x - lastFramePageXY.x) / (time - lastFrameTime);
+                newVy = (pageXY.y - lastFramePageXY.y) / (time - lastFrameTime);
+                if (Math.abs(newVx) >= Math.abs(vx || 0)) {
+                  vx = newVx;
+                } else {
+                  vx = vx * 0.618 + newVx * 0.382;
+                }
+                if (Math.abs(newVy) >= Math.abs(vy || 0)) {
+                  vy = newVy;
+                } else {
+                  vy = vy * 0.618 + newVy * 0.382;
+                }
               }
-            }
-            lastFrameTime = time;
-          });
+
+              lastFramePageXY = pageXY;
+              if (lastFrameTime) {
+                if (!frameTakesTime || time - lastFrameTime > frameTakesTime) {
+                  frameTakesTime = time - lastFrameTime;  
+                }
+              }
+              lastFrameTime = time;
+
+              requestedFrameToken = null;
+            });
+          }
         }
 
         function dragend(e) {
@@ -135,10 +110,22 @@
 
           var _event;
           if (state === 2) {
-            if (e.timeStamp - lastMoveTime > (frameTakesTime * 6 || 100)) {
+            if (e.timeStamp - lastMoveTime > (frameTakesTime * 3 || 100)) {
               vx = 0;
               vy = 0;
+              maxVx = 0;
+              maxVy = 0;
+            } else {
+              // console.log(vy, maxVy);
+              // if (vx > 1 || vx < -1) {
+              //   vx = maxVx;
+              // }
+              // if (vy > 1 || vy < -1) {
+              //   vy = maxVy;
+              // }
             }
+
+            pageXY = getEventPageXY(e);
 
             _event = newEvent('kdragend', e);
             element.triggerHandler(_event);
@@ -157,8 +144,6 @@
 
         function newEvent(name, e) {
           var _event = $.Event(name);
-
-          pageXY = getEventPageXY(e);
 
           _event.pageX = pageXY.x || -1;
           _event.pageY = pageXY.y || -1;
