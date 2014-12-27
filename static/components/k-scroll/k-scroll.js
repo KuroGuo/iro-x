@@ -182,7 +182,7 @@
             function brake(e, preventTap) {
               if (frameToken) {
                 stopAnimation();
-                if (e.type !== 'blur') {
+                if (e.type !== 'blur' && Math.abs(scope.model.vScrollTop) > 0.01) {
                   $document.data('kTapPrevented', true);
                 }
               }
