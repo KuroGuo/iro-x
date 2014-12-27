@@ -1,17 +1,20 @@
 .k-scroller-wrapper > .scroll-bar {
+  transition-property: border-right-width, opacity, visibility;
+  transition-duration: .2s;
+  transition-delay: .4s, .6s, .6s;
   position: absolute;
   right: 0;
   top: 0;
-  width: .25rem !important;
+  width: .8rem;
   height: 20%;
   min-height: 3rem;
-  background-color: rgba(0, 0, 0, .3);
-  background-clip: content-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box
   z-index: 100;
-  border-left: .5rem solid transparent;
-  transition-property: border-left-width, width, opacity, visibility;
-  transition-duration: .2s;
-  transition-delay: .4s, .4s, .6s, .6s;
+  border-color: rgba(0, 0, 0, .3);
+  border-style: solid;
+  border-right-width: .3rem;
   opacity: 0;
   visibility: hidden;
 }
@@ -25,21 +28,15 @@
 .k-scroller-wrapper.dragging > .scroll-bar,
 .k-scroller-wrapper.sliding > .scroll-bar,
 .k-scroller-wrapper > .scroll-bar.dragging {
-  transition-delay: .4s, .4s, 0, 0;
+  transition-delay: .4s, 0, 0;
   visibility: visible;
   opacity: 1;
 }
 
 .k-scroller-wrapper > .scroll-bar.hover,
-.k-scroller-wrapper.dragging > .scroll-bar,
 .k-scroller-wrapper > .scroll-bar.dragging {
-  transition-delay: 0, 0, 0, 0;
-  border-left-width: 0;
-}
-
-.k-scroller-wrapper > .scroll-bar.hover,
-.k-scroller-wrapper > .scroll-bar.dragging {
-  width: .8rem !important;
+  border-right-width: .8rem;
+  transition-delay: 0, 0, 0;
 }
 
 .k-scroller > .pulldown-hint,
