@@ -11,7 +11,7 @@
       function dragStart(e) {
         var state = 0; // 0: 初始状态, 1: 按下, 2: dragging
         var pointerdownPageXY; // 按下时的PageXY
-        var pageXY; // 拖动时和拖动结束时的PageXY
+        var lastMovePageXY, pageXY; // 拖动时和拖动结束时的PageXY
         var lastFramePageXY, lastFrameTime, frameTakesTime, lastMoveTime, currentTime;
         var vx, vy;
         var target; // 拖动的目标element，非常重要！！！
@@ -25,7 +25,7 @@
           return;
         }
         
-        lastFramePageXY = pageXY = pointerdownPageXY = getEventPageXY(e);
+        lastMovePageXY = lastFramePageXY = pageXY = pointerdownPageXY = getEventPageXY(e);
         lastMoveTime = e.timeStamp;
         target = e.target;
         adsorb = parseFloat($(target).attr('k-drag-adsorb')) || 0;
@@ -49,6 +49,7 @@
             return;
           }
 
+          lastMovePageXY = pageXY;
           pageXY = getEventPageXY(e);
           lastMoveTime = currentTime;
           currentTime = e.timeStamp;
@@ -90,9 +91,7 @@
 
               lastFramePageXY = pageXY;
               if (lastFrameTime) {
-                if (!frameTakesTime || time - lastFrameTime > frameTakesTime) {
-                  frameTakesTime = time - lastFrameTime;  
-                }
+                frameTakesTime = time - lastFrameTime;  
               }
               lastFrameTime = time;
 
@@ -109,7 +108,19 @@
 
           var _event;
           if (state === 2) {
-            if (e.timeStamp - lastMoveTime > (frameTakesTime * 3 || 100)) {
+            // if (Math.abs(vx) < 0.3) {
+            //   vx = 0;
+            // }
+            // if (Math.abs(vy) < 0.3) {
+            //   vy = 0;
+            // }
+            if (pageXY.x === lastMovePageXY.x) {
+              vx = 0;
+            }
+            if (pageXY.y === lastMovePageXY.y) {
+              vy = 0;
+            }
+            if (e.timeStamp - lastMoveTime > (frameTakesTime * 5 || 100)) {
               vx = 0;
               vy = 0;
             }
