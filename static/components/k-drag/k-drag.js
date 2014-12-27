@@ -26,7 +26,7 @@
         }
         
         lastMovePageXY = lastFramePageXY = pageXY = pointerdownPageXY = getEventPageXY(e);
-        lastMoveTime = e.timeStamp;
+        currentTime = lastMoveTime = e.timeStamp;
         target = e.target;
         adsorb = parseFloat($(target).attr('k-drag-adsorb')) || 0;
         state = 1;
@@ -75,8 +75,8 @@
               var newVx, newVy;
 
               if (lastFramePageXY) {
-                newVx = (pageXY.x - lastFramePageXY.x) / (time - lastFrameTime);
-                newVy = (pageXY.y - lastFramePageXY.y) / (time - lastFrameTime);
+                newVx = (pageXY.x - lastFramePageXY.x) / (time - lastFrameTime || 17);
+                newVy = (pageXY.y - lastFramePageXY.y) / (time - lastFrameTime || 17);
                 if (Math.abs(newVx) >= Math.abs(vx || 0) || Math.abs(newVx - (vx || 0)) > Math.abs(vx || 0)) {
                   vx = newVx;
                 } else {
