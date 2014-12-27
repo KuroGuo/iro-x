@@ -53,7 +53,6 @@
           lastMoveTime = currentTime;
           currentTime = e.timeStamp;
 
-          // $window.cancelAnimationFrame(requestedFrameToken);
           if (!requestedFrameToken) {
             requestedFrameToken = $window.requestAnimationFrame(function (time) {
               var _event;
@@ -113,16 +112,6 @@
             if (e.timeStamp - lastMoveTime > (frameTakesTime * 3 || 100)) {
               vx = 0;
               vy = 0;
-              maxVx = 0;
-              maxVy = 0;
-            } else {
-              // console.log(vy, maxVy);
-              // if (vx > 1 || vx < -1) {
-              //   vx = maxVx;
-              // }
-              // if (vy > 1 || vy < -1) {
-              //   vy = maxVy;
-              // }
             }
 
             pageXY = getEventPageXY(e);
