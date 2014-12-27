@@ -77,15 +77,15 @@
               if (lastFramePageXY) {
                 newVx = (pageXY.x - lastFramePageXY.x) / (time - lastFrameTime);
                 newVy = (pageXY.y - lastFramePageXY.y) / (time - lastFrameTime);
-                if (Math.abs(newVx) >= Math.abs(vx || 0)) {
+                if (Math.abs(newVx) >= Math.abs(vx || 0) || Math.abs(newVx - (vx || 0)) > Math.abs(vx || 0)) {
                   vx = newVx;
                 } else {
-                  vx = vx * 0.618 + newVx * 0.382;
+                  vx = vx * 0.7 + newVx * 0.3;
                 }
-                if (Math.abs(newVy) >= Math.abs(vy || 0)) {
+                if (Math.abs(newVy) >= Math.abs(vy || 0) || Math.abs(newVy - (vy || 0)) > Math.abs(vy || 0)) {
                   vy = newVy;
                 } else {
-                  vy = vy * 0.618 + newVy * 0.382;
+                  vy = vy * 0.7 + newVy * 0.3;
                 }
               }
 
@@ -101,19 +101,21 @@
         }
 
         function dragend(e) {
-          $window.cancelAnimationFrame(requestedFrameToken);
+          if (requestedFrameToken) {
+            $window.requestAnimationFrame(function () {
+              _dragend(e);
+            });
+          } else {
+            _dragend(e);
+          }
+        }
 
+        function _dragend(e) {
           if (e && e.type === 'touchend' && e.changedTouches[0].target !== target)
             return;
 
           var _event;
           if (state === 2) {
-            // if (Math.abs(vx) < 0.3) {
-            //   vx = 0;
-            // }
-            // if (Math.abs(vy) < 0.3) {
-            //   vy = 0;
-            // }
             if (pageXY.x === lastMovePageXY.x) {
               vx = 0;
             }
