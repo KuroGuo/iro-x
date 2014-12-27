@@ -166,8 +166,10 @@
         xhr.send();
 
         function bindEvents() {
-          document.addEventListener('dragstart', preventDefault);
-          document.addEventListener('touchmove', preventDefault);
+          var activeTimeoutToken;
+
+          document.addEventListener('dragstart', preventDefault, true);
+          document.addEventListener('touchmove', preventDefault, true);
 
           $document
             .on('mouseenter', '.hoverable', function (e) {
@@ -179,17 +181,12 @@
             .on('touchstart mousedown', '.activable', function (e) {
               $(e.currentTarget).addClass('active');
             })
+            .on('touchmove mousemove', '.k-scroller .activable, .k-slider .activable', function (e) {
+              $(e.currentTarget).removeClass('active');
+            })
             .on('touchend touchcancel mouseup mouseleave', '.activable', function (e) {
               $(e.currentTarget).removeClass('active');
             })
-            // .on('touchstart touchend touchmove click tap mousedown mouseup', function (e) {
-            //     $('.container').append(e.type + '<br />');
-            // })
-            // .on('ktap', 'a', function (e) {
-            //   // if (e.pointerType === 'touch' && $(e.currentTarget).attr('href')) {
-            //     $(e.currentTarget).trigger('click');
-            //   // }
-            // })
             .on('mousedown mouseup click touchstart touchend', function (e) {
               if (e.isTrigger === 3) {
                 return;

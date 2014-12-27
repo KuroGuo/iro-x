@@ -36,11 +36,6 @@
               return;
             }
 
-            if ($document.data('kTapPrevented')) {
-              $document.data('kTapPrevented', false);
-              return;
-            }
-            
             var touch;
 
             if (e.type === 'mousedown') {

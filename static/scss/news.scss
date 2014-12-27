@@ -68,6 +68,7 @@
           right: 1rem;
           display: block;
           cursor: pointer;
+          transition: background-color 0 .08s;
 
           &.visited {
             opacity: .5;
@@ -84,6 +85,7 @@
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover;
+            transition: opacity 0 .08s;
           }
 
           .title {
@@ -96,6 +98,15 @@
             text-overflow: ellipsis; 
             overflow: hidden;
             white-space: nowrap;
+            background-color: white;
+            transition: background-color 0 .08s;
+          }
+
+          &.active {
+            background-color: black;
+            .thumb {
+              opacity: .7;
+            }
           }
 
           &.no-thumb {
@@ -114,6 +125,12 @@
               position: absolute;
               white-space: normal;
             }
+
+            &.active {
+              .title {
+                background-color: #ccc;
+              }
+            }  
           }
         }
       }

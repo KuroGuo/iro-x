@@ -31,11 +31,12 @@
         text-align: center;
         position: relative;
         cursor: pointer;
-        @include transition(all .2s);
-        @include transform(translateZ(0)scale(1));
+        // @include transition(all .2s);
+        // @include transform(translateZ(0)scale(1));
 
         &.active {
-          @include transform(translateZ(0)scale(.95));
+          // @include transform(translateZ(0)scale(.95));
+          color: #999;
         }
 
         .icon,
