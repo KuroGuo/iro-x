@@ -21,7 +21,7 @@
 
 .k-scroller-wrapper > .scroll-bar.active,
 .k-scroller-wrapper > .scroll-bar.dragging {
-  background-color: rgba(0, 0, 0, .4);
+  border-color: rgba(0, 0, 0, .4);
 }
 
 .k-scroller-wrapper.hover > .scroll-bar,
