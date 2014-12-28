@@ -163,6 +163,9 @@
             });
 
           $scrollerBar
+            .on('touchstart, mousedown', function (e) {
+              e.preventDefault();
+            })
             .on('kdragstart', function (e) {
               var $scrollerBar = $(e.currentTarget);
               scrollerBarHeightRem = $scrollerBar.outerHeight(true) / htmlFontSize;
