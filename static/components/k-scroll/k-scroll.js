@@ -37,8 +37,9 @@
             currentScrollTop: 0, // 当前纵向滚动值
             vScrollTop: 0, // 纵向滚动速度
             mouseDrag: true, // 是否允许鼠标拖动
-            usePullDown: false,
-            usePullUp: false
+            usePullDown: false, // 是否使用下拉，可实现下拉刷新等功能
+            usePullUp: false, // 是否使用上拉，可实现上拉加载更多等功能
+            resizeCheck: true // 浏览器窗口尺寸变化时检查
           }, scope.model);
 
           scope.model.scrollTo = scrollTo;
@@ -180,6 +181,20 @@
               var $scrollerBar = $(e.currentTarget);
               $scrollerBar.removeClass('dragging');
             });
+
+            if (scope.model.resizeCheck) {
+              $window.addEventListener('resize', resizeCheck);
+              element.on('$destroy', function () {
+                $window.removeEventListener('resize', resizeCheck);
+              });
+            }
+
+            function resizeCheck() {
+              refreshContext();
+              if (scope.model.currentScrollTop > maxScroll) {
+                scrollTo(maxScroll);
+              }
+            }
 
             function brake(e, preventTap) {
               if (frameToken) {
