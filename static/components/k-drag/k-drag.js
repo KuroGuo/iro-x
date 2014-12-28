@@ -57,6 +57,7 @@
           if (!requestedFrameToken) {
             requestedFrameToken = $window.requestAnimationFrame(function (time) {
               var _event;
+              var newVx, newVy;
 
               if (state === 1) {
                 if (Math.abs(pageXY.x - pointerdownPageXY.x) >= adsorb
@@ -68,13 +69,6 @@
               }
 
               if (state === 2) {
-                _event = newEvent('kdrag', e);
-                element.triggerHandler(_event);
-              }
-
-              var newVx, newVy;
-
-              if (lastFramePageXY) {
                 newVx = (pageXY.x - lastFramePageXY.x) / (time - lastFrameTime || 17);
                 newVy = (pageXY.y - lastFramePageXY.y) / (time - lastFrameTime || 17);
                 if (Math.abs(newVx) >= Math.abs(vx || 0) || Math.abs(newVx - (vx || 0)) > Math.abs(vx || 0)) {
@@ -87,6 +81,9 @@
                 } else {
                   vy = vy * 0.7 + newVy * 0.3;
                 }
+
+                _event = newEvent('kdrag', e);
+                element.triggerHandler(_event);
               }
 
               lastFramePageXY = pageXY;
