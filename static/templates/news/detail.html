@@ -1,5 +1,5 @@
-<div class="news-detail k-scroller-wrapper hoverable" k-model="scroller">
-  <div class="news-detail-inner k-scroller event-default" ng-show="news.title">
+<div class="news-detail k-scroller-wrapper hoverable" event-stop-propagation="touchstart,touchend,mousedown,mouseup" k-model="scroller">
+  <div class="news-detail-inner k-scroller" ng-show="news.title">
     <h2 class="title" ng-bind="news.title"></h2>
     <div class="content" ng-bind-html="news.content"></div>
   </div>

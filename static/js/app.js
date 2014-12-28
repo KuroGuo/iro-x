@@ -192,11 +192,6 @@
                 return;
               }
 
-              var $target = $(e.target);
-              if ($target.css('user-select') !== 'none' && $target.is('.event-default, .event-default *')) {
-                return;
-              }
-
               e.preventDefault();
             });
 
@@ -318,5 +313,22 @@
         complete: done
       });
     }
-  });
+  })
+  .directive('eventStopPropagation', [function () {
+    return {
+      restrict: 'A',
+      link: function (scope, element, attrs, controller) {
+        var events =  attrs.eventStopPropagation.split(',');
+        var i;
+
+        for (i = 0; i < events.length; i++) {
+          element[0].addEventListener(events[i], stopPropagation);
+        }
+      }
+    };
+
+    function stopPropagation(e) {
+      e.stopPropagation();
+    }
+  }]);
 })(angular);

@@ -29,7 +29,8 @@
             $pullDownHint,
             $pullUpHint,
             $pullDownHintText,
-            $pullUpHintText;
+            $pullUpHintText,
+            isDrag;
 
           scope.model = angular.extend({
             mousewheelSpeed: 7, // 鼠标滚轮滚动速度
@@ -95,7 +96,12 @@
               scope.model.vScrollTop = 0;
               scrollTo(destScrollTop, true, true);
             })
+            .on('touchstart mousedown', function (e) {
+              isDrag = false;
+            })
             .on('kdragstart', function (e) {
+              isDrag = true;
+
               if ($(e.target).hasClass('scroll-bar')) // 如果拖拽的是滚动条就返回
                 return;
               else if (!scope.model.mouseDrag && e.pointerType === 'mouse' && !e.ctrlKey) {
@@ -116,13 +122,9 @@
                 return;
 
               if (scope.model.currentScrollTop > maxScroll) {
-                if (e.stepY < 0) {
-                  e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - maxScroll);
-                }
+                e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - maxScroll);
               } else if (scope.model.currentScrollTop < minScroll) {
-                if (e.stepY > 0) {
-                  e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - minScroll);
-                }
+                e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - minScroll);
               }
 
               scope.model.vScrollTop = -e.vy / parseFloat(htmlFontSize);
@@ -134,7 +136,7 @@
             .on('mouseup touchend touchcancel', function (e) {
               var $wrapper = $(e.currentTarget);
 
-              if (!$wrapper.hasClass('dragging')) {
+              if (!isDrag) {
                 lastFrameTime = null;
                 $wrapper.addClass('sliding');
                 slide();
