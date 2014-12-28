@@ -318,6 +318,9 @@
     return {
       restrict: 'A',
       link: function (scope, element, attrs, controller) {
+        if ('onpointerdown' in element[0])
+          return;
+
         var events =  attrs.eventStopPropagation.split(',');
         var i;
 
