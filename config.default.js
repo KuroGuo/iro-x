@@ -15,7 +15,9 @@ var config = {
   wallpaperPathPre: '/static/',
 
   // 爬虫采集间隔时间（单位：毫秒）
-  scrapRate: 20 * 60 * 1000
+  scrapRate: 20 * 60 * 1000,
+  
+  sessionSecret: 'iro'
 };
 
 module.exports = config;
