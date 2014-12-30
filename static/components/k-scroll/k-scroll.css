@@ -12,8 +12,10 @@
   -webkit-box-sizing:border-box;
   box-sizing:border-box
   z-index: 100;
-  border-color: rgba(0, 0, 0, .3);
   border-style: solid;
+  border-left-width: .2rem;
+  border-left-color: transparent;
+  border-right-color: rgba(0, 0, 0, .3);
   border-right-width: .3rem;
   opacity: 0;
   visibility: hidden;
@@ -21,7 +23,7 @@
 
 .k-scroller-wrapper > .scroll-bar.active,
 .k-scroller-wrapper > .scroll-bar.dragging {
-  border-color: rgba(0, 0, 0, .4);
+  border-right-color: rgba(0, 0, 0, .4);
 }
 
 .k-scroller-wrapper.hover > .scroll-bar,
@@ -35,7 +37,7 @@
 
 .k-scroller-wrapper > .scroll-bar.hover,
 .k-scroller-wrapper > .scroll-bar.dragging {
-  border-right-width: 1rem;
+  border-right-width: .8rem;
   transition-delay: 0, 0, 0;
 }
 
