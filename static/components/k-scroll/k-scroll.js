@@ -270,17 +270,18 @@
           }
 
           function slide(time) {
-            var timeSpan, destScrollTop;
+            var timeSpan, destScrollTop, vScrollTopCurrent;
 
             if (lastFrameTime) {
-              // timeSpan = time - lastFrameTime;
-              timeSpan = 1000 / 60;
+              timeSpan = time - lastFrameTime;
+
+              vScrollTopCurrent = scope.model.vScrollTop * Math.pow(0.95, timeSpan / (1000 / 60));
 
               destScrollTop = scope.model.currentScrollTop + scope.model.vScrollTop * timeSpan;
 
               scrollTo(destScrollTop, false, false);
 
-              scope.model.vScrollTop *= Math.pow(0.96, timeSpan / (1000 / 60));
+              scope.model.vScrollTop = vScrollTopCurrent;
 
               if (scope.model.currentScrollTop > maxScroll) {
                 if (scope.model.vScrollTop <= 0) {
