@@ -3,7 +3,8 @@
     'iro.services.news', 
     'iro.services.navbar',
     'ngSanitize',
-    'kScroll'])
+    'kScroll',
+    'kSwipe'])
     .factory('news', ['$window', function ($window) {
       if (!$window.localStorage['news.visitedArr']) {
         $window.localStorage['news.visitedArr'] = '[]';
@@ -213,13 +214,23 @@
         });
       }
 
+      $scope.newsDetailScroller = {
+        emitDragstart: true,
+        mouseDrag: false
+      };
+
+      var dragStartPageX;
+
+      $scope.$on('kScrollerDragstart', function (e, drag) {
+        if (Math.abs(drag.deltaX / drag.deltaY) > 3 / 4) {
+          drag.prevent();
+          dragStartPageX = drag.pageX;
+        }
+      });
+
       $scope.$on('$destroy', function () {
         $scope.global.title = oldTitle;
       });
-
-      $scope.scroller = {
-        mouseDrag: false
-      };
 
       news.currentNewsId = $stateParams.id;
     }]);
