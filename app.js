@@ -35,7 +35,7 @@ app.use('/api', bodyParser.json());
 app.use('/api', bodyParser.json({ type: 'application/vnd.api+json' }));
 
 app.use('/api', session({
-  secret: 'kuroguo',
+  secret: config.sessionSecret,
   resave: true,
   saveUninitialized: true,
   store: new MongoStore({ db: mongoose.connection.db })
