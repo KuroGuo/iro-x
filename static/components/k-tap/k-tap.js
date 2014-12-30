@@ -4,9 +4,9 @@
       return {
         restrict: 'A',
         link: function (scope, element, attrs, controller) {
+          var tapHandler = $parse(attrs.kTap);
+          
           element.on('ktap', function (e) {
-            var tapHandler = $parse(attrs.kTap);
-
             scope.$apply(function () {
               tapHandler(scope, {$event: e});    
             });
