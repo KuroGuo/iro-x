@@ -31,7 +31,13 @@
             $pullDownHintText,
             $pullUpHintText,
             isDrag,
-            contextCacheToken;
+            contextCacheToken,
+            cache = {
+              htmlFontSize: null,
+              wrapperHeightRem: null,
+              scrollerHeightRem: null,
+              maxScroll: null
+            };
 
           scope.model = angular.extend({
             mousewheelSpeed: 7, // 鼠标滚轮滚动速度
@@ -266,24 +272,29 @@
           scrollTo(scope.model.currentScrollTop, false, false);
 
           function refreshContext(force) {
-            htmlFontSize = !force && htmlFontSize || parseFloat($('html').css('font-size'));
-            wrapperHeightRem = !force && wrapperHeightRem || $wrapper.innerHeight() / htmlFontSize;
-            scrollerHeightRem = !force && scrollerHeightRem || $scroller.outerHeight(true) / htmlFontSize;
-            maxScroll = !force && maxScroll || Math.max(0, scrollerHeightRem - wrapperHeightRem);
+            htmlFontSize = !force && cache.htmlFontSize || parseFloat($('html').css('font-size'));
+            wrapperHeightRem = !force && cache.wrapperHeightRem || $wrapper.innerHeight() / htmlFontSize;
+            scrollerHeightRem = !force && cache.scrollerHeightRem || $scroller.outerHeight(true) / htmlFontSize;
+            maxScroll = !force && cache.maxScroll || Math.max(0, scrollerHeightRem - wrapperHeightRem);
             scrollerBarHeightPercent = wrapperHeightRem / scrollerHeightRem;
             if (scrollerBarHeightPercent > 1) {
               scrollerBarHeightPercent = 0;
             }
             scrollerBarHeightRem = Math.max(wrapperHeightRem * scrollerBarHeightPercent, 3);
 
+            cache.htmlFontSize = htmlFontSize;
+            cache.wrapperHeightRem = wrapperHeightRem;
+            cache.scrollerHeightRem = scrollerHeightRem;
+            cache.maxScroll = maxScroll;
+
             if (contextCacheToken) {
               $timeout.cancel(contextCacheToken);
             }
             contextCacheToken = $timeout(function () {
-              htmlFontSize = null;
-              wrapperHeightRem = null;
-              scrollerHeightRem = null;
-              maxScroll = null;
+              cache.htmlFontSize = null;
+              cache.wrapperHeightRem = null;
+              cache.scrollerHeightRem = null;
+              cache.maxScroll = null;
 
               contextCacheToken = null;
             }, 3000);
