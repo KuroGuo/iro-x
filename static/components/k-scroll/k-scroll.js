@@ -283,7 +283,7 @@
 
               vScrollTopCurrent = scope.model.vScrollTop * Math.pow(0.95, timeSpan / (1000 / 60));
 
-              destScrollTop = scope.model.currentScrollTop + scope.model.vScrollTop * timeSpan;
+              destScrollTop = scope.model.currentScrollTop + (scope.model.vScrollTop + vScrollTopCurrent) / 2 * timeSpan;
 
               scrollTo(destScrollTop, false, false);
 
