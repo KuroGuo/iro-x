@@ -175,7 +175,7 @@
             })
             .on('kdragstart', function (e) {
               var $scrollerBar = $(e.currentTarget);
-              scrollerBarHeightRem = $scrollerBar.outerHeight(true) / htmlFontSize;
+              refreshContext();
               $scrollerBar.data('dragStartScrollTop', scope.model.currentScrollTop).addClass('dragging');
             })
             .on('kdrag', function (e) {
@@ -274,6 +274,7 @@
             if (scrollerBarHeightPercent > 1) {
               scrollerBarHeightPercent = 0;
             }
+            scrollerBarHeightRem = wrapperHeightRem * scrollerBarHeightPercent;
 
             if (contextCacheToken) {
               $timeout.cancel(contextCacheToken);
@@ -367,20 +368,12 @@
 
             $scrollerBar.velocity('stop');
 
-            var translateY = (-scrollPercent * 100) + '%';
+            var translateY = ((wrapperHeightRem - scrollerBarHeightRem) * scrollPercent) + 'rem';
 
             if (doAnimation) {
-              $scrollerBar.velocity({
-                translateY: translateY
-              }, angular.extend(JSON.parse(JSON.stringify(animationOption)), {
-                progress: function ($scrollerBar, progress) {
-                  var currentValue = -parseFloat($.Velocity.hook($scrollerBar, 'translateY')) + '%';
-                  $.Velocity.hook($scrollerBar, 'top', currentValue);
-                }
-              }));
+              $scrollerBar.velocity({translateY: translateY}, animationOption);
             } else {
               $.Velocity.hook($scrollerBar, 'translateY', translateY);
-              $.Velocity.hook($scrollerBar, 'top', (scrollPercent * 100) + '%');
             }
           }
 
