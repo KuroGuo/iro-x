@@ -17,22 +17,11 @@
   border-left-color: transparent;
   border-right-color: rgba(0, 0, 0, .3);
   border-right-width: .3rem;
-  opacity: 0;
-  visibility: hidden;
 }
 
 .k-scroller-wrapper > .scroll-bar.active,
 .k-scroller-wrapper > .scroll-bar.dragging {
   border-right-color: rgba(0, 0, 0, .4);
-}
-
-.k-scroller-wrapper.hover > .scroll-bar,
-.k-scroller-wrapper.dragging > .scroll-bar,
-.k-scroller-wrapper.sliding > .scroll-bar,
-.k-scroller-wrapper > .scroll-bar.dragging {
-  transition-delay: .4s, 0, 0;
-  visibility: visible;
-  opacity: 1;
 }
 
 .k-scroller-wrapper > .scroll-bar.hover,
