@@ -274,7 +274,7 @@
             if (scrollerBarHeightPercent > 1) {
               scrollerBarHeightPercent = 0;
             }
-            scrollerBarHeightRem = wrapperHeightRem * scrollerBarHeightPercent;
+            scrollerBarHeightRem = Math.max(wrapperHeightRem * scrollerBarHeightPercent, 3);
 
             if (contextCacheToken) {
               $timeout.cancel(contextCacheToken);
@@ -364,7 +364,7 @@
               $scrollerBar.css('display', 'block');
             }
 
-            $.Velocity.hook($scrollerBar, 'height', (scrollerBarHeightPercent * 100) + '%');
+            $.Velocity.hook($scrollerBar, 'height', scrollerBarHeightRem + 'rem');
 
             $scrollerBar.velocity('stop');
 
