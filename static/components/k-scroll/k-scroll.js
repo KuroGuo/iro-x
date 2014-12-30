@@ -200,7 +200,7 @@
             }
 
             function resizeCheck() {
-              refreshContext();
+              refreshContext(true);
               if (scope.model.currentScrollTop > maxScroll) {
                 scrollTo(maxScroll);
               }
@@ -265,11 +265,11 @@
           $.Velocity.hook($scroller, "translateZ", '1px');
           scrollTo(scope.model.currentScrollTop, false, false);
 
-          function refreshContext() {
-            htmlFontSize = htmlFontSize || parseFloat($('html').css('font-size'));
-            wrapperHeightRem = wrapperHeightRem || $wrapper.innerHeight() / htmlFontSize;
-            scrollerHeightRem = scrollerHeightRem || $scroller.outerHeight(true) / htmlFontSize;
-            maxScroll = maxScroll || Math.max(0, scrollerHeightRem - wrapperHeightRem);
+          function refreshContext(force) {
+            htmlFontSize = !force && htmlFontSize || parseFloat($('html').css('font-size'));
+            wrapperHeightRem = !force && wrapperHeightRem || $wrapper.innerHeight() / htmlFontSize;
+            scrollerHeightRem = !force && scrollerHeightRem || $scroller.outerHeight(true) / htmlFontSize;
+            maxScroll = !force && maxScroll || Math.max(0, scrollerHeightRem - wrapperHeightRem);
             scrollerBarHeightPercent = wrapperHeightRem / scrollerHeightRem;
             if (scrollerBarHeightPercent > 1) {
               scrollerBarHeightPercent = 0;
