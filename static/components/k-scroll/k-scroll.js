@@ -198,78 +198,79 @@
               $scrollerBar.removeClass('dragging');
             });
 
-            if (scope.model.resizeCheck) {
-              $window.addEventListener('resize', resizeCheck);
-              element.on('$destroy', function () {
-                $window.removeEventListener('resize', resizeCheck);
-              });
-            }
-
-            function resizeCheck() {
-              refreshContext(true);
-              if (scope.model.currentScrollTop > maxScroll) {
-                scrollTo(maxScroll);
-              }
-            }
-
-            function brake(e, preventTap) {
-              if (frameToken) {
-                stopAnimation();
-                if (e.type !== 'blur' && Math.abs(scope.model.vScrollTop) > 0.01) {
-                  e.stopPropagation();
-                  e.preventDefault();
-                }
-              }
-              scope.model.vScrollTop = 0;
-              $wrapper.removeClass('sliding');
-
-              if (e.ctrlKey && e.type === 'mousedown') {
-                e.preventDefault();
-              }
-            }
-
-            function checkPullStateChange() {
-              var currentPullDownState = scope.model.pullDownState;
-              var currentPullUpState = scope.model.pullUpState;
-              var currentScrollTop = scope.model.currentScrollTop;
-              if (scope.model.usePullDown && currentScrollTop < -4 && (!scope.model.pullDownState || scope.model.pullDownState === 1 || scope.model.pullDownState === 4)) {
-                scope.model.pullDownState = 1;
-              } else if (scope.model.usePullUp && currentScrollTop > maxScroll + 4 && (!scope.model.pullUpState || scope.model.pullUpState === 1 || scope.model.pullUpState === 4)) {
-                scope.model.pullUpState = 1;
-              } else {
-                scope.model.pullDownState = 0;
-                scope.model.pullUpState = 0;
-              }
-              if (currentPullDownState !== scope.model.pullDownState) {
-                scope.$emit('kScrollerPullDownStateChange');
-              }
-              if (currentPullUpState !== scope.model.pullUpState) {
-                scope.$emit('kScrollerPullUpStateChange');
-              }
-            }
-
-            function checkTriggerPull() {
-              var currentScrollTop = scope.model.currentScrollTop;
-              if (scope.model.usePullDown && currentScrollTop < -4 && scope.model.pullDownState < 2) {
-                scope.model.pullDownState = 2;
-                scope.$emit('kScrollerPullDownStateChange');
-                scrollTo(-4, true, true, 250, function () {
-                  scope.$emit('kScrollerPullDown');
-
-                });
-              } else if (scope.model.usePullUp && currentScrollTop > scope.model.maxScroll + 4 && scope.model.pullUpState < 2) {
-                scope.model.pullUpState = 2;
-                scope.$emit('kScrollerPullUpStateChange');
-                scrollTo(maxScroll + 4, true, true, 250, function () {
-                  scope.$emit('kScrollerPullUp');
-                });
-              }
-            }
+          if (scope.model.resizeCheck) {
+            $window.addEventListener('resize', resizeCheck);
+            element.on('$destroy', function () {
+              $window.removeEventListener('resize', resizeCheck);
+            });
+          }
 
           // 强制开启硬件加速
           $.Velocity.hook($scrollerBar, "translateZ", '1px');
           $.Velocity.hook($scroller, "translateZ", '1px');
+          refreshContext(true);
           scrollTo(scope.model.currentScrollTop, false, false);
+
+          function resizeCheck() {
+            refreshContext(true);
+            if (scope.model.currentScrollTop > maxScroll) {
+              scrollTo(maxScroll);
+            }
+          }
+
+          function brake(e, preventTap) {
+            if (frameToken) {
+              stopAnimation();
+              if (e.type !== 'blur' && Math.abs(scope.model.vScrollTop) > 0.01) {
+                e.stopPropagation();
+                e.preventDefault();
+              }
+            }
+            scope.model.vScrollTop = 0;
+            $wrapper.removeClass('sliding');
+
+            if (e.ctrlKey && e.type === 'mousedown') {
+              e.preventDefault();
+            }
+          }
+
+          function checkPullStateChange() {
+            var currentPullDownState = scope.model.pullDownState;
+            var currentPullUpState = scope.model.pullUpState;
+            var currentScrollTop = scope.model.currentScrollTop;
+            if (scope.model.usePullDown && currentScrollTop < -4 && (!scope.model.pullDownState || scope.model.pullDownState === 1 || scope.model.pullDownState === 4)) {
+              scope.model.pullDownState = 1;
+            } else if (scope.model.usePullUp && currentScrollTop > maxScroll + 4 && (!scope.model.pullUpState || scope.model.pullUpState === 1 || scope.model.pullUpState === 4)) {
+              scope.model.pullUpState = 1;
+            } else {
+              scope.model.pullDownState = 0;
+              scope.model.pullUpState = 0;
+            }
+            if (currentPullDownState !== scope.model.pullDownState) {
+              scope.$emit('kScrollerPullDownStateChange');
+            }
+            if (currentPullUpState !== scope.model.pullUpState) {
+              scope.$emit('kScrollerPullUpStateChange');
+            }
+          }
+
+          function checkTriggerPull() {
+            var currentScrollTop = scope.model.currentScrollTop;
+            if (scope.model.usePullDown && currentScrollTop < -4 && scope.model.pullDownState < 2) {
+              scope.model.pullDownState = 2;
+              scope.$emit('kScrollerPullDownStateChange');
+              scrollTo(-4, true, true, 250, function () {
+                scope.$emit('kScrollerPullDown');
+
+              });
+            } else if (scope.model.usePullUp && currentScrollTop > scope.model.maxScroll + 4 && scope.model.pullUpState < 2) {
+              scope.model.pullUpState = 2;
+              scope.$emit('kScrollerPullUpStateChange');
+              scrollTo(maxScroll + 4, true, true, 250, function () {
+                scope.$emit('kScrollerPullUp');
+              });
+            }
+          }
 
           function refreshContext(force) {
             htmlFontSize = !force && cache.htmlFontSize || parseFloat($('html').css('font-size'));
@@ -277,10 +278,13 @@
             scrollerHeightRem = !force && cache.scrollerHeightRem || $scroller.outerHeight(true) / htmlFontSize;
             maxScroll = !force && cache.maxScroll || Math.max(0, scrollerHeightRem - wrapperHeightRem);
             scrollerBarHeightPercent = wrapperHeightRem / scrollerHeightRem;
-            if (scrollerBarHeightPercent > 1) {
+            if (scrollerBarHeightPercent >= 1) {
               scrollerBarHeightPercent = 0;
-            }
+            } 
+
             scrollerBarHeightRem = Math.max(wrapperHeightRem * scrollerBarHeightPercent, 3);
+
+            resetscrollerBarStyle();
 
             cache.htmlFontSize = htmlFontSize;
             cache.wrapperHeightRem = wrapperHeightRem;
