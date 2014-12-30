@@ -148,8 +148,8 @@
           startId = null;
         }
         News.pageQuery({startId: startId}, function (newsList) {
-           $scope.newsList = newsList;
-           if (typeof callback === 'function')
+          $scope.newsList = newsList;
+          if (typeof callback === 'function')
             callback.call(this, newsList);
         });
       }
