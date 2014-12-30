@@ -28,7 +28,7 @@
         
         lastFramePageXY = pageXY = pointerdownPageXY = getEventPageXY(e);
         target = e.target;
-        adsorb = parseFloat($(target).attr('k-drag-adsorb')) || 0;
+        adsorb = parseFloat($(e.currentTarget).attr('k-drag-adsorb')) || 0;
         state = 1;
 
         document.addEventListener('mousemove', drag, true);
@@ -125,10 +125,10 @@
         function newEvent(name, e) {
           var _event = $.Event(name);
 
-          _event.pageX = pageXY.x || -1;
-          _event.pageY = pageXY.y || -1;
-          _event.deltaX = (pageXY.x - pointerdownPageXY.x) || -1;
-          _event.deltaY = (pageXY.y - pointerdownPageXY.y) || -1;
+          _event.pageX = pageXY.x;
+          _event.pageY = pageXY.y;
+          _event.deltaX = (pageXY.x - pointerdownPageXY.x);
+          _event.deltaY = (pageXY.y - pointerdownPageXY.y);
           _event.stepX = pageXY.x - lastFramePageXY.x;
           _event.stepY = pageXY.y - lastFramePageXY.y;
           _event.vx = vx || 0;
