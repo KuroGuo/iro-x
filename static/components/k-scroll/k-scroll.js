@@ -208,7 +208,6 @@
           // 强制开启硬件加速
           $.Velocity.hook($scrollerBar, "translateZ", '1px');
           $.Velocity.hook($scroller, "translateZ", '1px');
-          refreshContext(true);
           scrollTo(scope.model.currentScrollTop, false, false);
 
           function resizeCheck() {
