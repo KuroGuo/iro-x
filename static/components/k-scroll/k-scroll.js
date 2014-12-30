@@ -30,7 +30,8 @@
             $pullUpHint,
             $pullDownHintText,
             $pullUpHintText,
-            isDrag;
+            isDrag,
+            contextCacheToken;
 
           scope.model = angular.extend({
             mousewheelSpeed: 7, // 鼠标滚轮滚动速度
@@ -265,14 +266,26 @@
           scrollTo(scope.model.currentScrollTop, false, false);
 
           function refreshContext() {
-            htmlFontSize = parseFloat($('html').css('font-size'));
-            wrapperHeightRem = $wrapper.innerHeight() / htmlFontSize;
-            scrollerHeightRem = $scroller.outerHeight(true) / htmlFontSize;
-            maxScroll = Math.max(0, scrollerHeightRem - wrapperHeightRem);
+            htmlFontSize = htmlFontSize || parseFloat($('html').css('font-size'));
+            wrapperHeightRem = wrapperHeightRem || $wrapper.innerHeight() / htmlFontSize;
+            scrollerHeightRem = scrollerHeightRem || $scroller.outerHeight(true) / htmlFontSize;
+            maxScroll = maxScroll || Math.max(0, scrollerHeightRem - wrapperHeightRem);
             scrollerBarHeightPercent = wrapperHeightRem / scrollerHeightRem;
             if (scrollerBarHeightPercent > 1) {
               scrollerBarHeightPercent = 0;
             }
+
+            if (contextCacheToken) {
+              $timeout.cancel(contextCacheToken);
+            }
+            contextCacheToken = $timeout(function () {
+              htmlFontSize = null;
+              wrapperHeightRem = null;
+              scrollerHeightRem = null;
+              maxScroll = null;
+
+              contextCacheToken = null;
+            }, 3000);
           }
 
           function slide(time) {
@@ -350,20 +363,24 @@
               $scrollerBar.css('display', 'block');
             }
 
-            var style = {
-              top: (scrollPercent * 100) + '%',
-              height: (scrollerBarHeightPercent * 100) + '%',
-              translateY: (-scrollPercent * 100) + '%'
-            }, key;
+            $.Velocity.hook($scrollerBar, 'height', (scrollerBarHeightPercent * 100) + '%');
 
             $scrollerBar.velocity('stop');
 
+            var translateY = (-scrollPercent * 100) + '%';
+
             if (doAnimation) {
-              $scrollerBar.velocity(style, animationOption);
+              $scrollerBar.velocity({
+                translateY: translateY
+              }, angular.extend(JSON.parse(JSON.stringify(animationOption)), {
+                progress: function ($scrollerBar, progress) {
+                  var currentValue = -parseFloat($.Velocity.hook($scrollerBar, 'translateY')) + '%';
+                  $.Velocity.hook($scrollerBar, 'top', currentValue);
+                }
+              }));
             } else {
-              for (key in style) {
-                $.Velocity.hook($scrollerBar, key, style[key]);
-              }
+              $.Velocity.hook($scrollerBar, 'translateY', translateY);
+              $.Velocity.hook($scrollerBar, 'top', (scrollPercent * 100) + '%');
             }
           }
 

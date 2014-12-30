@@ -1,5 +1,5 @@
 .k-scroller-wrapper > .scroll-bar {
-  transition-property: border-right-width, opacity, visibility;
+  transition-property: border-right-width;
   transition-duration: .2s;
   transition-delay: .4s, .6s, .6s;
   position: absolute;

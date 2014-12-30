@@ -171,13 +171,17 @@
           document.addEventListener('dragstart', preventDefault, true);
           document.addEventListener('touchmove', preventDefault, true);
 
+          if (!('ontouchstart' in document.documentElement)) {
+            $document
+              .on('mouseenter', '.hoverable', function (e) {
+                $(e.currentTarget).addClass('hover');
+              })
+              .on('mouseleave', '.hoverable', function (e) {
+                $(e.currentTarget).removeClass('hover');
+              });
+          }
+
           $document
-            .on('mouseenter', '.hoverable', function (e) {
-              $(e.currentTarget).addClass('hover');
-            })
-            .on('mouseleave', '.hoverable', function (e) {
-              $(e.currentTarget).removeClass('hover');
-            })
             .on('touchstart mousedown', '.activable', function (e) {
               $(e.currentTarget).addClass('active');
             })
