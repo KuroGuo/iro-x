@@ -284,8 +284,6 @@
 
             scrollerBarHeightRem = Math.max(wrapperHeightRem * scrollerBarHeightPercent, 3);
 
-            resetscrollerBarStyle();
-
             cache.htmlFontSize = htmlFontSize;
             cache.wrapperHeightRem = wrapperHeightRem;
             cache.scrollerHeightRem = scrollerHeightRem;
