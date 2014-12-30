@@ -6,42 +6,12 @@
     'kScroll',
     'kSwipe'])
     .factory('news', ['$window', function ($window) {
-      if (!$window.localStorage['news.visitedArr']) {
-        $window.localStorage['news.visitedArr'] = '[]';
-      }
-
-      var visited = {
-        getArr: function() {
-          return JSON.parse($window.localStorage['news.visitedArr']);
-        },
-        save: function(arr) {
-          $window.localStorage['news.visitedArr'] = JSON.stringify(arr);
-        },
-        exist: function (id) {
-          return this.getArr().some(function (newsId) {
-            return newsId === id;
-          });
-        },
-        insert: function (id) {
-          if (this.exist(id)) {
-            return;
-          }
-          var arr = this.getArr();
-          arr.push(id);
-          this.save(arr);
-        }
-      };
-
       var news = {
         get currentNewsId() {
           return $window.sessionStorage['news.currentNewsId'];
         },
         set currentNewsId(val) {
           $window.sessionStorage['news.currentNewsId'] = val;
-          visited.insert(val);
-        },
-        isVisited: function (id) {
-          return visited.exist(id);
         }
       };
 
@@ -63,10 +33,6 @@
           return news.currentNewsId;
         }
       });
-
-      $scope.isVisited = function (newsId) {
-        return news.isVisited(newsId);
-      };
 
       $scope.global.title = '资讯';
 
