@@ -39,7 +39,9 @@
             mouseDrag: true, // 是否允许鼠标拖动
             usePullDown: false, // 是否使用下拉，可实现下拉刷新等功能
             usePullUp: false, // 是否使用上拉，可实现上拉加载更多等功能
-            resizeCheck: true // 浏览器窗口尺寸变化时检查
+            resizeCheck: true, // 浏览器窗口尺寸变化时检查,
+            emitDragstart: false,
+            emitDragend: false
           }, scope.model);
 
           scope.model.scrollTo = scrollTo;
@@ -115,7 +117,7 @@
               $wrapper.addClass('dragging');
 
               if (scope.model.emitDragstart) {
-                scope.$emit('kScrollerDragstart');
+                scope.$emit('kScrollerDragstart', e);
               }
             })
             .on('kdrag', function (e) {
@@ -160,6 +162,10 @@
               slide();
 
               checkTriggerPull();
+
+              if (scope.model.emitDragend) {
+                scope.$emit('kScrollerDragend', e);
+              }
             });
 
           $scrollerBar
