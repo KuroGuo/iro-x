@@ -129,11 +129,11 @@
     @include box-sizing(border-box);
 
     .scroll-bar {
-        border-color: rgba(255, 255, 255, .2);
+        border-right-color: rgba(255, 255, 255, .2);
     }
     .scroll-bar.active,
     .scroll-bar.dragging {
-        border-color: rgba(255, 255, 255, .4);
+        border-right-color: rgba(255, 255, 255, .4);
     }
 
     li {
