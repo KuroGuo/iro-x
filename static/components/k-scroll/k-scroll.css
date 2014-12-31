@@ -1,7 +1,7 @@
 .k-scroller-wrapper > .scroll-bar {
   transition-property: border-right-width;
   transition-duration: .2s;
-  transition-delay: .4s, .6s, .6s;
+  transition-delay: .4s;
   position: absolute;
   right: 0;
   top: 0;
@@ -26,7 +26,7 @@
 .k-scroller-wrapper > .scroll-bar.hover,
 .k-scroller-wrapper > .scroll-bar.dragging {
   border-right-width: .8rem;
-  transition-delay: 0, 0, 0;
+  transition-delay: 0;
 }
 
 .k-scroller > .pulldown-hint,
