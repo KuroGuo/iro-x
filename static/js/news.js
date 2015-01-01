@@ -52,7 +52,7 @@
 
       $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
         if (toState.name === 'news' && fromState.name === 'news' && (toParams.startid > fromParams.startid || !toParams.startid)
-          || toState.name === 'news' && fromState.name !== 'news') {
+          || toState.name === 'news' && fromState.name.indexOf('news') !== 0) {
           $scope.isStateBack = true;
         } else {
           $scope.isStateBack = false;
