@@ -47,6 +47,23 @@
     background-color: black;
   }
 
+  .news-list-wrapper {
+    &.ng-enter {
+      @include animation(scale-enter .6s .1s);
+    }
+    &.ng-leave {
+      @include animation(scale-leave .6s .1s forwards);
+    }
+  }
+  &.back .news-list-wrapper {
+    &.ng-enter {
+      @include animation(scale-back-enter .6s .1s);
+    }
+    &.ng-leave {
+      @include animation(scale-back-leave .6s .1s forwards);
+    }
+  }
+
   .news-list {
     position: absolute;
     left: 0;
@@ -155,23 +172,6 @@
           }
         }
       }
-    }
-  }
-
-  .news-list {
-    &.ng-enter {
-      @include animation(scale-enter .6s .1s);
-    }
-    &.ng-leave {
-      @include animation(scale-leave .6s .1s forwards);
-    }
-  }
-  &.back .news-list {
-    &.ng-enter {
-      @include animation(scale-back-enter .6s .1s);
-    }
-    &.ng-leave {
-      @include animation(scale-back-leave .6s .1s forwards);
     }
   }
 
