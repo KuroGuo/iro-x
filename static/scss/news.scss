@@ -38,14 +38,31 @@
     }
   }
 
-  .news-list {
+  .news-list-wrapper {
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
     background-color: black;
+  }
+
+  .news-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     overflow: hidden;
+
+    @include transform(translateZ(0) translateX(0));
+    opacity: 1;
+    &.ng-hide-remove {
+      @include animation(slide-fade-in-left-small .4s .1s);
+    }
+    &.ng-hide {
+      @include animation(slide-fade-out-left-small .4s forwards);
+    }
 
     .news-list-inner {
       position: absolute;
@@ -56,15 +73,6 @@
       padding: 1rem;
       background-color: white;
       @include box-sizing(border-box);
-      @include transform(translateZ(0) translateX(0));
-      opacity: 1;
-
-      &.ng-hide-remove {
-        @include animation(slide-fade-in-left-small .4s .1s);
-      }
-      &.ng-hide {
-        @include animation(slide-fade-out-left-small .4s forwards);
-      }
 
       li {
         position: relative;
