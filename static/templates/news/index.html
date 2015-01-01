@@ -1,6 +1,6 @@
 <div id="news" ng-class="{'back': isStateBack}">
-	<div class="news-list k-scroller-wrapper hoverable" k-model="newsListScroller" ng-hide="newsModel.currentNewsId" ng-repeat="startId in [newsModel.startId]">
-	  <ul class="news-list-inner k-scroller">
+	<div class="news-list k-scroller-wrapper hoverable" k-model="newsListScroller" ng-repeat="startId in [newsModel.startId]">
+	  <ul class="news-list-inner k-scroller" ng-hide="newsModel.currentNewsId">
 	    <li ng-repeat="news in newsModel.newsList" ng-style="{width: liWidth, height: liHeight}">
 	      <a ng-class="{'no-thumb': !news.thumbSrc}" k-tap="openNews(news._id)">
 	        <span class="thumb" ng-show="news.thumbSrc" ng-style="{'background-image': (news.thumbSrc ? 'url(\'' + news.thumbSrc + '\')' : 'none')}"></span>

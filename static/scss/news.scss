@@ -7,7 +7,6 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: black;
 
   .news-view-container {
     position: absolute;
@@ -45,18 +44,8 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: white;
+    background-color: black;
     overflow: hidden;
-    @include transform(translateZ(0) translateX(0));
-    opacity: 1;
-    @include transition(visibility .4s);
-
-    &.ng-hide-remove {
-      @include animation(slide-fade-in-left-small .4s .1s);
-    }
-    &.ng-hide {
-      @include animation(slide-fade-out-left-small .4s forwards);
-    }
 
     .news-list-inner {
       position: absolute;
@@ -65,7 +54,17 @@
       top: 0;
       min-height: 100%;
       padding: 1rem;
+      background-color: white;
       @include box-sizing(border-box);
+      @include transform(translateZ(0) translateX(0));
+      opacity: 1;
+
+      &.ng-hide-remove {
+        @include animation(slide-fade-in-left-small .4s .1s);
+      }
+      &.ng-hide {
+        @include animation(slide-fade-out-left-small .4s forwards);
+      }
 
       li {
         position: relative;
