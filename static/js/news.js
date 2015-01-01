@@ -5,21 +5,12 @@
     'ngSanitize',
     'kScroll',
     'kSwipe'])
-    .factory('news', ['$window', function ($window) {
-      var news = {
-        get currentNewsId() {
-          return $window.sessionStorage['news.currentNewsId'];
-        },
-        set currentNewsId(val) {
-          $window.sessionStorage['news.currentNewsId'] = val;
-        }
-      };
-
-      return news;
+    .controller('NewsBaseCtrl', [function () {
+      
     }])
     .controller('NewsCtrl',
-    ['$scope', 'News', 'navbar', 'news', '$state', '$document', '$window', '$timeout', '$stateParams',
-    function ($scope, News, navbar, news, $state, $document, $window, $timeout, $stateParams) {
+    ['$scope', 'News', 'navbar', '$state', '$document', '$window', '$timeout', '$stateParams',
+    function ($scope, News, navbar, $state, $document, $window, $timeout, $stateParams) {
       $scope.openNews = function (id) {
         if ($state.is('news.detail')) {
           $state.go('news.detail', {id: id}, {location: 'replace'});
@@ -28,22 +19,44 @@
         }
       };
 
-      Object.defineProperty($scope, 'currentNewsId', {
-        get: function () {
-          return news.currentNewsId;
+      $scope.loadData = function(startId, callback) {
+        if (typeof startId === 'function') {
+          callback = startId;
+          startId = null;
         }
-      });
+        News.pageQuery({startId: startId}, function (newsList) {
+          $scope.newsModel.newsList = newsList;
+          if (typeof callback === 'function')
+            callback.call(this, newsList);
+        });
+      };
 
-      $scope.global.title = '资讯';
+      $scope.toNextPage = function() {
+        $scope.toPage($scope.newsModel.newsList[$scope.newsModel.newsList.length - 1]._id);
+      };
 
-      $scope.liHeight = '16rem';
-      $window.addEventListener('resize', applyRewidth);
-      rewidth.call($window);
+      $scope.toPage = function(startId) {
+        $state.go('news', {startid: startId});
+      };
+
+      $scope.newsModel = {
+        currentNewsId: null,
+        newsList: null,
+        startId: null
+      };
 
       navbar.customBackgroundColor = 'rgba(51,51,51,1)';
       $scope.$on('$destroy', function () {
-        $window.removeEventListener('resize', applyRewidth);
         navbar.customBackgroundColor = null;
+      });
+
+      $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
+        if (toState.name === 'news' && fromState.name === 'news' && (toParams.startid > fromParams.startid || !toParams.startid)
+          || toState.name === 'news' && fromState.name !== 'news') {
+          $scope.isStateBack = true;
+        } else {
+          $scope.isStateBack = false;
+        }
       });
 
       $scope.newsListScroller = {
@@ -51,64 +64,70 @@
         usePullDown: true
       };
 
-      $scope.$on('kScrollerPullDownStateChange', function () {
-        switch ($scope.newsListScroller.pullDownState) {
+      $scope.$on('kScrollerPullDownStateChange', function (e) {
+        var scroller = e.targetScope.model;
+        
+        switch (scroller.pullDownState) {
           case 0:
-            if ($stateParams.startid) {
-              $scope.newsListScroller.setPullDownHintText('下拉返回第一页');
-            }
-            else {
-              $scope.newsListScroller.setPullDownHintText('下拉刷新');
+            if ($scope.newsModel.startId) {
+              scroller.setPullDownHintText('下拉返回第一页');
+            } else {
+              scroller.setPullDownHintText('下拉刷新');
             }
             break;
           case 1:
-            if ($stateParams.startid) {
-              $scope.newsListScroller.setPullDownHintText('松开返回第一页');
+            if ($scope.newsModel.startId) {
+              scroller.setPullDownHintText('松开返回第一页');
             } else {
-              $scope.newsListScroller.setPullDownHintText('松开立即刷新');
+              scroller.setPullDownHintText('松开立即刷新');
             }
             break;
           case 2:
-            if ($stateParams.startid) {
-              $scope.newsListScroller.setPullDownHintText('正在加载第一页…');
+            if ($scope.newsModel.startId) {
+              scroller.setPullDownHintText('正在加载第一页…');
             } else {
-              $scope.newsListScroller.setPullDownHintText('正在刷新...');
+              scroller.setPullDownHintText('正在刷新...');
             }
             break;
           case 3:
           case 4:
-            $scope.newsListScroller.setPullDownHintText('刷新完成');
+            scroller.setPullDownHintText('刷新完成');
             break;
         }
       });
-      $scope.$on('kScrollerPullUpStateChange', function () {
-        switch ($scope.newsListScroller.pullUpState) {
+      $scope.$on('kScrollerPullUpStateChange', function (e) {
+        var scroller = e.targetScope.model;
+
+        switch (scroller.pullUpState) {
           case 0:
-            $scope.newsListScroller.setPullUpHintText('上拉加载下一页');
+            scroller.setPullUpHintText('上拉加载下一页');
             break;
           case 1:
-            $scope.newsListScroller.setPullUpHintText('松开加载下一页');
+            scroller.setPullUpHintText('松开加载下一页');
             break;
           case 2:
-            $scope.newsListScroller.setPullUpHintText('正在加载...');
+            scroller.setPullUpHintText('正在加载...');
             break;
         }
       });
-      $scope.$on('kScrollerPullDown', function () {
-        if ($stateParams.startid) {
-          toPage();
+      $scope.$on('kScrollerPullDown', function (e) {
+        var targetScope = e.targetScope;
+        var scroller = targetScope.model;
+
+        if ($scope.newsModel.startId) {
+          $scope.toPage();
         } else {
-          loadData(function () {
-            $scope.newsListScroller.pullDownState = 3;
-            $scope.$emit('kScrollerPullDownStateChange');
-            if (!$stateParams.startid) {
+          $scope.loadData(function () {
+            scroller.pullDownState = 3;
+            targetScope.$emit('kScrollerPullDownStateChange');
+            if (!$scope.newsModel.startId) {
               $timeout(function () {
-                $scope.newsListScroller.pullDownState = 4;
-                $scope.$emit('kScrollerPullDownStateChange');
-                $scope.newsListScroller.stopAnimation();
-                $scope.newsListScroller.scrollTo(0, true, true, 250, function () {
-                  $scope.newsListScroller.pullDownState = 0;
-                  $scope.$emit('kScrollerPullDownStateChange');
+                scroller.pullDownState = 4;
+                targetScope.$emit('kScrollerPullDownStateChange');
+                scroller.stopAnimation();
+                scroller.scrollTo(0, true, true, 250, function () {
+                  scroller.pullDownState = 0;
+                  targetScope.$emit('kScrollerPullDownStateChange');
                 });
               }, 1500);
             }
@@ -116,21 +135,18 @@
         }
       });
       $scope.$on('kScrollerPullUp', function () {
-        toNextPage();
+        $scope.toNextPage();
       });
 
-      $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
-        if (toState.name === fromState.name && (toParams.startid > fromParams.startid || !toParams.startid)) {
-          $document.find('html').addClass('state-back');
-        }
-        if (toState.name === 'news.detail') {
-          $scope.stateIsDetail = true;
-        } else {
-          $scope.stateIsDetail = false;
-        }
+      $scope.liHeight = '16rem';
+      $window.addEventListener('resize', applyRewidth);
+      rewidth.call($window);
+
+      $scope.$on('$destroy', function () {
+        $window.removeEventListener('resize', applyRewidth);
       });
 
-      loadData($stateParams.startid);
+      $scope.global.title = '资讯';
 
       function applyRewidth() {
         rewidth();
@@ -141,35 +157,22 @@
         var rootFontSize = parseFloat($document.find('html').css('font-size'));
         $scope.liWidth = 100 / Math.round($window.innerWidth / rootFontSize / (parseFloat($scope.liHeight) * 16 / 9)) + '%';  
       }
-
-      function loadData(startId, callback) {
-        if (typeof startId === 'function') {
-          callback = startId;
-          startId = null;
-        }
-        News.pageQuery({startId: startId}, function (newsList) {
-          $scope.newsList = newsList;
-          if (typeof callback === 'function')
-            callback.call(this, newsList);
+    }])
+    .controller('NewsListCtrl', ['$scope', '$stateParams', function ($scope, $stateParams) {
+      if ($stateParams.startid !== $scope.newsModel.startId) {
+        $scope.loadData($stateParams.startid, function () {
+          $scope.newsModel.startId = $stateParams.startid;  
         });
       }
-
-      function toPage(startId) {
-        $state.go($state.$current, {startid: startId});
-      }
-
-      function toNextPage() {
-        toPage($scope.newsList[$scope.newsList.length - 1]._id);
-      }
     }])
-    .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', 'news', '$document',
-    function ($scope, News, $stateParams, news, $document) {
+    .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', '$document',
+    function ($scope, News, $stateParams, $document) {
       var oldTitle = $scope.global.title;
 
-      if ($scope.newsList && $scope.newsList.some(function (news) {
+      if ($scope.newsModel.newsList && $scope.newsModel.newsList.some(function (news) {
         return news._id === $stateParams.id;
       })) {
-        $scope.news = $scope.newsList.filter(function (news) {
+        $scope.news = $scope.newsModel.newsList.filter(function (news) {
           return news._id === $stateParams.id;
         })[0];
         $scope.global.title = $scope.news.title + ' - 资讯';
@@ -196,8 +199,9 @@
 
       $scope.$on('$destroy', function () {
         $scope.global.title = oldTitle;
+        $scope.newsModel.currentNewsId = null;
       });
 
-      news.currentNewsId = $stateParams.id;
+      $scope.newsModel.currentNewsId = $stateParams.id;
     }]);
 })(angular);

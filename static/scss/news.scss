@@ -7,23 +7,35 @@
   right: 0;
   top: 0;
   bottom: 0;
-  overflow: hidden;
-  background-color: white;
+  background-color: black;
 
-  .view-container {
+  .news-view-container {
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    overflow: hidden;
+    background-color: black;
     @include transform(translateZ(0) translateX(0));
 
     &.ng-enter {
       @include animation(slide-in-right .4s);
+      z-index: 1;
     }
     &.ng-leave {
-      @include animation(slide-out-right .4s forwards);
+      @include animation(slide-fade-out-left-small .4s forwards);
+      z-index: 0;
+    }
+  }
+
+  &.back .news-view-container {
+    &.ng-enter {
+      @include animation(slide-fade-in-left-small .4s);
+      z-index: 0;
+    }
+    &.ng-leave {
+      @include animation(slide-out-right .4s .1s forwards);
+      z-index: 1;
     }
   }
 
@@ -33,25 +45,26 @@
     right: 0;
     top: 0;
     bottom: 0;
-    overflow: hidden;
     background-color: white;
-    @include transform(translateZ(0));
+    overflow: hidden;
+    @include transform(translateZ(0) translateX(0));
     opacity: 1;
+    @include transition(visibility .4s);
 
     &.ng-hide-remove {
-      @include animation(fade-in .4s);
+      @include animation(slide-fade-in-left-small .4s .1s);
     }
     &.ng-hide {
-      @include animation(fade-out .4s forwards);
+      @include animation(slide-fade-out-left-small .4s forwards);
     }
 
     .news-list-inner {
-      padding: 1rem;
       position: absolute;
       left: 0;
       right: 0;
       top: 0;
       min-height: 100%;
+      padding: 1rem;
       @include box-sizing(border-box);
 
       li {
@@ -138,6 +151,23 @@
     }
   }
 
+  .news-list {
+    &.ng-enter {
+      @include animation(scale-enter .6s .1s);
+    }
+    &.ng-leave {
+      @include animation(scale-leave .6s .1s forwards);
+    }
+  }
+  &.back .news-list {
+    &.ng-enter {
+      @include animation(scale-back-enter .6s .1s);
+    }
+    &.ng-leave {
+      @include animation(scale-back-leave .6s .1s forwards);
+    }
+  }
+
   .news-detail {
     position: absolute;
     left: 0;
@@ -146,14 +176,6 @@
     bottom: 0;
     overflow: hidden;
     background-color: white;
-    // @include transform(translateZ(0));
-
-    // &.ng-enter {
-    //   @include animation(slide-fade-in-right .4s);
-    // }
-    // &.ng-leave {
-    //   @include animation(slide-fade-out-right .4s forwards);
-    // }
 
     .news-detail-inner {
       max-width: 60rem;

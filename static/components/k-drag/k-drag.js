@@ -149,6 +149,11 @@
             state = 0;
             dragend();
           };
+          Object.defineProperty(_event, 'state', {
+            get: function () {
+              return state;
+            }
+          });
           _event.ctrlKey = e.ctrlKey;
           _event.target = target;
 

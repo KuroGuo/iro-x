@@ -2,6 +2,7 @@
 	angular.module('kSwipe', [])
 		.factory('kSwipe', [function () {
 			var pointerdownPageX, pointerdownPageY;
+			var pointerdownTime;
 
 			return {
 				bind: function ($element) {
@@ -17,24 +18,30 @@
 			function onPointerdown(e) {
 				pointerdownPageX = e.pageX || e.changedTouches[0].pageX;
 				pointerdownPageY = e.pageY || e.changedTouches[0].pageY;
+				pointerdownTime = e.timeStamp;
 			}
 
 			function onPointerup(e) {
+				if (e.timeStamp - pointerdownTime > 200)
+					return;
+
 				var pageX = e.pageX || e.changedTouches[0].pageX;
 				var pageY = e.pageY || e.changedTouches[0].pageY;
 
 				var _event;
 
-				if (pageX - pointerdownPageX < -30) {
-					_event = newEvent('kSwipeLeft', e);
-				} else if (pageX - pointerdownPageX > 30) {
-					_event = newEvent('kSwipeRight', e);
-				}
-
-				if (pageY - pointerdownPageY < -30) {
-					_event = newEvent('kSwipeTop', e);
-				} else if (pageY - pointerdownPageY > 30) {
-					_event = newEvent('kSwipeBottom', e);
+				if (Math.abs(pageX - pointerdownPageX) >= Math.abs(pageY - pointerdownPageY)) {
+					if (pageX - pointerdownPageX < -30) {
+						_event = newEvent('kSwipeLeft', e);
+					} else if (pageX - pointerdownPageX > 30) {
+						_event = newEvent('kSwipeRight', e);
+					}
+				} else {
+					if (pageY - pointerdownPageY < -30) {
+						_event = newEvent('kSwipeTop', e);
+					} else if (pageY - pointerdownPageY > 30) {
+						_event = newEvent('kSwipeBottom', e);
+					}
 				}
 
 				if (_event) {

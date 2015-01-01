@@ -229,8 +229,11 @@ $nav-bar-width: 3.3rem;
   }
 }
 
-.state-back {
+.back {
   .container {
+    position: absolute;
+    @include transform(translateZ(0) scale(1));
+
     &.ng-enter {
       @include animation(scale-back-enter .6s);
     }
@@ -378,6 +381,26 @@ $nav-bar-width: 3.3rem;
     opacity: 0;
   }
 }
+@include keyframes(slide-fade-in-left-small) {
+  from {
+    @include transform(translateX(-30%) translateZ(0));
+    opacity: .7;
+  }
+  to {
+    @include transform(translateX(0) translateZ(0));
+    opacity: 1;
+  }
+}
+@include keyframes(slide-fade-out-left-small) {
+  from {
+    @include transform(translateX(0) translateZ(0));
+    opacity: 1;
+  }
+  to {
+    @include transform(translateX(-30%) translateZ(0));
+    opacity: .7;
+  }
+}
 @include keyframes(slide-fade-in-right) {
   from {
     @include transform(translateX(100%) translateZ(0));
@@ -506,12 +529,10 @@ $nav-bar-width: 3.3rem;
 
 @include keyframes(scale-enter) {
   from {
-    // @include transform(translateX(100%));
     @include transform(translateZ(0) scale(0));
     opacity: 0;
   }
   to {
-    // @include transform(translateX(0));
     @include transform(translateZ(0) scale(1));
     opacity: 1;
   }
@@ -519,12 +540,10 @@ $nav-bar-width: 3.3rem;
 
 @include keyframes(scale-back-enter) {
   from {
-    // @include transform(translateX(-100%));
     @include transform(translateZ(0) scale(2));
     opacity: 0;
   }
   to {
-    // @include transform(translateX(0));
     @include transform(translateZ(0) scale(1));
     opacity: 1;
   }
@@ -532,12 +551,10 @@ $nav-bar-width: 3.3rem;
 
 @include keyframes(scale-leave) {
   from {
-    // @include transform(translateX(0));
     @include transform(translateZ(0) scale(1));
     opacity: 1;
   }
   to {
-    // @include transform(translateX(-100%));
     @include transform(translateZ(0) scale(2));
     opacity: 0;
   }
@@ -545,12 +562,10 @@ $nav-bar-width: 3.3rem;
 
 @include keyframes(scale-back-leave) {
   from {
-    // @include transform(translateX(0));
     @include transform(translateZ(0) scale(1));
     opacity: 1;
   }
   to {
-    // @include transform(translateX(100%));
     @include transform(translateZ(0) scale(0));
     opacity: 0;
   }

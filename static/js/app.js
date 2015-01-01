@@ -32,12 +32,19 @@
         templateUrl: '/static/templates/music/play.html',
         controller: 'MusicPlayCtrl'
       })
-      .state('news', {
-        url: '/news?startid',
+      .state('newsBase', {
+        abstract: true,
+        url: '/news',
         templateUrl: '/static/templates/news/index.html',
         controller: 'NewsCtrl'
       })
+      .state('news', {
+        parent: 'newsBase',
+        url: '?startid',
+        controller: 'NewsListCtrl'
+      })
       .state('news.detail', {
+        parent: 'newsBase',
         url: '/:id',
         templateUrl: 'static/templates/news/detail.html',
         controller: 'NewsDetailCtrl'
@@ -111,6 +118,14 @@
         return navbar.customBackgroundColor;
       }
     });
+
+    $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState) {
+      if (toState.name === 'home' && fromState.name !== 'home' && !fromState.abstract) {
+        $scope.isStateBack = true;
+      } else {
+        $scope.isStateBack = false;
+      }
+    });
   }]).directive('html', ['$window', '$document', '$state', '$timeout', function ($window, $document, $state, $timeout) {
     var document = $document[0];
 
@@ -118,14 +133,6 @@
       restrict: 'E',
       link: function (scope, element, attrs, controller) {
         bindEvents();
-
-        scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState) {
-          if (!$state.includes(fromState.name) && fromState.name !== 'home' && !fromState.abstract) {
-            element.addClass('state-back');
-          } else {
-            element.removeClass('state-back');
-          }
-        });
 
         // 修复iPad ios7下的高度异常
         if (navigator.userAgent.match(/iPad;.*CPU.*OS 7_\d/i)) {

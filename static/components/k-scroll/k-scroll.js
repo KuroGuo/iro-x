@@ -95,7 +95,7 @@
             .on('mousewheel DOMMouseScroll', function (e) {
               if (e.ctrlKey)
                 return;
-              refreshContext();
+              refreshContext(true);
               e.preventDefault();
               var delta = computeMouseWheelDelta(e.originalEvent);
               var destScrollTop = scope.model.currentScrollTop - delta * scope.model.mousewheelSpeed;
@@ -110,8 +110,6 @@
               isDrag = false;
             })
             .on('kdragstart', function (e) {
-              isDrag = true;
-
               if ($(e.target).hasClass('scroll-bar')) // 如果拖拽的是滚动条就返回
                 return;
               else if (!scope.model.mouseDrag && e.pointerType === 'mouse' && !e.ctrlKey) {
@@ -121,10 +119,13 @@
 
               var $wrapper = $(e.currentTarget);
 
-              $wrapper.addClass('dragging');
-
               if (scope.model.emitDragstart) {
                 scope.$emit('kScrollerDragstart', e);
+              }
+
+              if (e.state > 0) {
+                $wrapper.addClass('dragging');
+                isDrag = true;
               }
             })
             .on('kdrag', function (e) {
@@ -147,10 +148,10 @@
               var $wrapper = $(e.currentTarget);
 
               if (!isDrag) {
+                dragEndvScrollTop = 0;
                 lastFrameTime = null;
                 $wrapper.addClass('sliding');
                 slide();
-                
                 checkTriggerPull();
               }
             })
@@ -211,6 +212,9 @@
           scrollTo(scope.model.currentScrollTop, false, false);
 
           function resizeCheck() {
+            if ($wrapper.css('display') === 'none')
+              return;
+
             refreshContext(true);
             if (scope.model.currentScrollTop > maxScroll) {
               scrollTo(maxScroll);
@@ -279,7 +283,7 @@
             scrollerBarHeightPercent = wrapperHeightRem / scrollerHeightRem;
             if (scrollerBarHeightPercent >= 1) {
               scrollerBarHeightPercent = 0;
-            } 
+            }
 
             scrollerBarHeightRem = Math.max(wrapperHeightRem * scrollerBarHeightPercent, 3);
 
