@@ -51,6 +51,9 @@
             emitDragend: false
           }, scope.model);
 
+          scope.model.pullDownState = null;
+          scope.model.pullUpState = null;
+
           scope.model.scrollTo = scrollTo;
           scope.model.stopAnimation = stopAnimation;
           scope.model.refreshContext = refreshContext;

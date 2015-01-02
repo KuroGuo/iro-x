@@ -5,44 +5,15 @@
     'ngSanitize',
     'kScroll',
     'kSwipe'])
-    .controller('NewsBaseCtrl', [function () {
-      
-    }])
-    .controller('NewsCtrl',
-    ['$scope', 'News', 'navbar', '$state', '$document', '$window', '$timeout', '$stateParams',
-    function ($scope, News, navbar, $state, $document, $window, $timeout, $stateParams) {
-      $scope.openNews = function (id) {
-        if ($state.is('news.detail')) {
-          $state.go('news.detail', {id: id}, {location: 'replace'});
-        } else {
-          $state.go('news.detail', {id: id});
-        }
-      };
-
-      $scope.loadData = function(startId, callback) {
-        if (typeof startId === 'function') {
-          callback = startId;
-          startId = null;
-        }
-        News.pageQuery({startId: startId}, function (newsList) {
-          $scope.newsModel.newsList = newsList;
-          if (typeof callback === 'function')
-            callback.call(this, newsList);
-        });
-      };
-
-      $scope.toNextPage = function() {
-        $scope.toPage($scope.newsModel.newsList[$scope.newsModel.newsList.length - 1]._id);
-      };
-
-      $scope.toPage = function(startId) {
-        $state.go('news', {startid: startId});
-      };
-
+    .controller('NewsCtrl', ['$scope', 'navbar', function ($scope, navbar) {
       $scope.newsModel = {
         currentNewsId: null,
         newsList: null,
-        startId: null
+        startId: null,
+        listModels: {},
+        viewName: null,
+        fromView: null,
+        toView: null
       };
 
       navbar.customBackgroundColor = 'rgba(51,51,51,1)';
@@ -50,19 +21,63 @@
         navbar.customBackgroundColor = null;
       });
 
+       $scope.$on('$stateChangeStart', function () {
+        $scope.newsModel.fromView = null;
+        $scope.newsModel.toView = null;
+       });
+
       $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
         if (toState.name === 'news' && fromState.name === 'news' && (toParams.startid > fromParams.startid || !toParams.startid)
           || toState.name === 'news' && fromState.name.indexOf('news') === 0 && fromState.name !== 'news') {
-          $scope.isStateBack = true;
+          document.documentElement.classList.add('state-back');
         } else {
-          $scope.isStateBack = false;
+          document.documentElement.classList.remove('state-back');
         }
       });
+    }])
+    .controller('NewsListCtrl', ['$scope', '$stateParams', 'News', '$window', '$document', '$state', '$timeout',
+    function ($scope, $stateParams, News, $window, $document, $state, $timeout) {
+      if ($stateParams.startid !== $scope.newsModel.startId) {
+        loadData($stateParams.startid, function () {
+          $scope.newsModel.startId = $stateParams.startid;
+        });
+      }
 
-      $scope.newsListScroller = {
-        usePullUp: true,
-        usePullDown: true
-      };
+      $scope.openNews = openNews;
+      $scope.loadData = loadData;
+      $scope.toNextPage = toNextPage;
+      $scope.toPage = toPage;
+
+      var listModel;
+
+      if (!$scope.newsModel.listModels[$stateParams.startid]) {
+        $scope.listModel = listModel = {
+          newsListScroller: {
+            usePullUp: true,
+            usePullDown: true,
+            currentScrollTop: 0
+          }
+        };
+      } else {
+        $scope.listModel = listModel = $scope.newsModel.listModels[$stateParams.startid];
+      }
+
+      $scope.global.title = '资讯';
+
+      $scope.liHeight = '16rem';
+      $window.addEventListener('resize', applyRewidth);
+      rewidth.call($window);
+
+      $scope.$on('$destroy', function () {
+        $window.removeEventListener('resize', applyRewidth);
+
+        if (listModel.newsListScroller.currentScrollTop < 0)
+          listModel.newsListScroller.currentScrollTop = 0;
+        else if (listModel.newsListScroller.currentScrollTop > listModel.newsListScroller.maxScroll)
+          listModel.newsListScroller.currentScrollTop = listModel.newsListScroller.maxScroll;
+
+        $scope.newsModel.listModels[$stateParams.startid] = listModel;
+      });
 
       $scope.$on('kScrollerPullDownStateChange', function (e) {
         var scroller = e.targetScope.model;
@@ -115,9 +130,9 @@
         var scroller = targetScope.model;
 
         if ($scope.newsModel.startId) {
-          $scope.toPage();
+          toPage();
         } else {
-          $scope.loadData(function () {
+          loadData(function () {
             scroller.pullDownState = 3;
             targetScope.$emit('kScrollerPullDownStateChange');
             if (!$scope.newsModel.startId) {
@@ -135,18 +150,35 @@
         }
       });
       $scope.$on('kScrollerPullUp', function () {
-        $scope.toNextPage();
+        toNextPage();
       });
 
-      $scope.liHeight = '16rem';
-      $window.addEventListener('resize', applyRewidth);
-      rewidth.call($window);
+      function openNews(id) {
+        if ($state.is('news.detail')) {
+          $state.go('news.detail', {id: id}, {location: 'replace'});
+        } else {
+          $state.go('news.detail', {id: id});
+        }
+      }
 
-      $scope.$on('$destroy', function () {
-        $window.removeEventListener('resize', applyRewidth);
-      });
+      function loadData(startId, callback) {
+        if (typeof startId === 'function') {
+          callback = startId;
+          startId = null;
+        }
+        $scope.newsModel.newsList = News.pageQuery({startId: startId}, function (newsList) {
+          if (typeof callback === 'function')
+            callback.call(this, newsList);
+        });
+      }
 
-      $scope.global.title = '资讯';
+      function toNextPage() {
+        toPage($scope.newsModel.newsList[$scope.newsModel.newsList.length - 1]._id);
+      }
+
+      function toPage(startId) {
+        $state.go('news', {startid: startId});
+      }
 
       function applyRewidth() {
         rewidth();
@@ -156,13 +188,6 @@
       function rewidth() {
         var rootFontSize = parseFloat($document.find('html').css('font-size'));
         $scope.liWidth = 100 / Math.round($window.innerWidth / rootFontSize / (parseFloat($scope.liHeight) * 16 / 9)) + '%';  
-      }
-    }])
-    .controller('NewsListCtrl', ['$scope', '$stateParams', function ($scope, $stateParams) {
-      if ($stateParams.startid !== $scope.newsModel.startId) {
-        $scope.loadData($stateParams.startid, function () {
-          $scope.newsModel.startId = $stateParams.startid;  
-        });
       }
     }])
     .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', '$document',

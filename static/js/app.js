@@ -41,6 +41,7 @@
       .state('news', {
         parent: 'newsBase',
         url: '?startid',
+        templateUrl: 'static/templates/news/list.html',
         controller: 'NewsListCtrl'
       })
       .state('news.detail', {
@@ -121,9 +122,9 @@
 
     $scope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState) {
       if (toState.name === 'home' && fromState.name !== 'home' && !fromState.abstract) {
-        $scope.isStateBack = true;
+        document.documentElement.classList.add('state-back');
       } else {
-        $scope.isStateBack = false;
+        document.documentElement.classList.remove('state-back');
       }
     });
   }]).directive('html', ['$window', '$document', '$state', '$timeout', function ($window, $document, $state, $timeout) {

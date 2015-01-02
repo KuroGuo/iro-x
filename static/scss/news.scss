@@ -7,6 +7,7 @@
   right: 0;
   top: 0;
   bottom: 0;
+  background-color: black;
 
   .news-view-container {
     position: absolute;
@@ -14,54 +15,29 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: black;
     @include transform(translateZ(0) translateX(0));
-
-    &.ng-enter {
-      @include animation(slide-in-right .4s);
-      z-index: 1;
-    }
-    &.ng-leave {
-      @include animation(slide-fade-out-left-small .4s forwards);
-      z-index: 0;
-    }
+    opacity: 1;
+    z-index: 1;
   }
 
-  &.back .news-view-container {
-    &.ng-enter {
-      @include animation(slide-fade-in-left-small .4s);
-      z-index: 0;
-    }
-    &.ng-leave {
-      @include animation(slide-out-right .4s .1s forwards);
-      z-index: 1;
-    }
-  }
+  .news-view-container {
+      &.ng-enter {
+        @include animation(slide-in-right .4s .1s backwards);
+      }
+      &.ng-leave {
+        z-index: 0;
+        @include animation(slide-fade-out-left-small .4s .1s forwards);
+      }
 
-  .news-list-wrapper {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: black;
-  }
-
-  .news-list-wrapper {
-    &.ng-enter {
-      @include animation(scale-enter .6s .1s);
-    }
-    &.ng-leave {
-      @include animation(scale-leave .6s .1s forwards);
-    }
-  }
-  &.back .news-list-wrapper {
-    &.ng-enter {
-      @include animation(scale-back-enter .6s .1s);
-    }
-    &.ng-leave {
-      @include animation(scale-back-leave .6s .1s forwards);
-    }
+      .state-back & {
+        &.ng-enter {
+          z-index: 0;
+          @include animation(slide-fade-in-left-small .4s .1s backwards);
+        }
+        &.ng-leave {
+          @include animation(slide-out-right .4s .1s forwards);
+        }
+      }
   }
 
   .news-list {
@@ -71,15 +47,6 @@
     top: 0;
     bottom: 0;
     overflow: hidden;
-
-    @include transform(translateZ(0) translateX(0));
-    opacity: 1;
-    &.ng-hide-remove {
-      @include animation(slide-fade-in-left-small .4s .1s);
-    }
-    &.ng-hide {
-      @include animation(slide-fade-out-left-small .4s forwards);
-    }
 
     .news-list-inner {
       position: absolute;

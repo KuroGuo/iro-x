@@ -63,11 +63,11 @@
         font-size: $lrc-font-size;
         @include transform(translateZ(0));
 
-        &.ng-hide {
-          @include animation(fade-out-top .4s forwards);
-        }
         &.ng-hide-remove {
           @include animation(fade-in-bottom .4s);
+        }
+        &.ng-hide {
+          @include animation(fade-out-top .4s forwards);
         }
       }
     }
