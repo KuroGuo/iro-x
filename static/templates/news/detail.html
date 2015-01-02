@@ -1,6 +1,5 @@
-<div class="news-detail k-scroller-wrapper hoverable" event-stop-propagation="touchstart,touchend,mousedown,mouseup,click" k-model="newsDetailScroller" k-swipe-right="i=i+1" k-swipe-options="{mouse: false}">
+<div class="news-detail k-scroller-wrapper hoverable" event-stop-propagation="touchstart,touchend,mousedown,mouseup,click" k-model="newsDetailScroller" k-swipe-right="backHistory()" k-swipe-options="{mouse: false}">
   <div class="news-detail-inner k-scroller" ng-show="news.title">
-  {{i}}
     <h2 class="title" ng-bind="news.title"></h2>
     <div class="content" ng-bind-html="news.content"></div>
   </div>
