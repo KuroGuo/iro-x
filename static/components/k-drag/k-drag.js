@@ -58,11 +58,10 @@
           if (state === 1) {
             if (Math.abs(pageXY.x - pointerdownPageXY.x) >= adsorb
             || Math.abs(pageXY.y - pointerdownPageXY.y) >= adsorb) {
-              _event = newEvent('kdragstart', e);
-              state = 2;
-              $element.triggerHandler(_event);
-
               dragFrame();
+              state = 2;
+              _event = newEvent('kdragstart', e);
+              $element.triggerHandler(_event);
             }
           }
         }
@@ -146,7 +145,6 @@
             e.preventDefault();
           };
           _event.prevent = function () {
-            state = 0;
             dragend();
           };
           Object.defineProperty(_event, 'state', {
