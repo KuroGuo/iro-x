@@ -133,17 +133,21 @@
           _event.vx = vx || 0;
           _event.vy = vy || 0;
 
-          if (e.type.indexOf('mouse') > -1) {
-            _event.pointerType = 'mouse';
-          } else if (e.type.indexOf('touch') > -1) {
-            _event.pointerType = 'touch';
-            _event.touchId = e.changedTouches[0].identifier;
-          } else {
-            _event.pointerType = e.type;
+          if (e) {
+            if (e.type.indexOf('mouse') > -1) {
+              _event.pointerType = 'mouse';
+            } else if (e.type.indexOf('touch') > -1) {
+              _event.pointerType = 'touch';
+              _event.touchId = e.changedTouches[0].identifier;
+            } else {
+              _event.pointerType = e.type;
+            }
+            _event.preventDefault = function () {
+              e.preventDefault();
+            };
+            _event.ctrlKey = e.ctrlKey;
           }
-          _event.preventDefault = function () {
-            e.preventDefault();
-          };
+          
           _event.prevent = function () {
             dragend();
           };
@@ -152,7 +156,6 @@
               return state;
             }
           });
-          _event.ctrlKey = e.ctrlKey;
           _event.target = target;
 
           return _event;
