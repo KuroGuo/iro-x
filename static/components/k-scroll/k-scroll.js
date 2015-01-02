@@ -91,7 +91,7 @@
             .on('mousewheel DOMMouseScroll', function (e) {
               if (e.ctrlKey)
                 return;
-              refreshContext(true);
+              refreshContext();
               e.preventDefault();
               var delta = computeMouseWheelDelta(e.originalEvent);
               var destScrollTop = scope.model.currentScrollTop - delta * scope.model.mousewheelSpeed;
@@ -211,7 +211,7 @@
             if ($wrapper.css('display') === 'none')
               return;
 
-            refreshContext(true);
+            refreshContext();
             if (scope.model.currentScrollTop > maxScroll) {
               scrollTo(maxScroll);
             }
