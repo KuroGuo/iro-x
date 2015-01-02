@@ -28,6 +28,7 @@
 .k-scroller-wrapper > .scroll-bar.dragging {
   opacity: 1;
   border-right-width: .8rem;
+  transition-duration: .2s, 0;
   transition-delay: 0, 0;
 }
 
@@ -35,6 +36,7 @@
 .k-scroller-wrapper.scrolling > .scroll-bar,
 .k-scroller-wrapper.sliding > .scroll-bar {
   opacity: 1;
+  transition-duration: .2s, 0;
   transition-delay: 0, 0;
 }
 
