@@ -32,10 +32,10 @@
       .state-back & {
         &.ng-enter {
           z-index: 0;
-          @include animation(slide-fade-in-left-small .4s .1s backwards);
+          @include animation(slide-fade-in-left-small .4s .2s backwards);
         }
         &.ng-leave {
-          @include animation(slide-out-right .4s .1s forwards);
+          @include animation(slide-out-right .4s .2s forwards);
         }
       }
   }
