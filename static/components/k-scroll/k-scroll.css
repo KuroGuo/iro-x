@@ -1,7 +1,7 @@
 .k-scroller-wrapper > .scroll-bar {
-  transition-property: border-right-width;
-  transition-duration: .2s;
-  transition-delay: .4s;
+  transition-property: border-right-width, opacity;
+  transition-duration: .2s, .2s;
+  transition-delay: .4s, 1s;
   position: absolute;
   right: 0;
   top: 0;
@@ -9,13 +9,14 @@
   height: 0;
   -moz-box-sizing:border-box;
   -webkit-box-sizing:border-box;
-  box-sizing:border-box
+  box-sizing:border-box;
   z-index: 100;
   border-style: solid;
   border-left-width: .2rem;
   border-left-color: transparent;
   border-right-color: rgba(0, 0, 0, .3);
   border-right-width: .3rem;
+  opacity: 0;
 }
 
 .k-scroller-wrapper > .scroll-bar.active,
@@ -25,9 +26,18 @@
 
 .k-scroller-wrapper > .scroll-bar.hover,
 .k-scroller-wrapper > .scroll-bar.dragging {
+  opacity: 1;
   border-right-width: .8rem;
-  transition-delay: 0;
+  transition-delay: 0, 0;
 }
+
+.k-scroller-wrapper.dragging > .scroll-bar,
+.k-scroller-wrapper.scrolling > .scroll-bar,
+.k-scroller-wrapper.sliding > .scroll-bar {
+  opacity: 1;
+  transition-delay: 0, 0;
+}
+
 
 .k-scroller > .pulldown-hint,
 .k-scroller > .pullup-hint {

@@ -210,8 +210,8 @@
           }
 
           // 强制开启硬件加速
-          $.Velocity.hook($scrollerBar, "translateZ", '1px');
           $.Velocity.hook($scroller, "translateZ", '1px');
+          $.Velocity.hook($scrollerBar, "translateZ", '1px');
           scrollTo(scope.model.currentScrollTop, false, false);
 
           function resizeCheck() {
@@ -279,6 +279,9 @@
           }
 
           function refreshContext(force) {
+            if (force !== true)
+              force = false;
+
             htmlFontSize = !force && cache.htmlFontSize || parseFloat($('html').css('font-size'));
             wrapperHeightRem = !force && cache.wrapperHeightRem || $wrapper.innerHeight() / htmlFontSize;
             scrollerHeightRem = !force && cache.scrollerHeightRem || $scroller.outerHeight(true) / htmlFontSize;
@@ -288,7 +291,7 @@
               scrollerBarHeightPercent = 0;
             }
 
-            scrollerBarHeightRem = Math.max(wrapperHeightRem * scrollerBarHeightPercent, 3);
+            scrollerBarHeightRem = Math.max(wrapperHeightRem * scrollerBarHeightPercent, 4);
 
             cache.htmlFontSize = htmlFontSize;
             cache.wrapperHeightRem = wrapperHeightRem;
