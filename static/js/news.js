@@ -4,7 +4,8 @@
     'iro.services.navbar',
     'ngSanitize',
     'kScroll',
-    'kSwipe'])
+    'kSwipe',
+    'once'])
     .controller('NewsCtrl', ['$scope', 'navbar', function ($scope, navbar) {
       $scope.newsModel = {
         currentNewsId: null,
@@ -167,18 +168,11 @@
           startId = null;
         }
 
-        if (!startId && !$scope.newsModel.startId) {
-          News.pageQuery({startId: startId}, function (newsList) {
-            $scope.newsModel.newsList = newsList;
-            if (typeof callback === 'function')
-              callback.call(this, newsList);
-          });
-        } else {
-          $scope.newsModel.newsList = News.pageQuery({startId: startId}, function (newsList) {
-            if (typeof callback === 'function')
-              callback.call(this, newsList);
-          });
-        }
+        News.pageQuery({startId: startId}, function (newsList) {
+          $scope.newsModel.newsList = newsList;
+          if (typeof callback === 'function')
+            callback.call(this, newsList);
+        });
       }
 
       function toNextPage() {
