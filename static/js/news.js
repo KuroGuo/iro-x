@@ -202,6 +202,8 @@
     }])
     .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', '$document',
     function ($scope, News, $stateParams, $document) {
+      var document = $document[0];
+
       var oldTitle = $scope.global.title;
 
       if ($scope.newsModel.newsList && $scope.newsModel.newsList.some(function (news) {
@@ -219,24 +221,62 @@
       }
 
       $scope.newsDetailScroller = {
-        emitDragstart: true,
-        mouseDrag: false
+        emitDragstart: true
       };
 
-      var dragStartPageX;
+      $scope.newsModel.currentNewsId = $stateParams.id;
+
+      var dragStartPageX, preventClick;
+
+      document.addEventListener('mousedown', restorePreventClick, true);
 
       $scope.$on('kScrollerDragstart', function (e, drag) {
-        if (Math.abs(drag.deltaX / drag.deltaY) > 3 / 4) {
-          drag.prevent();
+        if (Math.abs(drag.deltaX / drag.deltaY) > 1) {
           dragStartPageX = drag.pageX;
+          drag.prevent();
         }
+
+        preventClick = true;
       });
 
       $scope.$on('$destroy', function () {
         $scope.global.title = oldTitle;
         $scope.newsModel.currentNewsId = null;
+
+        document.removeEventListener('mousedown', restorePreventClick, true);
+        document.removeEventListener('keydown', onKeydown);
+        document.removeEventListener('mousedown', preventDefault, true);
+        document.removeEventListener('click', preventDefault, true);
       });
 
-      $scope.newsModel.currentNewsId = $stateParams.id;
+      document.addEventListener('keydown', onKeydown);
+      document.addEventListener('mousedown', preventDefault, true);
+      document.addEventListener('click', preventDefault, true);
+
+      function onKeydown(e) {
+        if (e.keyCode === 17) { // ctrl key
+          $scope.disableMouseDrag = !$scope.disableMouseDrag;
+          $scope.newsDetailScroller.mouseDrag = !$scope.disableMouseDrag;
+        }
+      }
+
+      function preventDefault(e) {
+        switch (e.type) {
+          case 'mousedown':
+            if (!$scope.disableMouseDrag) {
+              e.preventDefault();
+            }
+            break;
+          case 'click':
+            if (preventClick) {
+              e.preventDefault();
+            }
+            break;
+        }
+      }
+
+      function restorePreventClick() {
+        preventClick = false;
+      }
     }]);
 })(angular);
