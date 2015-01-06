@@ -244,14 +244,18 @@
         $scope.newsModel.currentNewsId = null;
 
         document.removeEventListener('mousedown', restorePreventClick, true);
-        document.removeEventListener('keydown', onKeydown);
-        document.removeEventListener('mousedown', preventDefault, true);
-        document.removeEventListener('click', preventDefault, true);
       });
 
-      document.addEventListener('keydown', onKeydown);
-      document.addEventListener('mousedown', preventDefault, true);
-      document.addEventListener('click', preventDefault, true);
+      if (!('ontouchstart' in document)) {
+        document.addEventListener('keydown', onKeydown);
+        document.addEventListener('mousedown', preventDefault, true);
+        document.addEventListener('click', preventDefault, true);
+        $scope.$on('$destroy', function () {
+          document.removeEventListener('keydown', onKeydown);
+          document.removeEventListener('mousedown', preventDefault, true);
+          document.removeEventListener('click', preventDefault, true);
+        });
+      }
 
       function onKeydown(e) {
         if (e.keyCode === 17) { // ctrl key
