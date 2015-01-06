@@ -12,7 +12,7 @@
 <div class="ctrl-bar">
     <span class="btn-play-pause hoverable activable" k-tap="player.paused ? player.play() : player.pause()"><span class="text iconfont" ng-class="{'icon-bofang': player.paused !== false, 'icon-zanting': player.paused === false}"></span></span>
     <span class="time"><span class="current">{{player.currentTimeDisplay}}</span> / {{player.durationDisplay}}</span>
-    <div class="textbox-comment event-default" contenteditable="true" spellcheck="false"></div>
+    <div class="textbox-comment" contenteditable="true" spellcheck="false" event-stop-propagation="touchstart,touchend,mousedown,mouseup,click"></div>
     <span class="btn-send hoverable activable"><span class="text">发送</span></span>
     <span class="btn-open hoverable activable" title="打开文件" k-tap="player.openFile()"><span class="text iconfont icon-wenjianku"></span></span>
     <span class="btn-fullscreen hoverable activable" k-tap="player.toggleFullscreen()" title="全屏"><span class="text iconfont icon-quanping"></span></span>
