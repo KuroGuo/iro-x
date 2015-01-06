@@ -239,6 +239,7 @@
             else if (scope.model.currentScrollTop > maxScroll)
               scope.model.currentScrollTop = maxScroll;
 
+            refreshContext();
             scrollTo(scope.model.currentScrollTop, true, true);
           }
 
