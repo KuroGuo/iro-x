@@ -250,10 +250,12 @@
         document.addEventListener('keydown', onKeydown);
         document.addEventListener('mousedown', preventDefault, true);
         document.addEventListener('click', preventDefault, true);
+        document.addEventListener('dblclick', onDblclick, true);
         $scope.$on('$destroy', function () {
           document.removeEventListener('keydown', onKeydown);
           document.removeEventListener('mousedown', preventDefault, true);
           document.removeEventListener('click', preventDefault, true);
+          document.removeEventListener('dblclick', onDblclick, true);
         });
       }
 
