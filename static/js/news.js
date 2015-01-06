@@ -245,11 +245,13 @@
 
         document.removeEventListener('mousedown', restorePreventClick, true);
         document.removeEventListener('keydown', onKeydown);
+        document.removeEventListener('dblclick', onDblclick);
         document.removeEventListener('mousedown', preventDefault, true);
         document.removeEventListener('click', preventDefault, true);
       });
 
       document.addEventListener('keydown', onKeydown);
+      document.addEventListener('dblclick', onDblclick);
       document.addEventListener('mousedown', preventDefault, true);
       document.addEventListener('click', preventDefault, true);
 
@@ -258,6 +260,11 @@
           $scope.disableMouseDrag = !$scope.disableMouseDrag;
           $scope.newsDetailScroller.mouseDrag = !$scope.disableMouseDrag;
         }
+      }
+      
+      function onDblclick(e) {
+        $scope.disableMouseDrag = !$scope.disableMouseDrag;
+        $scope.newsDetailScroller.mouseDrag = !$scope.disableMouseDrag;
       }
 
       function preventDefault(e) {
