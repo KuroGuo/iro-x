@@ -220,11 +220,12 @@
         });
       }
 
+      $scope.isTouchScreen = 'ontouchstart' in document;
       $scope.newsDetailScroller = {
         emitDragstart: true,
         mouseDrag: false
       };
-       $scope.disableMouseDrag = true;
+      $scope.disableMouseDrag = true;
 
       $scope.newsModel.currentNewsId = $stateParams.id;
 
@@ -248,7 +249,7 @@
         document.removeEventListener('mousedown', restorePreventClick, true);
       });
 
-      if (!('ontouchstart' in document)) {
+      if (!$scope.isTouchScreen) {
         document.addEventListener('keydown', onKeydown);
         document.addEventListener('mousedown', preventDefault, true);
         document.addEventListener('click', preventDefault, true);
