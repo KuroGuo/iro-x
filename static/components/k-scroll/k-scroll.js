@@ -33,7 +33,7 @@
             isDrag;
 
           scope.model = angular.extend({
-            mousewheelSpeed: 7, // 鼠标滚轮滚动速度
+            speed: 7, // 鼠标滚轮滚动速度
             currentScrollTop: 0, // 当前纵向滚动值
             vScrollTop: 0, // 纵向滚动速度
             mouseDrag: true, // 是否允许鼠标拖动
@@ -41,7 +41,8 @@
             usePullUp: false, // 是否使用上拉，可实现上拉加载更多等功能
             resizeCheck: true, // 浏览器窗口尺寸变化时检查,
             emitDragstart: false,
-            emitDragend: false
+            emitDragend: false,
+            bindKey: true // 绑定按键
           }, scope.model);
 
           scope.model.pullDownState = null;
@@ -82,10 +83,13 @@
             resetscrollerBarStyle();
           });
 
-          wrapper.addEventListener('mousedown', brake);
-          wrapper.addEventListener('touchstart', brake);
+          wrapper.addEventListener('mousedown', _break);
+          wrapper.addEventListener('touchstart', _break);
 
-          $window.addEventListener('blur', brake);
+          $window.addEventListener('blur', _break);
+          $wrapper.on('$destroy', function () {
+            $window.removeEventListener('blur', _break);
+          });
 
           $wrapper
             .on('mousewheel DOMMouseScroll', function (e) {
@@ -94,7 +98,7 @@
               refreshContext();
               e.preventDefault();
               var delta = computeMouseWheelDelta(e.originalEvent);
-              var destScrollTop = scope.model.currentScrollTop - delta * scope.model.mousewheelSpeed;
+              var destScrollTop = scope.model.currentScrollTop - delta * scope.model.speed;
               if (destScrollTop > maxScroll)
                 destScrollTop = maxScroll;
               else if (destScrollTop < minScroll)
@@ -195,19 +199,53 @@
               $scrollerBar.removeClass('dragging');
             });
 
-          if (scope.model.resizeCheck) {
-            $window.addEventListener('resize', resizeCheck);
-            element.on('$destroy', function () {
-              $window.removeEventListener('resize', resizeCheck);
-            });
-          }
+          $window.addEventListener('resize', resizeCheck);
+          $wrapper.on('$destroy', function () {
+            $window.removeEventListener('resize', resizeCheck);
+          });
+
+          document.addEventListener('keydown', keyScroll);
+          $wrapper.on('$destroy', function () {
+            document.removeEventListener('keydown', keyScroll);
+          });
 
           // 强制开启硬件加速
           $.Velocity.hook($scroller, "translateZ", '1px');
           $.Velocity.hook($scrollerBar, "translateZ", '1px');
           scrollTo(scope.model.currentScrollTop, false, false);
 
+          function keyScroll(e) {
+            if (!scope.model.bindKey)
+              return;
+
+            // ←:37  ↑:38  →:39  ↓:40  pgup:33  pgdn:34
+            switch (e.keyCode) {
+              case 33:
+                scope.model.currentScrollTop -= wrapperHeightRem - 3;
+                break;
+              case 34:
+                scope.model.currentScrollTop += wrapperHeightRem - 3;
+                break;
+              case 38:
+                scope.model.currentScrollTop -= scope.model.speed;
+                break;
+              case 40:
+                scope.model.currentScrollTop += scope.model.speed;
+                break;
+            }
+
+            if (scope.model.currentScrollTop < minScroll)
+              scope.model.currentScrollTop = minScroll;
+            else if (scope.model.currentScrollTop > maxScroll)
+              scope.model.currentScrollTop = maxScroll;
+
+            scrollTo(scope.model.currentScrollTop, true, true);
+          }
+
           function resizeCheck() {
+            if (!scope.model.resizeCheck)
+              return;
+
             if ($wrapper.css('display') === 'none')
               return;
 
@@ -217,7 +255,7 @@
             }
           }
 
-          function brake(e, preventTap) {
+          function _break(e, preventTap) {
             if (frameToken) {
               stopAnimation();
               if (e.type !== 'blur' && Math.abs(scope.model.vScrollTop) > 0.01) {
