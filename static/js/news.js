@@ -263,6 +263,11 @@
           $scope.newsDetailScroller.mouseDrag = !$scope.disableMouseDrag;
         }
       }
+      
+      function onDblclick(e) {
+        $scope.disableMouseDrag = !$scope.disableMouseDrag;
+        $scope.newsDetailScroller.mouseDrag = !$scope.disableMouseDrag;
+      }
 
       function preventDefault(e) {
         switch (e.type) {
