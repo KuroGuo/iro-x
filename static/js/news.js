@@ -206,19 +206,10 @@
 
       var oldTitle = $scope.global.title;
 
-      if ($scope.newsModel.newsList && $scope.newsModel.newsList.some(function (news) {
-        return news._id === $stateParams.id;
-      })) {
-        $scope.news = $scope.newsModel.newsList.filter(function (news) {
-          return news._id === $stateParams.id;
-        })[0];
-        $scope.global.title = $scope.news.title + ' - 资讯';
-      } else {
-        News.get({id: $stateParams.id}, function (news) {
-          $scope.news = news;
-          $scope.global.title = news.title + ' - 资讯';
-        });
-      }
+      News.get({id: $stateParams.id}, function (news) {
+        $scope.news = news;
+        $scope.global.title = news.title + ' - 资讯';
+      });
 
       $scope.isTouchScreen = 'ontouchstart' in document;
       $scope.newsDetailScroller = {

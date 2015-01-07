@@ -9,7 +9,10 @@ exports.getById = function (id, callback) {
 exports.query = function (startId, count, callback) {
   var criteria = startId ? {_id: {$lt: startId}} : null;
 
-  News.find(criteria)
+  News.find(criteria, {
+      title: 1,
+      thumbSrc: 1
+    })
     .sort({_id: 'desc'})
     .limit(count)
     .exec(function (err, newsList) {

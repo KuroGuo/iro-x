@@ -21,6 +21,7 @@ exports.query = function (req, res, next) {
     if (err) {
       return next(err);
     }
+
     res.send(newsList);
   });
 };
