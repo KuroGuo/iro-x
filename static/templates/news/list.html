@@ -1,5 +1,5 @@
 <div class="news-list k-scroller-wrapper hoverable" k-model="listModel.newsListScroller">
-  <ul class="news-list-inner k-scroller">
+  <ul ng-show="animationCompleted" class="news-list-inner k-scroller">
     <li ng-repeat="news in newsModel.newsList track by news._id" ng-style="{width: liWidth, height: liHeight}">
       <a k-tap="openNews(news._id)" once-class="{'no-thumb': !news.thumbSrc}">
         <span class="thumb" once-if="!!news.thumbSrc" once-style="{'background-image': 'url(\'' + news.thumbSrc + '\')'}"></span>

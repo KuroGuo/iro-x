@@ -44,6 +44,11 @@
         });
       }
 
+      $scope.animationCompleted = false;
+      $timeout(function() {
+        $scope.animationCompleted = true;
+      }, 400);
+
       $scope.openNews = openNews;
       $scope.loadData = loadData;
       $scope.toNextPage = toNextPage;
@@ -51,7 +56,8 @@
 
       var listModel;
 
-      if (!$scope.newsModel.listModels[$stateParams.startid]) {
+      if ($stateParams.startid !== $scope.newsModel.startId
+      || !$scope.newsModel.listModels[$stateParams.startid]) {
         $scope.listModel = listModel = {
           newsListScroller: {
             usePullUp: true,
@@ -200,16 +206,21 @@
         $scope.liWidth = 100 / Math.round($window.innerWidth / rootFontSize / (parseFloat($scope.liHeight) * 16 / 9)) + '%';  
       }
     }])
-    .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', '$document',
-    function ($scope, News, $stateParams, $document) {
+    .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', '$document', '$timeout',
+    function ($scope, News, $stateParams, $document, $timeout) {
       var document = $document[0];
 
       var oldTitle = $scope.global.title;
 
+      $scope.animationCompleted = false;
+      $timeout(function() {
+        $scope.animationCompleted = true;
+      }, 400);
+
       News.get({id: $stateParams.id}, function (news) {
         $scope.news = news;
         $scope.global.title = news.title + ' - 资讯';
-      });
+      });  
 
       $scope.isTouchScreen = 'ontouchstart' in document;
       $scope.newsDetailScroller = {

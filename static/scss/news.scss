@@ -32,10 +32,10 @@
       .state-back & {
         &.ng-enter {
           z-index: 0;
-          @include animation(slide-fade-in-left-small .4s .2s backwards);
+          @include animation(slide-fade-in-left-small .4s backwards);
         }
         &.ng-leave {
-          @include animation(slide-out-right .4s .2s forwards);
+          @include animation(slide-out-right .4s forwards);
         }
       }
   }
@@ -162,9 +162,7 @@
       @include user-select(text);
       opacity: 1;
 
-      &.ng-hide-remove {
-        @include animation(fade-in .4s);
-      }
+      @include animation(fade-in .4s);
 
       .wide-screen & {
         margin-top: 2rem;
