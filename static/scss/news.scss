@@ -150,9 +150,7 @@
       @include user-select(text);
       opacity: 1;
 
-      &.ng-hide-remove {
-        @include animation(fade-in .4s);
-      }
+      @include animation(fade-in .4s);
 
       .wide-screen & {
         margin-top: 2rem;
