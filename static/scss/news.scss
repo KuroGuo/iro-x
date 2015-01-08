@@ -58,6 +58,8 @@
       padding: 1rem;
       @include box-sizing(border-box);
 
+      @include animation(fade-in .4s);
+
       li {
         position: relative;
         float: left;
