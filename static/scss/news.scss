@@ -7,7 +7,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: black;
+  background-color: white;
 
   .news-view-container {
     position: absolute;
@@ -15,30 +15,30 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: white;
     @include transform(translateZ(0) translateX(0));
     opacity: 1;
-    z-index: 1;
   }
 
   .news-view-container {
       &.ng-enter {
-        @include animation(slide-in-right .4s backwards);
+        @include animation(enter .4s backwards);
       }
       &.ng-leave {
-        z-index: 0;
-        @include animation(slide-fade-out-left-small .4s forwards);
+        @include animation(leave .4s backwards);
       }
+      // &.ng-leave {
+      //   @include animation(delay-hide .4s forwards);
+      // }
 
-      .state-back & {
-        &.ng-enter {
-          z-index: 0;
-          @include animation(slide-fade-in-left-small .4s backwards);
-        }
-        &.ng-leave {
-          @include animation(slide-out-right .4s forwards);
-        }
-      }
+      // .state-back & {
+      //   &.ng-enter {
+      //     @include animation(none);
+      //   }
+      //   &.ng-leave {
+      //     z-index: 1;
+      //     @include animation(leave .4s backwards);
+      //   }
+      // }
   }
 
   .news-list {
@@ -59,7 +59,7 @@
       padding: 1rem;
       @include box-sizing(border-box);
 
-      @include animation(fade-in .4s);
+      // @include animation(fade-in .4s);
 
       li {
         position: relative;

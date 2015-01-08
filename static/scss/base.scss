@@ -356,6 +356,15 @@ $nav-bar-width: 3.3rem;
   }
 }
 
+@include keyframes(width-in) {
+  from {
+    right: 100%;
+  }
+  to {
+    right: 0;
+  }
+}
+
 @include keyframes(slide-fade-in-left) {
   from {
     @include transform(translateX(-100%) translateZ(0));

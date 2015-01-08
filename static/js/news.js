@@ -44,11 +44,6 @@
         });
       }
 
-      $scope.animationCompleted = false;
-      $timeout(function() {
-        $scope.animationCompleted = true;
-      }, 400);
-
       $scope.openNews = openNews;
       $scope.loadData = loadData;
       $scope.toNextPage = toNextPage;
@@ -206,16 +201,11 @@
         $scope.liWidth = 100 / Math.round($window.innerWidth / rootFontSize / (parseFloat($scope.liHeight) * 16 / 9)) + '%';  
       }
     }])
-    .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', '$document', '$timeout',
-    function ($scope, News, $stateParams, $document, $timeout) {
+    .controller('NewsDetailCtrl', ['$scope', 'News', '$stateParams', '$document',
+    function ($scope, News, $stateParams, $document) {
       var document = $document[0];
 
       var oldTitle = $scope.global.title;
-
-      $scope.animationCompleted = false;
-      $timeout(function() {
-        $scope.animationCompleted = true;
-      }, 400);
 
       News.get({id: $stateParams.id}, function (news) {
         $scope.news = news;

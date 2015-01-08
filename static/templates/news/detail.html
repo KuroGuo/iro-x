@@ -1,4 +1,4 @@
-<div ng-if="animationCompleted && news.title" class="news-detail k-scroller-wrapper hoverable" event-stop-propagation="touchstart,touchend,mousedown,mouseup,click" k-model="newsDetailScroller" k-swipe-right="(!disableMouseDrag || isTouchScreen) && backHistory()">
+<div ng-if="news.title" class="news-detail k-scroller-wrapper hoverable" event-stop-propagation="touchstart,touchend,mousedown,mouseup,click" k-model="newsDetailScroller" k-swipe-right="(!disableMouseDrag || isTouchScreen) && backHistory()">
   <div class="news-detail-inner k-scroller">
     <h2 class="title" once-text="news.title"></h2>
     <div class="content" once-html="news.content"></div>
