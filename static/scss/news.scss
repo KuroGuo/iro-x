@@ -24,7 +24,7 @@
         @include animation(enter .4s backwards);
       }
       &.ng-leave {
-        @include animation(leave .4s backwards);
+        @include animation(leave .4s forwards);
       }
   }
 
