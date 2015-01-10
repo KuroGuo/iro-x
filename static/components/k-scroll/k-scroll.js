@@ -133,9 +133,13 @@
                 return;
 
               if (scope.model.currentScrollTop > maxScroll) {
-                e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - maxScroll);
+                if (e.vy <= 0) {
+                  e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - maxScroll);
+                }
               } else if (scope.model.currentScrollTop < minScroll) {
-                e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - minScroll);
+                if (e.vy >= 0) {
+                  e.stepY /= 1 + Math.abs(scope.model.currentScrollTop - minScroll);
+                }
               }
 
               scope.model.vScrollTop = -e.vy / parseFloat(htmlFontSize);
