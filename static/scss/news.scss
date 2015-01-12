@@ -150,7 +150,7 @@
       @include user-select(text);
       opacity: 1;
 
-      @include animation(fade-in .4s);
+      @include animation(enter .4s);
 
       .wide-screen & {
         margin-top: 2rem;

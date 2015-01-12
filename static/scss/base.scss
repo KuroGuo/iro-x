@@ -40,6 +40,7 @@ html {
 }
 
 body {
+  @include perspective(111rem);
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -216,7 +217,6 @@ $nav-bar-width: 3.3rem;
 
 .container {
   position: absolute;
-  @include transform(translateZ(0) scale(1));
 
   &.ng-enter {
     @include animation(scale-enter .6s);
