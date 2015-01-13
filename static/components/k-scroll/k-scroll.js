@@ -236,14 +236,17 @@
               case 40:
                 scope.model.currentScrollTop += scope.model.speed;
                 break;
+              default:
+                return;
             }
+
+            refreshContext();
 
             if (scope.model.currentScrollTop < minScroll)
               scope.model.currentScrollTop = minScroll;
             else if (scope.model.currentScrollTop > maxScroll)
               scope.model.currentScrollTop = maxScroll;
 
-            refreshContext();
             scrollTo(scope.model.currentScrollTop, true, true);
           }
 
