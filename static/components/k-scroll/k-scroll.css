@@ -32,6 +32,7 @@
   transition-delay: 0, 0;
 }
 
+.k-scroller-wrapper.hover > .scroll-bar,
 .k-scroller-wrapper.dragging > .scroll-bar,
 .k-scroller-wrapper.scrolling > .scroll-bar,
 .k-scroller-wrapper.sliding > .scroll-bar {
