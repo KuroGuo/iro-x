@@ -138,6 +138,7 @@
     bottom: 0;
     overflow: hidden;
     background-color: white;
+    @include animation(enter .4s);
 
     .news-detail-inner {
       max-width: 60rem;
@@ -149,8 +150,6 @@
       padding-bottom: 6rem;
       @include user-select(text);
       opacity: 1;
-
-      @include animation(enter .4s);
 
       .wide-screen & {
         margin-top: 2rem;
