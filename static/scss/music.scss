@@ -64,7 +64,7 @@
         @include transform(translateZ(0));
 
         &.ng-hide-remove {
-          @include animation(fade-in-bottom .4s);
+          @include animation(fade-in-bottom .4s backwards);
         }
         &.ng-hide {
           @include animation(fade-out-top .4s forwards);
@@ -170,7 +170,7 @@
       bottom: 0;
 
       &.ng-enter {
-        @include animation(fade-in .4s);
+        @include animation(fade-in .4s backwards);
       }
       &.ng-leave {
         @include animation(fade-out .4s forwards);

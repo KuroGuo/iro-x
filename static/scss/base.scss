@@ -63,7 +63,7 @@ body {
     opacity: 1;
 
     &.ng-enter {
-      @include animation(fade-in .6s);
+      @include animation(fade-in .6s backwards);
     }
     &.ng-leave {
       @include animation(fade-out .6s forwards);
@@ -219,14 +219,14 @@ $nav-bar-width: 3.3rem;
   position: absolute;
 
   &.ng-enter {
-    @include animation(scale-enter .6s);
+    @include animation(scale-enter .6s backwards);
   }
   &.ng-leave {
     @include animation(scale-leave .6s forwards);
   }
   .state-back & {
     &.ng-enter {
-      @include animation(scale-back-enter .6s);
+      @include animation(scale-back-enter .6s backwards);
     }
     &.ng-leave {
       @include animation(scale-back-leave .6s forwards);
@@ -234,7 +234,7 @@ $nav-bar-width: 3.3rem;
   }
 
   &.ng-hide-remove{
-    @include animation(scale-enter 1s);
+    @include animation(scale-enter 1s backwards);
   }
 }
 
@@ -246,7 +246,7 @@ $nav-bar-width: 3.3rem;
     width: $nav-bar-width;
 
     &.ng-hide-remove {
-      @include animation(slide-fade-in-left 1s);
+      @include animation(slide-fade-in-left 1s backwards);
     }
   }
 
@@ -266,7 +266,7 @@ $nav-bar-width: 3.3rem;
     height: $nav-bar-width;
 
     &.ng-hide-remove {
-      @include animation(slide-fade-in-bottom 1s);    
+      @include animation(slide-fade-in-bottom 1s backwards);    
     }
 
     li {

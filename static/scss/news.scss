@@ -15,17 +15,10 @@
     right: 0;
     top: 0;
     bottom: 0;
-    @include transform(translateZ(0));
-    opacity: 1;
-  }
 
-  .news-view-container {
-      &.ng-enter {
-        @include animation(enter .4s backwards);
-      }
-      &.ng-leave {
-        @include animation(leave .4s forwards);
-      }
+    &.ng-leave {
+      @include animation(leave .4s forwards);
+    }
   }
 
   .news-list {
@@ -36,6 +29,7 @@
     bottom: 0;
     background-color: white;
     overflow: hidden;
+    @include animation(enter .4s backwards);
 
     .news-list-inner {
       position: absolute;
@@ -138,7 +132,7 @@
     bottom: 0;
     overflow: hidden;
     background-color: white;
-    @include animation(enter .4s);
+    @include animation(enter .4s backwards);
 
     .news-detail-inner {
       max-width: 60rem;
