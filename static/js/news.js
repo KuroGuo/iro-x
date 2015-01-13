@@ -6,7 +6,7 @@
     'kScroll',
     'kSwipe',
     'once'])
-    .controller('NewsCtrl', ['$scope', 'navbar', function ($scope, navbar) {
+    .controller('NewsCtrl', ['$scope', 'navbar', '$timeout', function ($scope, navbar, $timeout) {
       $scope.newsModel = {
         currentNewsId: null,
         newsList: null,
@@ -35,6 +35,10 @@
           document.documentElement.classList.remove('state-back');
         }
       });
+
+      $timeout(function () {
+        $scope.enterAnimationEnd = true;
+      }, 800);
     }])
     .controller('NewsListCtrl', ['$scope', '$stateParams', 'News', '$window', '$document', '$state', '$timeout',
     function ($scope, $stateParams, News, $window, $document, $state, $timeout) {
