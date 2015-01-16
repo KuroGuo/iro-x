@@ -214,8 +214,8 @@
           });
 
           // 强制开启硬件加速
-          $.Velocity.hook($scroller, "translateZ", '1px');
-          $.Velocity.hook($scrollerBar, "translateZ", '1px');
+          $.Velocity.hook($scroller, "translateZ", '0.00001px');
+          $.Velocity.hook($scrollerBar, "translateZ", '0.00001px');
           scrollTo(scope.model.currentScrollTop, false, false);
 
           function keyScroll(e) {
