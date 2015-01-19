@@ -111,7 +111,7 @@
               slideToSection(scope.model.currentSection);
             });
 
-          $.Velocity.hook($kSlider, "translateZ", '1px');
+          $.Velocity.hook($kSlider, "translateZ", '0.00001px');
           scope.model.gotoSection(scope.model.currentSection, true);
 
           function computeMouseWheelDelta(eventArg) {
