@@ -123,7 +123,19 @@ $nav-bar-width: 3.3rem;
     font-size: 10rem;
     font-family: Italiana, sans-serif;
     line-height: .82em;
-    
+
+    &:after {
+      content: '';
+      display: block;
+      width: 12rem;
+      height: .3rem;
+      background-color: white;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 4.8rem;
+      margin: auto;
+    }
 
     .red {
       color: rgb(255, 95, 95);
@@ -143,12 +155,13 @@ $nav-bar-width: 3.3rem;
 
   .progress-bar {
     position: absolute;
-    top: 50%;
+    bottom: 50%;
+    margin-bottom: 3rem;
     left: 0;
     width: 0;
-    height: 1px;
-    background-color: rgb(255, 0, 0);
-    @include box-shadow(0 0 .4rem rgba(255, 0, 0, .4));
+    height: .3rem;
+    background-color: rgb(255, 95, 95);
+    // @include box-shadow(0 0 .4rem rgba(255, 95, 95, .4));
     @include transition(width .4s linear);
   }
 
