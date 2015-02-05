@@ -3,7 +3,7 @@
 
 var config = {
   // mongodb地址
-  db: 'mongodb://localhost/iro',
+  db: 'mongodb://localhost/iro-x',
 
   // 监听端口
   port: process.env.PORT || 1337,

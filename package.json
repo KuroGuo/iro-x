@@ -1,5 +1,5 @@
 {
-  "name": "iro",
+  "name": "iro-x",
   "description": "colorful",
   "version": "0.0.2",
   "repository": {
@@ -8,13 +8,13 @@
   },
   "dependencies": {
     "async": "^0.9.0",
-    "body-parser": "^1.8.1",
+    "body-parser": "^1.11.0",
     "cheerio": "^0.18.0",
-    "compression": "^1.1.0",
-    "connect-mongo": "^0.4.1",
-    "express": "^4.8.8",
-    "express-session": "^1.8.0",
-    "mongoose": "^3.8.17",
+    "compression": "^1.4.0",
+    "connect-mongo": "^0.7.0",
+    "express": "^4.11.2",
+    "express-session": "^1.10.2",
+    "mongoose": "^3.8.22",
     "request": "^2.49.0",
     "socket.io": "^1.1.0"
   },
