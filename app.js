@@ -6,6 +6,7 @@ var express = require('express');
 var session = require('express-session');
 var compression = require('compression');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 var errorhandler = require('./middlewares/errorhandler');
 var mongoose = require('mongoose');
 var app = express();
@@ -30,9 +31,9 @@ app.use(compression());
 
 app.use('/static', express.static(__dirname + '/static'));
 
-app.use('/api', bodyParser.urlencoded({ extended: false }));
 app.use('/api', bodyParser.json());
-app.use('/api', bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use('/api', bodyParser.urlencoded({ extended: true }));
+app.use('/api', multer());
 
 app.use('/api', session({
   secret: config.sessionSecret,
