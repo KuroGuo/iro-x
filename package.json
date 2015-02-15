@@ -17,7 +17,8 @@
     "mongoose": "^3.8.22",
     "multer": "^0.1.7",
     "request": "^2.49.0",
-    "socket.io": "^1.1.0"
+    "socket.io": "^1.1.0",
+    "xss": "^0.1.20"
   },
   "main": "app.js",
   "scripts": {

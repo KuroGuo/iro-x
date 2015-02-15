@@ -1,6 +1,7 @@
 'use strict';
 
 var News = require('../db/news');
+var xss = require('xss');
 
 exports.getById = function (id, callback) {
   News.findById(id, callback);
@@ -24,6 +25,9 @@ exports.query = function (startId, count, callback) {
 };
 
 exports.createOrUpdateOne = function (title, content, from, fromURL, thumbSrc, callback) {
+  title = xss(title);
+  content = xss(content);
+
   News.findOne({fromURL: fromURL}, function (err, news) {
     if (err) {
       return callback.call(this, err);
