@@ -67,6 +67,8 @@
         }
 
         function dragFrame(time) {
+          requestedFrameToken = $window.requestAnimationFrame(dragFrame);
+          
           var _event;
           var newVx, newVy;
 
@@ -92,8 +94,6 @@
             lastFramePageXY = pageXY;
             lastFrameTime = time;
           }
-
-          requestedFrameToken = $window.requestAnimationFrame(dragFrame);
         }
 
         function dragend(e) {
