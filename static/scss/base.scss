@@ -4,6 +4,8 @@
 
 html {
   font-family: $font-stack;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
 }
 
 input, textarea, button, [contenteditable="true"] {
@@ -278,7 +280,7 @@ $nav-bar-width: 3.3rem;
     height: $nav-bar-width;
 
     &.ng-hide-remove {
-      @include animation(slide-fade-in-bottom 1s backwards);    
+      @include animation(slide-fade-in-bottom 1s backwards);
     }
 
     li {
@@ -535,7 +537,7 @@ $nav-bar-width: 3.3rem;
     @include transform(translateZ(0) translateY(100%));
   }
   to {
-    @include transform(translateZ(0) translateY(0)); 
+    @include transform(translateZ(0) translateY(0));
   }
 }
 @include keyframes(slide-out-bottom) {
@@ -597,13 +599,13 @@ $nav-bar-width: 3.3rem;
     opacity: 0;
   }
   to {
-    @include transform(perspective(111rem) translateZ(0) rotateY(0) rotateX(0)); 
+    @include transform(perspective(111rem) translateZ(0) rotateY(0) rotateX(0));
     opacity: 1;
   }
 }
 @include keyframes(leave) {
   from {
-    @include transform(perspective(111rem) translateZ(0) rotateY(0) rotateX(0)); 
+    @include transform(perspective(111rem) translateZ(0) rotateY(0) rotateX(0));
     opacity: 1;
   }
   to {
