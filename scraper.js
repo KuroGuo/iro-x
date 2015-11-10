@@ -83,7 +83,12 @@ function processCnbetaList(body, callback) {
       var $content = $('.articleCont');
       var thumbSrc = $content.find('img').first().attr('src');
       var content = $content.html();
-      news.createOrUpdateOne(a.title, content, 'cnbeta', a.href, thumbSrc, next);
+
+      if (thumbSrc) {
+        news.createOrUpdateOne(a.title, content, 'cnbeta', a.href, thumbSrc, next);
+      } else {
+        next();
+      }
     });
   }, callback);
 }
@@ -111,7 +116,12 @@ function processAcfunList(body, callback) {
       var $content = $('#area-player');
       var thumbSrc = $content.find('img').first().attr('src');
       var content = $content.html();
-      news.createOrUpdateOne(a.title, content, 'acfun', a.href, thumbSrc, next);
+
+      if (thumbSrc) {
+        news.createOrUpdateOne(a.title, content, 'acfun', a.href, thumbSrc, next);
+      } else {
+        next();
+      }
     });
   }, callback);
 }
