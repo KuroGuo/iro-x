@@ -49,7 +49,7 @@ k-player {
     $timebarHeight: .25rem;
     $cursorSize: 1.2rem;
     $timebarBoldHeight: .6rem;
-    $timeStringWidth: 6rem;
+    $timeStringWidth: 8rem;
 
     .main-area {
         position: absolute;
@@ -203,6 +203,7 @@ k-player {
             line-height: $ctrlbarHeight;
             text-align: center;
             cursor: default;
+            font-family: Helvetica, arial, sans-serif;
 
             .current {
                 color: $baseColor;
